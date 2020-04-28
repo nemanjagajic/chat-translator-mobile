@@ -15,7 +15,7 @@ const AuthLoadingScreen = props => {
     if (user) {
       dispatch(setActiveUser({
         user: JSON.parse(user),
-        navigateHome: () => props.navigation.navigate('HomeScreen')
+        navigateHome: () => props.navigation.navigate('Home')
       }))
     } else {
       props.navigation.navigate('AuthScreen')

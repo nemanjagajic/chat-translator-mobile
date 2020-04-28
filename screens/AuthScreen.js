@@ -29,7 +29,7 @@ const AuthScreen = props => {
         onPress={() => dispatch(logIn({
           email,
           password,
-          navigateHome: () => props.navigation.navigate('HomeScreen')
+          navigateHome: () => props.navigation.navigate('Home')
         }))}
       >
         <Text style={styles.loginButton}>Log in</Text>
