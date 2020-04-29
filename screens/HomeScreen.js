@@ -1,15 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
-import { useDispatch } from 'react-redux'
-import { logOut } from '../store/auth/authActions'
 import Colors from '../constants/Colors'
 import { Ionicons } from '@expo/vector-icons';
 import AddFriendButton from '../components/buttons/AddFriendButton'
 import SearchButton from '../components/buttons/SearchButton'
 
-const HomeScreen = props => {
-  const dispatch = useDispatch()
-
+const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.emptyChat}>
