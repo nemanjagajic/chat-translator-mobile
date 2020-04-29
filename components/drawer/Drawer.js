@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   fullName: {
     fontSize: 24,
     fontWeight: '500',
-    color: Colors.BLACK,
+    color: Colors.MAIN,
     marginBottom: 40
   },
   logoutWrapper: {

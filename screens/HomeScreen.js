@@ -23,18 +23,20 @@ const HomeScreen = props => {
 HomeScreen.navigationOptions = ({ navigation }) => ({
   title: 'Messages',
   headerStyle: {
-    backgroundColor: Colors.MAIN
+    backgroundColor: Colors.WHITE,
+    shadowColor: 'transparent',
+    elevation: 0
   },
   headerTitleStyle: {
-    color: Colors.WHITE,
-    fontSize: 20
+    color: Colors.MAIN,
+    fontSize: 22
   },
   headerLeft: () => (
     <TouchableOpacity
       style={styles.menuIcon}
       onPress={() => navigation.openDrawer()}
     >
-      <Ionicons name="ios-menu" size={28} color={Colors.WHITE} />
+      <Ionicons name="ios-menu" size={28} color={Colors.MAIN} />
     </TouchableOpacity>
   ),
   headerRight: () => (
@@ -51,7 +53,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     paddingTop: 200,
-    backgroundColor: '#ffffff'
+    backgroundColor: Colors.WHITE
   },
   menuIcon: {
     marginLeft: 15

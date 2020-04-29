@@ -20,7 +20,7 @@ FriendsScreen.navigationOptions = ({ navigation }) => ({
   },
   headerTitleStyle: {
     color: Colors.MAIN,
-    fontSize: 24
+    fontSize: 22
   },
   headerLeft: () => (
     <TouchableOpacity
