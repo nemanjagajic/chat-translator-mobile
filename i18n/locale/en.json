@@ -1,0 +1,13 @@
+{
+  "Drawer": {
+    "friends": "Friends",
+    "logOut": "Log out"
+  },
+  "Home": {
+    "headerTitle": "Messages",
+    "emptyChatDesc": "You haven't chatted with anyone yet, feel free to add friends and start chatting!"
+  },
+  "Friends": {
+    "headerTitle": "Friends"
+  }
+}

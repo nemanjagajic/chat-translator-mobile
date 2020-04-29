@@ -1,18 +1,17 @@
 import React from 'react'
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native'
+import {View, TouchableOpacity, StyleSheet} from 'react-native'
 import Colors from '../../constants/Colors'
 import {Ionicons} from '@expo/vector-icons'
+import $t from '../../i18n'
 
 const FriendsScreen = () => {
   return (
-    <View style={styles.container}>
-      <Text>Friends</Text>
-    </View>
+    <View style={styles.container} />
   )
 }
 
 FriendsScreen.navigationOptions = ({ navigation }) => ({
-  title: 'Friends',
+  title: $t('Friends.headerTitle'),
   headerStyle: {
     backgroundColor: Colors.BACKGROUND,
     shadowColor: 'transparent',

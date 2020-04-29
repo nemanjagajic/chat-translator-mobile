@@ -4,13 +4,14 @@ import Colors from '../constants/Colors'
 import { Ionicons } from '@expo/vector-icons';
 import AddFriendButton from '../components/buttons/AddFriendButton'
 import SearchButton from '../components/buttons/SearchButton'
+import $t from '../i18n'
 
 const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.emptyChat}>
         <Ionicons style={styles.emptyChatIcon} name="md-planet" size={72} color={Colors.MAIN_300} />
-        <Text style={styles.emptyChatText}>You haven't chatted with anyone yet, feel free to add friends and start chatting!</Text>
+        <Text style={styles.emptyChatText}>{$t('Home.emptyChatDesc')}</Text>
       </View>
       <TouchableOpacity
         style={styles.newMessageButton}
@@ -22,7 +23,7 @@ const HomeScreen = () => {
 }
 
 HomeScreen.navigationOptions = ({ navigation }) => ({
-  title: 'Messages',
+  title: $t('Home.headerTitle'),
   headerStyle: {
     backgroundColor: Colors.BACKGROUND,
     shadowColor: 'transparent',
