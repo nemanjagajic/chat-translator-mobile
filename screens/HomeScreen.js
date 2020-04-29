@@ -74,8 +74,7 @@ const styles = StyleSheet.create({
   emptyChatText: {
     textAlign: 'center',
     color: Colors.MAIN_300,
-    fontWeight: '400',
-    fontSize: 16
+    fontSize: 14
   }
 })
 

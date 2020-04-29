@@ -38,7 +38,7 @@ const Drawer = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    paddingTop: 80,
+    paddingTop: 50,
     backgroundColor: Colors.WHITE_100,
     paddingLeft: 30
   },
