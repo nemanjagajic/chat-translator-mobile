@@ -13,22 +13,14 @@ const HomeScreen = props => {
   return (
     <View style={styles.container}>
       <View style={styles.emptyChat}>
-        <Ionicons style={styles.emptyChatIcon} name="md-planet" size={72} color={Colors.MAIN} />
+        <Ionicons style={styles.emptyChatIcon} name="md-planet" size={72} color={Colors.MAIN_300} />
         <Text style={styles.emptyChatText}>You haven't chatted with anyone yet, feel free to add friends and start chatting!</Text>
       </View>
-      <TouchableOpacity
-        onPress={() => dispatch(logOut({
-          navigateAuth: () => props.navigation.navigate('AuthScreen')
-        }))}
-        style={styles.logoutButton}
-      >
-        <Text>Log out</Text>
-      </TouchableOpacity>
     </View>
   )
 }
 
-HomeScreen.navigationOptions = () => ({
+HomeScreen.navigationOptions = ({ navigation }) => ({
   title: 'Messages',
   headerStyle: {
     backgroundColor: Colors.MAIN
@@ -40,6 +32,7 @@ HomeScreen.navigationOptions = () => ({
   headerLeft: () => (
     <TouchableOpacity
       style={styles.menuIcon}
+      onPress={() => navigation.openDrawer()}
     >
       <Ionicons name="ios-menu" size={28} color={Colors.WHITE} />
     </TouchableOpacity>
@@ -57,10 +50,8 @@ const styles = StyleSheet.create({
     flex: 1,
     display: 'flex',
     alignItems: 'center',
-    marginTop: 200
-  },
-  logoutButton: {
-    padding: 10
+    paddingTop: 200,
+    backgroundColor: '#ffffff'
   },
   menuIcon: {
     marginLeft: 15
@@ -74,16 +65,16 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    marginLeft: 40,
-    marginRight: 40,
+    marginLeft: 50,
+    marginRight: 50,
   },
   emptyChatIcon: {
     marginBottom: 10
   },
   emptyChatText: {
     textAlign: 'center',
-    color: Colors.GRAY,
-    fontWeight: '300',
+    color: Colors.MAIN_300,
+    fontWeight: '400',
     fontSize: 16
   }
 })
