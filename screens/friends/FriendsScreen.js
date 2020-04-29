@@ -14,7 +14,7 @@ const FriendsScreen = () => {
 FriendsScreen.navigationOptions = ({ navigation }) => ({
   title: 'Friends',
   headerStyle: {
-    backgroundColor: Colors.WHITE,
+    backgroundColor: Colors.BACKGROUND,
     shadowColor: 'transparent',
     elevation: 0
   },
@@ -35,7 +35,7 @@ FriendsScreen.navigationOptions = ({ navigation }) => ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.WHITE
+    backgroundColor: Colors.BACKGROUND
   },
 })
 

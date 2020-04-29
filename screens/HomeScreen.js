@@ -16,6 +16,11 @@ const HomeScreen = props => {
         <Ionicons style={styles.emptyChatIcon} name="md-planet" size={72} color={Colors.MAIN_300} />
         <Text style={styles.emptyChatText}>You haven't chatted with anyone yet, feel free to add friends and start chatting!</Text>
       </View>
+      <TouchableOpacity
+        style={styles.newMessageButton}
+      >
+        <Ionicons name="ios-send" size={30} color={Colors.WHITE} />
+      </TouchableOpacity>
     </View>
   )
 }
@@ -23,7 +28,7 @@ const HomeScreen = props => {
 HomeScreen.navigationOptions = ({ navigation }) => ({
   title: 'Messages',
   headerStyle: {
-    backgroundColor: Colors.WHITE,
+    backgroundColor: Colors.BACKGROUND,
     shadowColor: 'transparent',
     elevation: 0
   },
@@ -35,6 +40,7 @@ HomeScreen.navigationOptions = ({ navigation }) => ({
     <TouchableOpacity
       style={styles.menuIcon}
       onPress={() => navigation.openDrawer()}
+      hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
     >
       <Ionicons name="ios-menu" size={28} color={Colors.MAIN} />
     </TouchableOpacity>
@@ -53,7 +59,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignItems: 'center',
     paddingTop: 200,
-    backgroundColor: Colors.WHITE
+    backgroundColor: Colors.BACKGROUND
   },
   menuIcon: {
     marginLeft: 15
@@ -77,6 +83,19 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: Colors.MAIN_300,
     fontSize: 14
+  },
+  newMessageButton: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 60,
+    height: 60,
+    borderRadius: 100,
+    backgroundColor: Colors.MAIN,
+    position: 'absolute',
+    bottom: 20,
+    right: 20,
+    elevation: 1
   }
 })
 

@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingTop: 50,
-    backgroundColor: Colors.WHITE_100,
+    backgroundColor: Colors.DRAWER_BACKGROUND,
     paddingLeft: 30
   },
   fullName: {
