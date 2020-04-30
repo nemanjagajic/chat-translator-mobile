@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   image: {
     width: 70,
     height: 70,
-    marginRight: 20
+    marginRight: 15
   },
   fullNameText: {
     fontSize: 18,
