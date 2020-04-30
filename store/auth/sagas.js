@@ -1,7 +1,7 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects'
-import { LOG_IN, LOG_OUT, SET_ACTIVE_USER } from './authConstants'
+import { LOG_IN, LOG_OUT, SET_ACTIVE_USER } from './constants'
 import authService from '../../services/api/AuthService'
-import { removeUser, setLoginFinished, setLoginInProgress, setUser } from './authActions'
+import { removeUser, setLoginFinished, setLoginInProgress, setUser } from './actions'
 
 export function* logIn$({ payload }) {
   yield put(setLoginInProgress())
@@ -39,7 +39,7 @@ export function* logOut$({ payload }) {
   }
 }
 
-export default function* authSaga() {
+export default function* sagas() {
   yield all([
     takeLatest(LOG_IN, logIn$),
     takeLatest(LOG_OUT, logOut$),

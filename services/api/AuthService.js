@@ -23,6 +23,6 @@ class AuthService extends ApiService {
     this.api.removeHeaders(['Authorization'])
   }
 
-  logIn = async ({email, password}) => this.apiClient.post(API_ENDPOINTS.LOGIN, { email, password })
+  logIn = ({email, password}) => this.apiClient.post(API_ENDPOINTS.LOGIN, { email, password })
 }
 export default new AuthService()

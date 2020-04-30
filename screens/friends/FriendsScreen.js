@@ -1,12 +1,29 @@
-import React from 'react'
-import {View, TouchableOpacity, StyleSheet} from 'react-native'
+import React, {useEffect} from 'react'
+import {View, TouchableOpacity, StyleSheet, ActivityIndicator} from 'react-native'
+import {useDispatch, useSelector} from 'react-redux'
 import Colors from '../../constants/Colors'
 import {Ionicons} from '@expo/vector-icons'
 import $t from '../../i18n'
+import {getFriends} from '../../store/friends/actions'
+import FriendsList from '../../components/friends/FriendsList'
 
 const FriendsScreen = () => {
+  const dispatch = useDispatch()
+  const friends = useSelector(state => state.friends.friends)
+  const isFetching = useSelector(state => state.friends.isFetchingFriends)
+
+  useEffect(() => {
+    dispatch(getFriends())
+  }, [])
+
   return (
-    <View style={styles.container} />
+    <View style={styles.container}>
+      {isFetching ? (
+        <ActivityIndicator style={styles.indicator} size="large" color={Colors.ACCENT} />
+      ): (
+        <FriendsList friends={friends} isFetching={isFetching} />
+      )}
+    </View>
   )
 }
 
@@ -36,6 +53,9 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.BACKGROUND
   },
+  indicator: {
+    marginTop: 50
+  }
 })
 
 export default FriendsScreen

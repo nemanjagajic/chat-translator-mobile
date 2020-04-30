@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, AsyncStorage } from 'react-native'
-import { setActiveUser } from '../store/auth/authActions'
+import { setActiveUser } from '../store/auth/actions'
 import { useDispatch } from 'react-redux'
 
 const AuthLoadingScreen = props => {

@@ -1,10 +1,9 @@
 import React from 'react'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import Colors from '../../constants/Colors'
 import {Ionicons} from '@expo/vector-icons'
-import { useDispatch } from 'react-redux'
-import {logOut} from '../../store/auth/authActions'
+import {logOut} from '../../store/auth/actions'
 import $t from '../../i18n'
 
 const Drawer = props => {

@@ -6,7 +6,7 @@ import {
   SET_LOGIN_FINISHED,
   SET_LOGIN_IN_PROGRESS,
   SET_USER,
-} from './authConstants'
+} from './constants'
 
 export const logIn = payload => ({
   type: LOG_IN,

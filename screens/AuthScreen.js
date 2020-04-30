@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { logIn } from '../store/auth/authActions'
+import { logIn } from '../store/auth/actions'
 
 const AuthScreen = props => {
   const dispatch = useDispatch()

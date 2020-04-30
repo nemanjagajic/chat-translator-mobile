@@ -5,6 +5,7 @@ export default {
   WHITE_100: '#f5f5f5',
   GRAY: '#808080',
   BLACK: '#0d1126',
+  ACCENT: '#03DAC5',
 
   BACKGROUND: '#ffffff',
   DRAWER_BACKGROUND: '#f5f5f5'

@@ -16,7 +16,7 @@ const HomeScreen = () => {
       <TouchableOpacity
         style={styles.newMessageButton}
       >
-        <Ionicons name="ios-send" size={30} color={Colors.WHITE} />
+        <Ionicons name="ios-send" size={30} color={Colors.MAIN} />
       </TouchableOpacity>
     </View>
   )
@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     borderRadius: 100,
-    backgroundColor: Colors.MAIN,
+    backgroundColor: Colors.ACCENT,
     position: 'absolute',
     bottom: 20,
     right: 20,
