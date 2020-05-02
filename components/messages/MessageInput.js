@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import {StyleSheet, TextInput, TouchableOpacity, View} from 'react-native'
+import {StyleSheet, TextInput, TouchableOpacity, View, Platform} from 'react-native'
 import Colors from '../../constants/Colors'
 import {Ionicons} from '@expo/vector-icons'
 
@@ -11,7 +11,8 @@ const MessageInput = () => {
       <TextInput
         value={value}
         onChangeText={text => setValue(text)}
-        style={styles.input}
+        style={[styles.input, {paddingTop: Platform.OS === 'ios' ? 15 : 10}]}
+        multiline={true}
         placeholder={'Type a message'}
       />
       <TouchableOpacity
@@ -38,11 +39,14 @@ const styles = StyleSheet.create({
     color: Colors.BLACK,
     padding: 10,
     flex: 1,
-    height: 50,
+    minHeight: 50,
     marginLeft: 10,
     marginRight: 10,
     borderRadius: 30,
-    fontSize: 16
+    fontSize: 16,
+    paddingRight: 50,
+    display: 'flex',
+    alignSelf: 'center',
   },
   sendButton: {
     display: 'flex',
