@@ -2,13 +2,15 @@ import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import Colors from '../../constants/Colors'
+import {formatChatPreviewDate} from '../../utils/dateFormatter'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
 const DEFAULT_TOP_MARGIN = 0
 const DEFAULT_BOTTOM_MARGIN = 15
+const TEXT_LIMIT = 25
 
-const ChatsItem = ({ friend, lastMessage, isFirst, isLast }) => {
+const ChatsItem = ({ friend, lastMessage: { text, createdAt }, isFirst, isLast }) => {
   return (
     <View style={[
       styles.container,
@@ -21,8 +23,15 @@ const ChatsItem = ({ friend, lastMessage, isFirst, isLast }) => {
       />
       <View>
         <Text style={styles.fullNameText}>{`${friend.firstName} ${friend.lastName}`}</Text>
-        <Text style={styles.emailText}>{`${lastMessage.text}`}</Text>
+        <Text style={styles.emailText}>
+          {
+            ((text).length > TEXT_LIMIT) ?
+              (((text).substring(0, TEXT_LIMIT - 3)).trim() + '...') :
+              text
+          }
+        </Text>
       </View>
+      <Text style={styles.date}>{formatChatPreviewDate(createdAt)}</Text>
     </View>
   )
 }
@@ -50,9 +59,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: Colors.GRAY
   },
-  iconMore: {
+  date: {
     position: 'absolute',
-    right: 10
+    right: 10,
+    fontSize: 12,
+    color: Colors.GRAY
   }
 })
 
