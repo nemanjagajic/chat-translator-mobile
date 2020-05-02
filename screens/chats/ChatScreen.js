@@ -1,14 +1,31 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {TouchableOpacity, View, Text, StyleSheet, Image} from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import {Ionicons} from '@expo/vector-icons'
 import defaultAvatar from '../../assets/defaultAvatar.png'
+import {clearMessages, clearOpenedChat, getMessages, setOpenedChat} from '../../store/chats/actions'
 
 
 const ChatScreen = ({ navigation }) => {
   const dispatch = useDispatch()
-  const friend = navigation.getParam('friend')
+  const chatId = navigation.getParam('chatId')
+
+  useEffect(() => {
+    dispatch(setOpenedChat({
+      _id: chatId
+    }))
+    dispatch(getMessages({
+      chatId,
+      offset: 0,
+      limit: 10
+    }))
+
+    return () => {
+      dispatch(clearOpenedChat())
+      dispatch(clearMessages())
+    }
+  }, [])
 
   return (
     <View style={styles.container}>

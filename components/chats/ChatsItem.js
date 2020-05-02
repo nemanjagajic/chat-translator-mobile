@@ -10,10 +10,11 @@ const DEFAULT_TOP_MARGIN = 0
 const DEFAULT_BOTTOM_MARGIN = 15
 const TEXT_LIMIT = 25
 
-const ChatsItem = ({ friend, lastMessage: { text, createdAt }, isFirst, isLast, navigation }) => {
+const ChatsItem = ({ _id, friend, lastMessage: { text, createdAt }, isFirst, isLast, navigation }) => {
   return (
     <TouchableOpacity
       onPress={() => navigation.navigate('ChatScreen', {
+        chatId: _id,
         friend
       })}
       style={[
