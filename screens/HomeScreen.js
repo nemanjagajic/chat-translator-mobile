@@ -1,18 +1,41 @@
-import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import React, {useEffect} from 'react'
+import {View, Text, StyleSheet, TouchableOpacity, ActivityIndicator} from 'react-native'
 import Colors from '../constants/Colors'
 import { Ionicons } from '@expo/vector-icons';
 import AddFriendButton from '../components/buttons/AddFriendButton'
 import SearchButton from '../components/buttons/SearchButton'
 import $t from '../i18n'
+import {useDispatch, useSelector} from 'react-redux'
+import {getChats} from '../store/chats/actions'
+import ChatsList from '../components/chats/ChatsList'
 
 const HomeScreen = () => {
+  const dispatch = useDispatch()
+  const chats = useSelector(state => state.chats.chats)
+  const isFetchingChats = useSelector(state => state.chats.isFetchingChats)
+
+  useEffect(() => {
+    dispatch(getChats())
+  }, [])
+
   return (
     <View style={styles.container}>
-      <View style={styles.emptyChat}>
-        <Ionicons style={styles.emptyChatIcon} name="md-planet" size={72} color={Colors.MAIN_300} />
-        <Text style={styles.emptyChatText}>{$t('Home.emptyChatDesc')}</Text>
-      </View>
+      {
+        isFetchingChats ? (
+          <ActivityIndicator style={styles.indicator} size="large" color={Colors.ACCENT} />
+        ) : (
+          <View style={styles.contentWrapper}>
+            {chats.length > 0 ? (
+              <ChatsList chats={chats} />
+            ) : (
+              <View style={styles.emptyChat}>
+                <Ionicons style={styles.emptyChatIcon} name="md-planet" size={72} color={Colors.MAIN_300} />
+                <Text style={styles.emptyChatText}>{$t('Home.emptyChatDesc')}</Text>
+              </View>
+            )}
+          </View>
+        )
+      }
       <TouchableOpacity
         style={styles.newMessageButton}
       >
@@ -55,8 +78,7 @@ const styles = StyleSheet.create({
     flex: 1,
     display: 'flex',
     alignItems: 'center',
-    paddingTop: 200,
-    backgroundColor: Colors.BACKGROUND
+    backgroundColor: Colors.BACKGROUND,
   },
   menuIcon: {
     marginLeft: 15
@@ -72,6 +94,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginLeft: 50,
     marginRight: 50,
+    paddingTop: 200
   },
   emptyChatIcon: {
     marginBottom: 10
@@ -93,6 +116,13 @@ const styles = StyleSheet.create({
     bottom: 20,
     right: 20,
     elevation: 1
+  },
+  indicator: {
+    marginTop: 50
+  },
+  contentWrapper: {
+    flex: 1,
+    width: '100%'
   }
 })
 
