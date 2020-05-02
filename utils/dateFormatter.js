@@ -9,3 +9,7 @@ export const formatChatPreviewDate = date => {
 
   return  moment(date).format('MMM DD, YYYY')
 }
+
+export const formatMessageDate = date => {
+  return moment(date).format('HH:mm')
+}

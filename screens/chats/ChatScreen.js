@@ -5,10 +5,13 @@ import Colors from '../../constants/Colors'
 import {Ionicons} from '@expo/vector-icons'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import {clearMessages, clearOpenedChat, getMessages, setOpenedChat} from '../../store/chats/actions'
+import MessagesList from '../../components/messages/MessagesList'
 
 
 const ChatScreen = ({ navigation }) => {
   const dispatch = useDispatch()
+  const messages = useSelector(state => state.chats.messages)
+  const activeUser = useSelector(state => state.auth.user)
   const chatId = navigation.getParam('chatId')
 
   useEffect(() => {
@@ -18,7 +21,7 @@ const ChatScreen = ({ navigation }) => {
     dispatch(getMessages({
       chatId,
       offset: 0,
-      limit: 10
+      limit: 30
     }))
 
     return () => {
@@ -29,7 +32,7 @@ const ChatScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-
+      <MessagesList messages={messages} activeUser={activeUser} />
     </View>
   )
 }
