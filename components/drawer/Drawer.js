@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
   },
   itemText: {
     paddingLeft: 20,
-    fontSize: 20,
+    fontSize: 18,
     color: Colors.BLACK,
   }
 })

@@ -5,6 +5,7 @@ export default {
   WHITE_100: '#f5f5f5',
   WHITE_200: '#f2f2f2',
   GRAY: '#808080',
+  GRAY_100: '#b3b3b3',
   BLACK: '#0d1126',
   ACCENT: '#03DAC5',
 

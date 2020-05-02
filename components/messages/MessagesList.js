@@ -9,8 +9,8 @@ const MessagesList = ({ messages, activeUser, fetchAdditionalMessages }) => {
       inverted
       style={styles.container}
       data={messages}
-      renderItem={({ item }) => (
-        <MessagesItem {...item} isMine={item.senderId === activeUser._id} />
+      renderItem={({ item, index }) => (
+        <MessagesItem {...item} isFirst={index === 0} isMine={item.senderId === activeUser._id} />
       )}
       keyExtractor={item => item._id}
       showsVerticalScrollIndicator={false}
@@ -24,8 +24,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: Colors.BACKGROUND,
-    width: '100%',
-    marginBottom: 100
+    width: '100%'
   }
 })
 

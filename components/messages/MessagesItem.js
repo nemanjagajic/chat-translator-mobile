@@ -1,11 +1,10 @@
 import React from 'react'
 import {View, Text, StyleSheet} from 'react-native'
 import Colors from '../../constants/Colors'
-import {formatMessageDate} from '../../utils/dateFormatter'
 
-const MessagesItem = ({ text, createdAt, isMine }) => {
+const MessagesItem = ({ text, isMine, isFirst }) => {
   return (
-    <View style={[styles.container, isMine ? styles.myMessage : styles.friendsMessage]}>
+    <View style={[styles.container, isMine ? styles.myMessage : styles.friendsMessage, { marginBottom: isFirst ? 20 : 0 }]}>
       <Text style={[styles.text, { color: isMine ? Colors.WHITE : Colors.BLACK }]}>{ text }</Text>
     </View>
   )

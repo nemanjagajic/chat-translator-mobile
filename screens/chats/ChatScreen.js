@@ -1,13 +1,15 @@
 import React, {useEffect, useState} from 'react'
-import {TouchableOpacity, View, Text, StyleSheet, Image} from 'react-native'
+import {TouchableOpacity, View, Text, StyleSheet, Image, KeyboardAvoidingView} from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import {Ionicons} from '@expo/vector-icons'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import {clearMessages, clearOpenedChat, getMessages, setOpenedChat} from '../../store/chats/actions'
 import MessagesList from '../../components/messages/MessagesList'
+import MessageInput from '../../components/messages/MessageInput'
 
 const LIMIT = 50
+const KEYBOARD_VERTICAL_OFFSET = 72
 
 const ChatScreen = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -44,13 +46,17 @@ const ChatScreen = ({ navigation }) => {
   }
 
   return (
-    <View style={styles.container}>
+    <KeyboardAvoidingView
+      style={styles.container} behavior={'height'}
+      keyboardVerticalOffset={KEYBOARD_VERTICAL_OFFSET}
+    >
       <MessagesList
         messages={messages}
         activeUser={activeUser}
         fetchAdditionalMessages={fetchAdditionalMessages}
       />
-    </View>
+      <MessageInput />
+    </KeyboardAvoidingView>
   )
 }
 
@@ -60,10 +66,6 @@ ChatScreen.navigationOptions = ({ navigation }) => ({
     backgroundColor: Colors.BACKGROUND,
     shadowColor: 'transparent',
     elevation: 0
-  },
-  headerTitleStyle: {
-    color: Colors.MAIN,
-    fontSize: 22
   },
   headerLeft: () => (
     <View style={styles.navigation}>
@@ -97,7 +99,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   fullName: {
-    fontSize: 20,
+    fontSize: 18,
     color: Colors.BLACK,
     fontWeight: '500'
   },

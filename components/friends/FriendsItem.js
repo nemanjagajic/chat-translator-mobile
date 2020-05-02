@@ -34,22 +34,21 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    height: 100,
-    marginBottom: 15
+    height: 80,
   },
   image: {
-    width: 70,
-    height: 70,
+    width: 60,
+    height: 60,
     marginRight: 15
   },
   fullNameText: {
-    fontSize: 18,
+    fontSize: 16,
     color: Colors.BLACK,
     fontWeight: '500',
     paddingBottom: 5
   },
   emailText: {
-    fontSize: 16,
+    fontSize: 15,
     color: Colors.GRAY
   },
   iconMore: {
