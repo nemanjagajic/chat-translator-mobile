@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, Image, TouchableWithoutFeedback } from 'react-native'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import Colors from '../../constants/Colors'
 import {formatChatPreviewDate} from '../../utils/dateFormatter'
@@ -12,33 +12,36 @@ const TEXT_LIMIT = 25
 
 const ChatsItem = ({ _id, friend, lastMessage: { text, createdAt }, isFirst, isLast, navigation }) => {
   return (
-    <TouchableOpacity
+    <TouchableWithoutFeedback
       onPress={() => navigation.navigate('ChatScreen', {
         chatId: _id,
         friend
       })}
-      style={[
-        styles.container,
-        { marginTop: isFirst ? FIRST_ITEM_TOP_MARGIN : DEFAULT_TOP_MARGIN },
-        { marginBottom: isLast ? LAST_ITEM_BOTTOM_MARGIN : DEFAULT_BOTTOM_MARGIN },
-      ]}
     >
-      <Image
-        style={styles.image}
-        source={defaultAvatar}
-      />
-      <View>
-        <Text style={styles.fullNameText}>{`${friend.firstName} ${friend.lastName}`}</Text>
-        <Text style={styles.emailText}>
-          {
-            ((text).length > TEXT_LIMIT) ?
-              (((text).substring(0, TEXT_LIMIT - 3)).trim() + '...') :
-              text
-          }
-        </Text>
+      <View
+        style={[
+          styles.container,
+          { marginTop: isFirst ? FIRST_ITEM_TOP_MARGIN : DEFAULT_TOP_MARGIN },
+          { marginBottom: isLast ? LAST_ITEM_BOTTOM_MARGIN : DEFAULT_BOTTOM_MARGIN },
+        ]}
+      >
+        <Image
+          style={styles.image}
+          source={defaultAvatar}
+        />
+        <View>
+          <Text style={styles.fullNameText}>{`${friend.firstName} ${friend.lastName}`}</Text>
+          <Text style={styles.chatText}>
+            {
+              ((text).length > TEXT_LIMIT) ?
+                (((text).substring(0, TEXT_LIMIT - 3)).trim() + '...') :
+                text
+            }
+          </Text>
+        </View>
+        <Text style={styles.date}>{formatChatPreviewDate(createdAt)}</Text>
       </View>
-      <Text style={styles.date}>{formatChatPreviewDate(createdAt)}</Text>
-    </TouchableOpacity>
+    </TouchableWithoutFeedback>
   )
 }
 
@@ -61,8 +64,8 @@ const styles = StyleSheet.create({
     fontWeight: '500',
     paddingBottom: 5
   },
-  emailText: {
-    fontSize: 16,
+  chatText: {
+    fontSize: 15,
     color: Colors.GRAY
   },
   date: {

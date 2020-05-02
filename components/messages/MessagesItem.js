@@ -14,7 +14,10 @@ const MessagesItem = ({ text, createdAt, isMine }) => {
 const styles = StyleSheet.create({
   container: {
     marginTop: 10,
-    padding: 15,
+    paddingLeft: 15,
+    paddingRight: 15,
+    paddingTop: 10,
+    paddingBottom: 10,
     borderRadius: 30,
     maxWidth: '90%'
   },
@@ -29,7 +32,7 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   text: {
-    fontSize: 16
+    fontSize: 15
   },
   date: {
     alignSelf: 'flex-end',
