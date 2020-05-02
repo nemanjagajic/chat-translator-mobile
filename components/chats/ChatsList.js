@@ -3,15 +3,21 @@ import {FlatList, StyleSheet} from 'react-native'
 import Colors from '../../constants/Colors'
 import ChatsItem from './ChatsItem'
 
-const ChatsList = ({ chats }) => {
+const ChatsList = ({ chats, navigation }) => {
   return (
     <FlatList
       style={styles.container}
       data={chats}
       renderItem={({ item, index }) => (
-        <ChatsItem {...item} isFirst={index === 0} isLast={index === chats.length - 1} />
+        <ChatsItem
+          {...item}
+          isFirst={index === 0}
+          isLast={index === chats.length - 1}
+          navigation={navigation}
+        />
       )}
       keyExtractor={item => item._id}
+      showsVerticalScrollIndicator={false}
     />
   )
 }

@@ -12,6 +12,7 @@ const FriendsList = ({ friends }) => {
         <FriendsItem {...item} isFirst={index === 0} isLast={index === friends.length - 1} />
       )}
       keyExtractor={item => item._id}
+      showsVerticalScrollIndicator={false}
     />
   )
 }
@@ -21,7 +22,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.BACKGROUND,
     paddingLeft: 20,
-    paddingRight: 20
+    paddingRight: 20,
   },
 })
 

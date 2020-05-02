@@ -9,7 +9,7 @@ import {useDispatch, useSelector} from 'react-redux'
 import {getChats} from '../store/chats/actions'
 import ChatsList from '../components/chats/ChatsList'
 
-const HomeScreen = () => {
+const HomeScreen = props => {
   const dispatch = useDispatch()
   const chats = useSelector(state => state.chats.chats)
   const isFetchingChats = useSelector(state => state.chats.isFetchingChats)
@@ -26,7 +26,7 @@ const HomeScreen = () => {
         ) : (
           <View style={styles.contentWrapper}>
             {chats.length > 0 ? (
-              <ChatsList chats={chats} />
+              <ChatsList chats={chats} navigation={props.navigation} />
             ) : (
               <View style={styles.emptyChat}>
                 <Ionicons style={styles.emptyChatIcon} name="md-planet" size={72} color={Colors.MAIN_300} />
