@@ -3,7 +3,7 @@ import {FlatList, StyleSheet} from 'react-native'
 import Colors from '../../constants/Colors'
 import MessagesItem from './MessagesItem'
 
-const MessagesList = ({ messages, activeUser }) => {
+const MessagesList = ({ messages, activeUser, fetchAdditionalMessages }) => {
   return (
     <FlatList
       inverted
@@ -14,6 +14,8 @@ const MessagesList = ({ messages, activeUser }) => {
       )}
       keyExtractor={item => item._id}
       showsVerticalScrollIndicator={false}
+      onEndReachedThreshold={1}
+      onEndReached={fetchAdditionalMessages}
     />
   )
 }

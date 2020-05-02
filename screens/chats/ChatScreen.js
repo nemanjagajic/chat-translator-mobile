@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {TouchableOpacity, View, Text, StyleSheet, Image} from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
@@ -7,12 +7,15 @@ import defaultAvatar from '../../assets/defaultAvatar.png'
 import {clearMessages, clearOpenedChat, getMessages, setOpenedChat} from '../../store/chats/actions'
 import MessagesList from '../../components/messages/MessagesList'
 
+const LIMIT = 50
 
 const ChatScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const messages = useSelector(state => state.chats.messages)
   const activeUser = useSelector(state => state.auth.user)
   const chatId = navigation.getParam('chatId')
+
+  const [offset, setOffset] = useState(0)
 
   useEffect(() => {
     dispatch(setOpenedChat({
@@ -21,7 +24,7 @@ const ChatScreen = ({ navigation }) => {
     dispatch(getMessages({
       chatId,
       offset: 0,
-      limit: 30
+      limit: LIMIT
     }))
 
     return () => {
@@ -30,9 +33,23 @@ const ChatScreen = ({ navigation }) => {
     }
   }, [])
 
+  const fetchAdditionalMessages = () => {
+    if (messages.length < LIMIT * (offset + 1)) return
+    dispatch(getMessages({
+      chatId,
+      offset: offset + 1,
+      limit: LIMIT
+    }))
+    setOffset(offset + 1)
+  }
+
   return (
     <View style={styles.container}>
-      <MessagesList messages={messages} activeUser={activeUser} />
+      <MessagesList
+        messages={messages}
+        activeUser={activeUser}
+        fetchAdditionalMessages={fetchAdditionalMessages}
+      />
     </View>
   )
 }
