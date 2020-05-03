@@ -3,12 +3,13 @@ import {StyleSheet, TextInput, TouchableOpacity, View, Platform} from 'react-nat
 import Colors from '../../constants/Colors'
 import {Ionicons} from '@expo/vector-icons'
 
-const MessageInput = ({ sendMessage }) => {
+const MessageInput = ({ sendMessage, handleInputFocus }) => {
   const [value, setValue] = useState('')
 
   return (
     <View style={styles.container}>
       <TextInput
+        onFocus={handleInputFocus}
         value={value}
         onChangeText={text => setValue(text)}
         style={[styles.input, {paddingTop: Platform.OS === 'ios' ? 15 : 10}]}

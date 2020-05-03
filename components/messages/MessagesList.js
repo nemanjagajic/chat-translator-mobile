@@ -3,9 +3,10 @@ import {FlatList, StyleSheet} from 'react-native'
 import Colors from '../../constants/Colors'
 import MessagesItem from './MessagesItem'
 
-const MessagesList = ({ messages, activeUser, fetchAdditionalMessages }) => {
+const MessagesList = ({ messages, activeUser, fetchAdditionalMessages, forwardedRef }) => {
   return (
     <FlatList
+      ref={forwardedRef}
       inverted
       style={styles.container}
       data={messages}

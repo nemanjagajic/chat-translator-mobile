@@ -1,9 +1,7 @@
-import React, {useEffect, useState} from 'react'
-import {TouchableOpacity, View, Text, StyleSheet, Image, KeyboardAvoidingView} from 'react-native'
+import React, {useEffect, useState, useRef} from 'react'
+import {StyleSheet, KeyboardAvoidingView, FlatList} from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
-import {Ionicons} from '@expo/vector-icons'
-import defaultAvatar from '../../assets/defaultAvatar.png'
 import {clearMessages, clearOpenedChat, getMessages, sendMessage, setOpenedChat} from '../../store/chats/actions'
 import MessagesList from '../../components/messages/MessagesList'
 import MessageInput from '../../components/messages/MessageInput'
@@ -19,6 +17,7 @@ const ChatScreen = ({ navigation }) => {
   const chatId = navigation.getParam('chatId')
 
   const [offset, setOffset] = useState(0)
+  let listRef = useRef(null);
 
   useEffect(() => {
     dispatch(setOpenedChat({
@@ -64,16 +63,16 @@ const ChatScreen = ({ navigation }) => {
       style={styles.container} behavior={'height'}
       keyboardVerticalOffset={KEYBOARD_VERTICAL_OFFSET}
     >
-      {console.log({
-        messages: messages.length,
-        offset
-      })}
       <MessagesList
+        forwardedRef={listRef}
         messages={messages}
         activeUser={activeUser}
         fetchAdditionalMessages={fetchAdditionalMessages}
       />
-      <MessageInput sendMessage={handleSendMessage} />
+      <MessageInput
+        sendMessage={handleSendMessage}
+        handleInputFocus={() => listRef.current.scrollToOffset({ animated: true, offset: 0 })}
+      />
     </KeyboardAvoidingView>
   )
 }
