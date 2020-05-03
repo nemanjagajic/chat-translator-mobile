@@ -10,7 +10,7 @@ import {
   CLEAR_MESSAGES,
   SET_SENDING_MESSAGE,
   SET_SENDING_MESSAGE_FINISHED,
-  APPEND_MESSAGE_AND_CROP_LIMIT,
+  APPEND_MESSAGE_AND_CROP_LIMIT, SET_MESSAGES_OFFSET,
 } from './constants'
 
 const initialState = {
@@ -19,7 +19,8 @@ const initialState = {
   messages: [],
   isFetchingMessages: false,
   openedChat: null,
-  isSendingMessage: false
+  isSendingMessage: false,
+  messagesOffset: 0
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -96,7 +97,14 @@ export default (state = initialState, { type, payload }) => {
       const croppedMessages = [message].concat(cropped)
       return {
         ...state,
-        messages: croppedMessages
+        messages: croppedMessages,
+        messagesOffset: 1
+      }
+    }
+    case SET_MESSAGES_OFFSET: {
+      return {
+        ...state,
+        messagesOffset: payload
       }
     }
     default:

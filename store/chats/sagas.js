@@ -1,4 +1,5 @@
-import { all, takeLatest, put, call } from 'redux-saga/effects'
+import { all, takeLatest, put, call, select } from 'redux-saga/effects'
+import socket from '../../socket'
 import {GET_CHATS, GET_MESSAGES, SEND_MESSAGE} from './constants'
 import {
   setFetchingChats,
@@ -9,10 +10,12 @@ import {
   appendMessages,
   setSendingMessage,
   setSendingMessageFinished,
-  clearMessages,
-  appendMessageAndCropLimit
+  appendMessageAndCropLimit, setMessagesOffset
 } from './actions'
 import chatsService from '../../services/api/ChatsService'
+import {MESSAGES_PAGINATION_LIMIT} from '../../constants/Messages'
+
+const getMessagesOffset = state => state.chats.messagesOffset;
 
 export function* getChats$({ payload }) {
   const { showLoadingIndicator } = payload
@@ -31,7 +34,13 @@ export function* getChats$({ payload }) {
 export function* getMessages$({ payload }) {
   yield put(setFetchingMessages())
   try {
-    const { data } = yield call(chatsService.getMessages, payload)
+    const offset = yield select(getMessagesOffset)
+    const { data } = yield call(chatsService.getMessages, {
+      chatId: payload.chatId,
+      limit: MESSAGES_PAGINATION_LIMIT,
+      offset
+    })
+    yield put(setMessagesOffset(offset + 1))
     yield put(appendMessages(data))
   } catch (e) {
     console.log(e)
@@ -41,12 +50,12 @@ export function* getMessages$({ payload }) {
 }
 
 export function* sendMessage$({ payload }) {
-  const { chatId, text, paginationLimit, resetPagination} = payload
+  const { chatId, text } = payload
   yield put(setSendingMessage())
   try {
     const { data } = yield call(chatsService.sendMessage, { chatId, text })
-    yield put(appendMessageAndCropLimit({ paginationLimit, message: data.message }))
-    resetPagination()
+    socket.emit('chatMessageSent', data.message)
+    yield put(appendMessageAndCropLimit({ paginationLimit: MESSAGES_PAGINATION_LIMIT, message: data.message }))
   } catch (e) {
     console.log(e)
   } finally {

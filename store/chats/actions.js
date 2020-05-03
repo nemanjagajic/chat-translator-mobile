@@ -9,7 +9,12 @@ import {
   SET_FETCHING_MESSAGES_FINISHED,
   CLEAR_MESSAGES,
   SET_OPENED_CHAT,
-  CLEAR_OPENED_CHAT, SEND_MESSAGE, SET_SENDING_MESSAGE, SET_SENDING_MESSAGE_FINISHED, APPEND_MESSAGE_AND_CROP_LIMIT
+  CLEAR_OPENED_CHAT,
+  SEND_MESSAGE,
+  SET_SENDING_MESSAGE,
+  SET_SENDING_MESSAGE_FINISHED,
+  APPEND_MESSAGE_AND_CROP_LIMIT,
+  SET_MESSAGES_OFFSET
 } from './constants'
 
 export const getChats = payload => ({
@@ -76,5 +81,10 @@ export const setSendingMessageFinished = () => ({
 
 export const appendMessageAndCropLimit = payload => ({
   type: APPEND_MESSAGE_AND_CROP_LIMIT,
+  payload
+})
+
+export const setMessagesOffset = payload => ({
+  type: SET_MESSAGES_OFFSET,
   payload
 })

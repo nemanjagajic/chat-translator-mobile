@@ -2,21 +2,28 @@ import React, {useEffect, useState, useRef} from 'react'
 import {StyleSheet, KeyboardAvoidingView, FlatList} from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
-import {clearMessages, clearOpenedChat, getMessages, sendMessage, setOpenedChat} from '../../store/chats/actions'
+import {
+  clearMessages,
+  clearOpenedChat,
+  getMessages,
+  sendMessage,
+  setMessagesOffset,
+  setOpenedChat
+} from '../../store/chats/actions'
 import MessagesList from '../../components/messages/MessagesList'
 import MessageInput from '../../components/messages/MessageInput'
 import ChatNavbar from '../../components/chats/ChatNavbar'
+import {MESSAGES_PAGINATION_LIMIT} from '../../constants/Messages'
 
-const LIMIT = 50
 const KEYBOARD_VERTICAL_OFFSET = 72
 
 const ChatScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const messages = useSelector(state => state.chats.messages)
+  const offset = useSelector(state => state.chats.messagesOffset)
   const activeUser = useSelector(state => state.auth.user)
   const chatId = navigation.getParam('chatId')
 
-  const [offset, setOffset] = useState(0)
   let listRef = useRef(null);
 
   useEffect(() => {
@@ -25,37 +32,27 @@ const ChatScreen = ({ navigation }) => {
     }))
     dispatch(getMessages({
       chatId,
-      offset: 0,
-      limit: LIMIT
     }))
 
     return () => {
       dispatch(clearOpenedChat())
       dispatch(clearMessages())
+      dispatch(setMessagesOffset(0))
     }
   }, [])
-
-  const resetPagination = () => {
-    setOffset(0)
-  }
 
   const handleSendMessage = text => {
     dispatch(sendMessage({
       text,
       chatId,
-      paginationLimit: LIMIT,
-      resetPagination
     }))
   }
 
   const fetchAdditionalMessages = () => {
-    if (messages.length < LIMIT * (offset + 1)) return
+    if (messages.length < MESSAGES_PAGINATION_LIMIT * offset) return
     dispatch(getMessages({
       chatId,
-      offset: offset + 1,
-      limit: LIMIT
     }))
-    setOffset(offset + 1)
   }
 
   return (
