@@ -3,7 +3,7 @@ import {StyleSheet, TextInput, TouchableOpacity, View, Platform} from 'react-nat
 import Colors from '../../constants/Colors'
 import {Ionicons} from '@expo/vector-icons'
 
-const MessageInput = () => {
+const MessageInput = ({ sendMessage }) => {
   const [value, setValue] = useState('')
 
   return (
@@ -16,6 +16,10 @@ const MessageInput = () => {
         placeholder={'Type a message'}
       />
       <TouchableOpacity
+        onPress={() => {
+          sendMessage(value)
+          setValue('')
+        }}
         style={styles.sendButton}
       >
         <Ionicons name="ios-send" size={30} color={value ? Colors.ACCENT : Colors.GRAY_100} />

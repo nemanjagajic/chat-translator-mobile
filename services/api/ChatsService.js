@@ -11,5 +11,7 @@ class AuthService extends ApiService {
 
   getMessages = async ({ chatId, offset, limit }) =>
     this.apiClient.get(`${API_ENDPOINTS.MESSAGES}?chatId=${chatId}&offset=${offset}&limit=${limit}`)
+
+  sendMessage = async ({ chatId, text }) => this.apiClient.post(API_ENDPOINTS.MESSAGES, { chatId, text })
 }
 export default new AuthService()

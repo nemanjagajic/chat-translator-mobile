@@ -15,7 +15,7 @@ const HomeScreen = props => {
   const isFetchingChats = useSelector(state => state.chats.isFetchingChats)
 
   useEffect(() => {
-    dispatch(getChats())
+    dispatch(getChats({ showLoadingIndicator: true }))
   }, [])
 
   return (

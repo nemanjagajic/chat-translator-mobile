@@ -4,9 +4,10 @@ import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import {Ionicons} from '@expo/vector-icons'
 import defaultAvatar from '../../assets/defaultAvatar.png'
-import {clearMessages, clearOpenedChat, getMessages, setOpenedChat} from '../../store/chats/actions'
+import {clearMessages, clearOpenedChat, getMessages, sendMessage, setOpenedChat} from '../../store/chats/actions'
 import MessagesList from '../../components/messages/MessagesList'
 import MessageInput from '../../components/messages/MessageInput'
+import ChatNavbar from '../../components/chats/ChatNavbar'
 
 const LIMIT = 50
 const KEYBOARD_VERTICAL_OFFSET = 72
@@ -35,6 +36,19 @@ const ChatScreen = ({ navigation }) => {
     }
   }, [])
 
+  const resetPagination = () => {
+    setOffset(0)
+  }
+
+  const handleSendMessage = text => {
+    dispatch(sendMessage({
+      text,
+      chatId,
+      paginationLimit: LIMIT,
+      resetPagination
+    }))
+  }
+
   const fetchAdditionalMessages = () => {
     if (messages.length < LIMIT * (offset + 1)) return
     dispatch(getMessages({
@@ -50,12 +64,16 @@ const ChatScreen = ({ navigation }) => {
       style={styles.container} behavior={'height'}
       keyboardVerticalOffset={KEYBOARD_VERTICAL_OFFSET}
     >
+      {console.log({
+        messages: messages.length,
+        offset
+      })}
       <MessagesList
         messages={messages}
         activeUser={activeUser}
         fetchAdditionalMessages={fetchAdditionalMessages}
       />
-      <MessageInput />
+      <MessageInput sendMessage={handleSendMessage} />
     </KeyboardAvoidingView>
   )
 }
@@ -67,23 +85,7 @@ ChatScreen.navigationOptions = ({ navigation }) => ({
     shadowColor: 'transparent',
     elevation: 0
   },
-  headerLeft: () => (
-    <View style={styles.navigation}>
-      <TouchableOpacity
-        style={{ marginLeft: 15 }}
-        onPress={() => navigation.goBack()}
-      >
-        <Ionicons name="md-arrow-back" size={28} color={Colors.MAIN} />
-      </TouchableOpacity>
-      <Image
-        style={styles.image}
-        source={defaultAvatar}
-      />
-      <Text style={styles.fullName}>
-        {`${navigation.getParam('friend').firstName} ${navigation.getParam('friend').lastName}`}
-      </Text>
-    </View>
-  )
+  headerLeft: () => <ChatNavbar navigation={navigation} />
 })
 
 const styles = StyleSheet.create({

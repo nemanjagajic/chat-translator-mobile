@@ -5,7 +5,12 @@ import {
   SET_OPENED_CHAT,
   CLEAR_OPENED_CHAT,
   SET_FETCHING_MESSAGES,
-  SET_FETCHING_MESSAGES_FINISHED, APPEND_MESSAGES, CLEAR_MESSAGES,
+  SET_FETCHING_MESSAGES_FINISHED,
+  APPEND_MESSAGES,
+  CLEAR_MESSAGES,
+  SET_SENDING_MESSAGE,
+  SET_SENDING_MESSAGE_FINISHED,
+  APPEND_MESSAGE_AND_CROP_LIMIT,
 } from './constants'
 
 const initialState = {
@@ -13,7 +18,8 @@ const initialState = {
   isFetchingChats: false,
   messages: [],
   isFetchingMessages: false,
-  openedChat: null
+  openedChat: null,
+  isSendingMessage: false
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -70,6 +76,27 @@ export default (state = initialState, { type, payload }) => {
       return {
         ...state,
         messages: []
+      }
+    }
+    case SET_SENDING_MESSAGE: {
+      return {
+        ...state,
+        isSendingMessage: true
+      }
+    }
+    case SET_SENDING_MESSAGE_FINISHED: {
+      return {
+        ...state,
+        isSendingMessage: false
+      }
+    }
+    case APPEND_MESSAGE_AND_CROP_LIMIT: {
+      const { message, paginationLimit } = payload
+      const cropped = state.messages.slice(0, paginationLimit - 1)
+      const croppedMessages = [message].concat(cropped)
+      return {
+        ...state,
+        messages: croppedMessages
       }
     }
     default:

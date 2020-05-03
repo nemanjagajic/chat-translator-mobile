@@ -9,11 +9,12 @@ import {
   SET_FETCHING_MESSAGES_FINISHED,
   CLEAR_MESSAGES,
   SET_OPENED_CHAT,
-  CLEAR_OPENED_CHAT
+  CLEAR_OPENED_CHAT, SEND_MESSAGE, SET_SENDING_MESSAGE, SET_SENDING_MESSAGE_FINISHED, APPEND_MESSAGE_AND_CROP_LIMIT
 } from './constants'
 
-export const getChats = () => ({
-  type: GET_CHATS
+export const getChats = payload => ({
+  type: GET_CHATS,
+  payload
 })
 
 export const setChats = payload => ({
@@ -58,4 +59,22 @@ export const setFetchingMessages = () => ({
 
 export const setFetchingMessagesFinished = () => ({
   type: SET_FETCHING_MESSAGES_FINISHED
+})
+
+export const sendMessage = payload => ({
+  type: SEND_MESSAGE,
+  payload
+})
+
+export const setSendingMessage = () => ({
+  type: SET_SENDING_MESSAGE
+})
+
+export const setSendingMessageFinished = () => ({
+  type: SET_SENDING_MESSAGE_FINISHED
+})
+
+export const appendMessageAndCropLimit = payload => ({
+  type: APPEND_MESSAGE_AND_CROP_LIMIT,
+  payload
 })
