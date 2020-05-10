@@ -1,6 +1,6 @@
 import { all, takeLatest, put, call, select } from 'redux-saga/effects'
 import socket from '../../socket'
-import {GET_CHATS, GET_MESSAGES, SEND_MESSAGE} from './constants'
+import { GET_CHATS, GET_MESSAGES, SEND_MESSAGE } from './constants'
 import {
   setFetchingChats,
   setFetchingChatsFinished,
@@ -13,9 +13,9 @@ import {
   appendMessageAndCropLimit, setMessagesOffset
 } from './actions'
 import chatsService from '../../services/api/ChatsService'
-import {MESSAGES_PAGINATION_LIMIT} from '../../constants/Messages'
+import { MESSAGES_PAGINATION_LIMIT } from '../../constants/Messages'
 
-const getMessagesOffset = state => state.chats.messagesOffset;
+const getMessagesOffset = state => state.chats.messagesOffset
 
 export function* getChats$({ payload }) {
   const { showLoadingIndicator } = payload

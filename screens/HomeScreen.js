@@ -1,12 +1,12 @@
-import React, {useEffect} from 'react'
-import {View, Text, StyleSheet, TouchableOpacity, ActivityIndicator} from 'react-native'
+import React, { useEffect } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
 import Colors from '../constants/Colors'
-import { Ionicons } from '@expo/vector-icons';
+import { Ionicons } from '@expo/vector-icons'
 import AddFriendButton from '../components/buttons/AddFriendButton'
 import SearchButton from '../components/buttons/SearchButton'
 import $t from '../i18n'
-import {useDispatch, useSelector} from 'react-redux'
-import {getChats} from '../store/chats/actions'
+import { useDispatch, useSelector } from 'react-redux'
+import { getChats } from '../store/chats/actions'
 import ChatsList from '../components/chats/ChatsList'
 
 const HomeScreen = props => {

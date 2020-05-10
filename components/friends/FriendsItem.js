@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import Colors from '../../constants/Colors'
-import {Ionicons} from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
@@ -15,7 +15,7 @@ const FriendsItem = ({ firstName, lastName, email, isFirst, isLast }) => {
       styles.container,
       { marginTop: isFirst ? FIRST_ITEM_TOP_MARGIN : DEFAULT_TOP_MARGIN },
       { marginBottom: isLast ? LAST_ITEM_BOTTOM_MARGIN : DEFAULT_BOTTOM_MARGIN },
-      ]}>
+    ]}>
       <Image
         style={styles.image}
         source={defaultAvatar}

@@ -1,5 +1,5 @@
 import React from 'react'
-import {FlatList, StyleSheet} from 'react-native'
+import { FlatList, StyleSheet } from 'react-native'
 import FriendsItem from './FriendsItem'
 import Colors from '../../constants/Colors'
 

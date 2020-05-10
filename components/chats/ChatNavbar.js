@@ -1,10 +1,10 @@
 import React from 'react'
-import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useDispatch } from 'react-redux'
-import {Ionicons} from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import Colors from '../../constants/Colors'
 import defaultAvatar from '../../assets/defaultAvatar.png'
-import {getChats} from '../../store/chats/actions'
+import { getChats } from '../../store/chats/actions'
 
 const ChatNavbar = ({ navigation }) => {
   const dispatch = useDispatch()

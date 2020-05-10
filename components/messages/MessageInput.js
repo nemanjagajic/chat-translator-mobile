@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
-import {StyleSheet, TextInput, TouchableOpacity, View, Platform} from 'react-native'
+import { StyleSheet, TextInput, TouchableOpacity, View, Platform } from 'react-native'
 import Colors from '../../constants/Colors'
-import {Ionicons} from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 
 const MessageInput = ({ sendMessage, handleInputFocus }) => {
   const [value, setValue] = useState('')
@@ -12,7 +12,7 @@ const MessageInput = ({ sendMessage, handleInputFocus }) => {
         onFocus={handleInputFocus}
         value={value}
         onChangeText={text => setValue(text)}
-        style={[styles.input, {paddingTop: Platform.OS === 'ios' ? 15 : 10}]}
+        style={[styles.input, { paddingTop: Platform.OS === 'ios' ? 15 : 10 }]}
         multiline={true}
         placeholder={'Type a message'}
       />
@@ -22,6 +22,7 @@ const MessageInput = ({ sendMessage, handleInputFocus }) => {
           setValue('')
         }}
         style={styles.sendButton}
+        disabled={value === ''}
       >
         <Ionicons name="ios-send" size={30} color={value ? Colors.ACCENT : Colors.GRAY_100} />
       </TouchableOpacity>

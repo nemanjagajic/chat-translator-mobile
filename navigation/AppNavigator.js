@@ -9,4 +9,4 @@ const AppNavigator = createSwitchNavigator({
   Home: AppDrawer
 })
 
-export default createAppContainer(AppNavigator);
+export default createAppContainer(AppNavigator)

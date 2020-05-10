@@ -1,6 +1,6 @@
 import io from 'socket.io-client'
 import config from '../config'
-import {AsyncStorage} from 'react-native'
+import { AsyncStorage } from 'react-native'
 
 const socket = io(config.APP_URL, {
   transports: ['websocket'],

@@ -12,29 +12,29 @@ const initialState = {
 
 export default (state = initialState, { type, payload }) => {
   switch (type) {
-    case SET_USER: {
-      return {
-        ...state,
-        user: payload
-      }
+  case SET_USER: {
+    return {
+      ...state,
+      user: payload
     }
-    case REMOVE_USER: {
-      return {
-        ...state,
-        user: null
-      }
+  }
+  case REMOVE_USER: {
+    return {
+      ...state,
+      user: null
     }
-    case SET_LOGIN_IN_PROGRESS:
-      return {
-        ...state,
-        loginInProgress: true
-      }
-    case SET_LOGIN_FINISHED:
-      return {
-        ...state,
-        loginInProgress: false
-      }
-    default:
-      return state
+  }
+  case SET_LOGIN_IN_PROGRESS:
+    return {
+      ...state,
+      loginInProgress: true
+    }
+  case SET_LOGIN_FINISHED:
+    return {
+      ...state,
+      loginInProgress: false
+    }
+  default:
+    return state
   }
 }

@@ -1,10 +1,10 @@
-import React, {useEffect} from 'react'
-import {View, TouchableOpacity, StyleSheet, ActivityIndicator} from 'react-native'
-import {useDispatch, useSelector} from 'react-redux'
+import React, { useEffect } from 'react'
+import { View, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
-import {Ionicons} from '@expo/vector-icons'
+import { Ionicons } from '@expo/vector-icons'
 import $t from '../../i18n'
-import {getFriends} from '../../store/friends/actions'
+import { getFriends } from '../../store/friends/actions'
 import FriendsList from '../../components/friends/FriendsList'
 
 const FriendsScreen = () => {

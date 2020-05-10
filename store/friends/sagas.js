@@ -1,6 +1,6 @@
 import { all, takeLatest, put, call } from 'redux-saga/effects'
-import {GET_FRIENDS} from './constants'
-import {setFetchingFriends, setFetchingFriendsFinished, setFriends} from './actions'
+import { GET_FRIENDS } from './constants'
+import { setFetchingFriends, setFetchingFriendsFinished, setFriends } from './actions'
 import friendsService from '../../services/api/FriendsService'
 
 export function* getFriends$() {

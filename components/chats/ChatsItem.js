@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, Image, TouchableWithoutFeedback } from 'react-native'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import Colors from '../../constants/Colors'
-import {formatChatPreviewDate} from '../../utils/dateFormatter'
+import { formatChatPreviewDate } from '../../utils/dateFormatter'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30

@@ -1,8 +1,8 @@
 import socket from './index'
 import store from '../store'
-import {appendMessageAndCropLimit, getChats} from '../store/chats/actions'
-import {MESSAGES_PAGINATION_LIMIT} from '../constants/Messages'
-import {AsyncStorage} from 'react-native'
+import { appendMessageAndCropLimit, getChats } from '../store/chats/actions'
+import { MESSAGES_PAGINATION_LIMIT } from '../constants/Messages'
+import { AsyncStorage } from 'react-native'
 
 socket.on('loadMessage', message => {
   const user = AsyncStorage.getItem('user')
@@ -15,7 +15,7 @@ socket.on('loadMessage', message => {
     return
   }
   if (openedChat._id === message.chatId) {
-    store.dispatch(appendMessageAndCropLimit({paginationLimit: MESSAGES_PAGINATION_LIMIT, message}))
+    store.dispatch(appendMessageAndCropLimit({ paginationLimit: MESSAGES_PAGINATION_LIMIT, message }))
   }
 })
 

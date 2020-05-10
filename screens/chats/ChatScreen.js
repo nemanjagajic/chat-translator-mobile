@@ -1,5 +1,5 @@
-import React, {useEffect, useState, useRef} from 'react'
-import {StyleSheet, KeyboardAvoidingView, FlatList} from 'react-native'
+import React, { useEffect, useRef } from 'react'
+import { StyleSheet, KeyboardAvoidingView } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import {
@@ -13,7 +13,7 @@ import {
 import MessagesList from '../../components/messages/MessagesList'
 import MessageInput from '../../components/messages/MessageInput'
 import ChatNavbar from '../../components/chats/ChatNavbar'
-import {MESSAGES_PAGINATION_LIMIT} from '../../constants/Messages'
+import { MESSAGES_PAGINATION_LIMIT } from '../../constants/Messages'
 
 const KEYBOARD_VERTICAL_OFFSET = 72
 
@@ -24,7 +24,7 @@ const ChatScreen = ({ navigation }) => {
   const activeUser = useSelector(state => state.auth.user)
   const chatId = navigation.getParam('chatId')
 
-  let listRef = useRef(null);
+  let listRef = useRef(null)
 
   useEffect(() => {
     dispatch(setOpenedChat({

@@ -1,4 +1,4 @@
-import {GET_FRIENDS, SET_FETCHING_FRIENDS, SET_FETCHING_FRIENDS_FINISHED, SET_FRIENDS} from './constants'
+import { GET_FRIENDS, SET_FETCHING_FRIENDS, SET_FETCHING_FRIENDS_FINISHED, SET_FRIENDS } from './constants'
 
 export const getFriends = () => ({
   type: GET_FRIENDS
