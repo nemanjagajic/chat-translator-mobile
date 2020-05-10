@@ -8,10 +8,12 @@ const socket = io(config.APP_URL, {
 
 socket.on('connect', async () => {
   const user = await AsyncStorage.getItem('user')
-  socket.emit('createUserSession', {
-    userId: JSON.parse(user)._id,
-    socketId: socket.id
-  })
+  if (user) {
+    socket.emit('createUserSession', {
+      userId: JSON.parse(user)._id,
+      socketId: socket.id
+    })
+  }
 })
 
 export default socket
