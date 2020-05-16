@@ -1,14 +1,12 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import Colors from '../../constants/Colors'
 
-const MessagesItem = ({ text, isMine, isFirst }) => {
-  return (
-    <View style={[styles.container, isMine ? styles.myMessage : styles.friendsMessage, { marginBottom: isFirst ? 20 : 0 }]}>
-      <Text style={[styles.text, { color: isMine ? Colors.WHITE : Colors.BLACK }]}>{ text }</Text>
-    </View>
-  )
-}
+const MessagesItem = memo(({ text, isMine, isFirst }) => (
+  <View style={[styles.container, isMine ? styles.myMessage : styles.friendsMessage, { marginBottom: isFirst ? 20 : 0 }]}>
+    <Text style={[styles.text, { color: isMine ? Colors.WHITE : Colors.BLACK }]}>{ text }</Text>
+  </View>
+))
 
 const styles = StyleSheet.create({
   container: {
