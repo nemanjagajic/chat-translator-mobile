@@ -1,10 +1,10 @@
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useDispatch } from 'react-redux'
-import { Ionicons } from '@expo/vector-icons'
 import Colors from '../../constants/Colors'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import { getChats } from '../../store/chats/actions'
+import IconBack from '../../assets/arrow-back-outline.svg'
 
 const ChatNavbar = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -18,7 +18,7 @@ const ChatNavbar = ({ navigation }) => {
           navigation.goBack()
         }}
       >
-        <Ionicons name='md-arrow-back' size={28} color={Colors.MAIN} />
+        <IconBack height={28} width={28} />
       </TouchableOpacity>
       <Image
         style={styles.image}

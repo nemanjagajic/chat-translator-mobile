@@ -2,9 +2,10 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Colors from '../../constants/Colors'
-import { Ionicons } from '@expo/vector-icons'
 import { logOut } from '../../store/auth/actions'
 import $t from '../../i18n'
+import IconPeople from '../../assets/people-outline.svg'
+import IconLogout from '../../assets/log-out-outline.svg'
 
 const Drawer = props => {
   const dispatch = useDispatch()
@@ -19,7 +20,7 @@ const Drawer = props => {
         onPress={() => props.navigation.navigate('FriendsScreen')}
         style={styles.item}
       >
-        <Ionicons name='md-people' size={28} color={Colors.BLACK} />
+        <IconPeople height={28} width={28} />
         <Text style={styles.itemText}>{$t('Drawer.friends')}</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -28,7 +29,7 @@ const Drawer = props => {
         }))}
         style={styles.logoutWrapper}
       >
-        <Ionicons name='md-log-out' size={28} color={Colors.BLACK} />
+        <IconLogout height={28} width={28} />
         <Text style={styles.itemText}>{$t('Drawer.logOut')}</Text>
       </TouchableOpacity>
     </View>

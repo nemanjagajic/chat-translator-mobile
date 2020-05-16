@@ -1,13 +1,15 @@
 import React, { useEffect } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
 import Colors from '../constants/Colors'
-import { Ionicons } from '@expo/vector-icons'
 import AddFriendButton from '../components/buttons/AddFriendButton'
 import SearchButton from '../components/buttons/SearchButton'
 import $t from '../i18n'
 import { useDispatch, useSelector } from 'react-redux'
 import { getChats } from '../store/chats/actions'
 import ChatsList from '../components/chats/ChatsList'
+import IconSend from '../assets/paper-plane-outline.svg'
+import IconMenu from '../assets/menu-outline.svg'
+import IconPlanet from '../assets/planet-outline.svg'
 
 const HomeScreen = props => {
   const dispatch = useDispatch()
@@ -29,7 +31,7 @@ const HomeScreen = props => {
               <ChatsList chats={chats} navigation={props.navigation} />
             ) : (
               <View style={styles.emptyChat}>
-                <Ionicons style={styles.emptyChatIcon} name='md-planet' size={72} color={Colors.MAIN_300} />
+                <IconPlanet height={72} width={72} />
                 <Text style={styles.emptyChatText}>{$t('Home.emptyChatDesc')}</Text>
               </View>
             )}
@@ -39,7 +41,7 @@ const HomeScreen = props => {
       <TouchableOpacity
         style={styles.newMessageButton}
       >
-        <Ionicons name='ios-send' size={30} color={Colors.MAIN} />
+        <IconSend width={30} height={30} />
       </TouchableOpacity>
     </View>
   )
@@ -62,7 +64,7 @@ HomeScreen.navigationOptions = ({ navigation }) => ({
       onPress={() => navigation.openDrawer()}
       hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
     >
-      <Ionicons name='ios-menu' size={28} color={Colors.MAIN} />
+      <IconMenu height={28} width={28} />
     </TouchableOpacity>
   ),
   headerRight: () => (
@@ -96,13 +98,11 @@ const styles = StyleSheet.create({
     marginRight: 50,
     paddingTop: 200
   },
-  emptyChatIcon: {
-    marginBottom: 10
-  },
   emptyChatText: {
     textAlign: 'center',
     color: Colors.MAIN_300,
-    fontSize: 14
+    fontSize: 14,
+    marginTop: 10
   },
   newMessageButton: {
     display: 'flex',

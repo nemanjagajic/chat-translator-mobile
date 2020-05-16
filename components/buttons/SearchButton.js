@@ -1,12 +1,11 @@
 import React from 'react'
 import { View } from 'react-native'
-import Colors from '../../constants/Colors'
-import { Ionicons } from '@expo/vector-icons'
+import IconSearch from '../../assets/search-outline.svg'
 
 const SearchButton = ({ style = null }) => {
   return (
     <View style={style}>
-      <Ionicons name='ios-search' size={28} color={Colors.MAIN} />
+      <IconSearch width={26} height={26} />
     </View>
   )
 }

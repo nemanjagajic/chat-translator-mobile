@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, Image } from 'react-native'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import Colors from '../../constants/Colors'
-import { Ionicons } from '@expo/vector-icons'
+import IconDots from '../../assets/ellipsis-horizontal.svg'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
@@ -24,7 +24,7 @@ const FriendsItem = ({ firstName, lastName, email, isFirst, isLast }) => {
         <Text style={styles.fullNameText}>{`${firstName} ${lastName}`}</Text>
         <Text style={styles.emailText}>{`${email}`}</Text>
       </View>
-      <Ionicons style={styles.iconMore} name='ios-more' size={28} color={Colors.GRAY} />
+      <IconDots style={styles.iconMore} height={28} width={28} />
     </View>
   )
 }

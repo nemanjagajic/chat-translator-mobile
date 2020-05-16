@@ -2,10 +2,10 @@ import React, { useEffect } from 'react'
 import { View, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
-import { Ionicons } from '@expo/vector-icons'
 import $t from '../../i18n'
 import { getFriends } from '../../store/friends/actions'
 import FriendsList from '../../components/friends/FriendsList'
+import IconBack from '../../assets/arrow-back-outline.svg'
 
 const FriendsScreen = () => {
   const dispatch = useDispatch()
@@ -43,7 +43,7 @@ FriendsScreen.navigationOptions = ({ navigation }) => ({
       style={{ marginLeft: 15 }}
       onPress={() => navigation.goBack()}
     >
-      <Ionicons name="md-arrow-back" size={28} color={Colors.MAIN} />
+      <IconBack height={28} width={28} />
     </TouchableOpacity>
   )
 })

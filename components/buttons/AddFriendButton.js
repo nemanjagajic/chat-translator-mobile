@@ -1,12 +1,11 @@
 import React from 'react'
 import { View } from 'react-native'
-import Colors from '../../constants/Colors'
-import { Ionicons } from '@expo/vector-icons'
+import IconAddFriend from '../../assets/person-add-outline.svg'
 
 const AddFriendButton = ({ style = null }) => {
   return (
     <View style={style}>
-      <Ionicons name='md-person-add' size={28} color={Colors.MAIN} />
+      <IconAddFriend height={26} width={26} />
     </View>
   )
 }

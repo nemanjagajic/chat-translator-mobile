@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, TextInput, TouchableOpacity, View, Platform } from 'react-native'
 import Colors from '../../constants/Colors'
-import { Ionicons } from '@expo/vector-icons'
+import IconSend from '../../assets/paper-plane.svg'
 
 const MessageInput = ({ sendMessage, handleInputFocus }) => {
   const [value, setValue] = useState('')
@@ -24,7 +24,7 @@ const MessageInput = ({ sendMessage, handleInputFocus }) => {
         style={[styles.sendButton]}
         disabled={value === ''}
       >
-        <Ionicons name='ios-send' size={30} color={value ? Colors.MAIN : Colors.MAIN_300 } />
+        <IconSend height={28} width={28} />
       </TouchableOpacity>
     </View>
   )
