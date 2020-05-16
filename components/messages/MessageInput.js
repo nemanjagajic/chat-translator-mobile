@@ -24,7 +24,7 @@ const MessageInput = ({ sendMessage, handleInputFocus }) => {
         style={styles.sendButton}
         disabled={value === ''}
       >
-        <Ionicons name="ios-send" size={30} color={value ? Colors.ACCENT : Colors.GRAY_100} />
+        <Ionicons name='ios-send' size={30} color={value ? Colors.ACCENT : Colors.GRAY_100} />
       </TouchableOpacity>
     </View>
   )

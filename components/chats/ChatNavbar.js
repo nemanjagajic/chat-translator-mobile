@@ -18,7 +18,7 @@ const ChatNavbar = ({ navigation }) => {
           navigation.goBack()
         }}
       >
-        <Ionicons name="md-arrow-back" size={28} color={Colors.MAIN} />
+        <Ionicons name='md-arrow-back' size={28} color={Colors.MAIN} />
       </TouchableOpacity>
       <Image
         style={styles.image}

@@ -24,7 +24,7 @@ const FriendsItem = ({ firstName, lastName, email, isFirst, isLast }) => {
         <Text style={styles.fullNameText}>{`${firstName} ${lastName}`}</Text>
         <Text style={styles.emailText}>{`${email}`}</Text>
       </View>
-      <Ionicons style={styles.iconMore} name="ios-more" size={28} color={Colors.GRAY} />
+      <Ionicons style={styles.iconMore} name='ios-more' size={28} color={Colors.GRAY} />
     </View>
   )
 }

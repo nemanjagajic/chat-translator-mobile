@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons'
 const SearchButton = ({ style = null }) => {
   return (
     <View style={style}>
-      <Ionicons name="ios-search" size={28} color={Colors.MAIN} />
+      <Ionicons name='ios-search' size={28} color={Colors.MAIN} />
     </View>
   )
 }

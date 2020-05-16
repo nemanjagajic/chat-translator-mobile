@@ -22,14 +22,14 @@ const HomeScreen = props => {
     <View style={styles.container}>
       {
         isFetchingChats ? (
-          <ActivityIndicator style={styles.indicator} size="large" color={Colors.ACCENT} />
+          <ActivityIndicator style={styles.indicator} size='large' color={Colors.ACCENT} />
         ) : (
           <View style={styles.contentWrapper}>
             {chats.length > 0 ? (
               <ChatsList chats={chats} navigation={props.navigation} />
             ) : (
               <View style={styles.emptyChat}>
-                <Ionicons style={styles.emptyChatIcon} name="md-planet" size={72} color={Colors.MAIN_300} />
+                <Ionicons style={styles.emptyChatIcon} name='md-planet' size={72} color={Colors.MAIN_300} />
                 <Text style={styles.emptyChatText}>{$t('Home.emptyChatDesc')}</Text>
               </View>
             )}
@@ -39,7 +39,7 @@ const HomeScreen = props => {
       <TouchableOpacity
         style={styles.newMessageButton}
       >
-        <Ionicons name="ios-send" size={30} color={Colors.MAIN} />
+        <Ionicons name='ios-send' size={30} color={Colors.MAIN} />
       </TouchableOpacity>
     </View>
   )
@@ -62,7 +62,7 @@ HomeScreen.navigationOptions = ({ navigation }) => ({
       onPress={() => navigation.openDrawer()}
       hitSlop={{ top: 10, bottom: 10, left: 10, right: 10 }}
     >
-      <Ionicons name="ios-menu" size={28} color={Colors.MAIN} />
+      <Ionicons name='ios-menu' size={28} color={Colors.MAIN} />
     </TouchableOpacity>
   ),
   headerRight: () => (

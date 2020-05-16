@@ -6,7 +6,7 @@ import { Ionicons } from '@expo/vector-icons'
 const AddFriendButton = ({ style = null }) => {
   return (
     <View style={style}>
-      <Ionicons name="md-person-add" size={28} color={Colors.MAIN} />
+      <Ionicons name='md-person-add' size={28} color={Colors.MAIN} />
     </View>
   )
 }

@@ -4,8 +4,11 @@ export default {
   WHITE: '#ffffff',
   WHITE_100: '#f5f5f5',
   WHITE_200: '#f2f2f2',
+  WHITE_300: '#E8EAF6',
   GRAY: '#808080',
   GRAY_100: '#b3b3b3',
+  GRAY_200: '#cccccc',
+  GRAY_300: '#666666',
   BLACK: '#0d1126',
   ACCENT: '#03DAC5',
 

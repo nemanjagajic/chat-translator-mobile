@@ -19,7 +19,7 @@ const Drawer = props => {
         onPress={() => props.navigation.navigate('FriendsScreen')}
         style={styles.item}
       >
-        <Ionicons name="md-people" size={28} color={Colors.BLACK} />
+        <Ionicons name='md-people' size={28} color={Colors.BLACK} />
         <Text style={styles.itemText}>{$t('Drawer.friends')}</Text>
       </TouchableOpacity>
       <TouchableOpacity
@@ -28,7 +28,7 @@ const Drawer = props => {
         }))}
         style={styles.logoutWrapper}
       >
-        <Ionicons name="md-log-out" size={28} color={Colors.BLACK} />
+        <Ionicons name='md-log-out' size={28} color={Colors.BLACK} />
         <Text style={styles.itemText}>{$t('Drawer.logOut')}</Text>
       </TouchableOpacity>
     </View>

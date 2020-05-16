@@ -1,16 +1,33 @@
-import React, { memo } from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import React, { memo, useState } from 'react'
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import Colors from '../../constants/Colors'
 
-const MessagesItem = memo(({ text, isMine, isFirst }) => (
-  <View style={[styles.container, isMine ? styles.myMessage : styles.friendsMessage, { marginBottom: isFirst ? 20 : 0 }]}>
-    <Text style={[styles.text, { color: isMine ? Colors.WHITE : Colors.BLACK }]}>{ text }</Text>
-  </View>
-))
+const MessagesItem = memo(({ text, textSr, isMine, isFirst }) => {
+  const [showOriginal, setShowOriginal] = useState(false)
+
+  return (
+    <TouchableWithoutFeedback onPress={() => setShowOriginal(!showOriginal)}>
+      <View>
+        {showOriginal && (
+          <View style={[
+            styles.container,
+            isMine ? styles.myMessage : styles.friendsMessage,
+            styles.originalText,
+          ]}>
+            <Text style={[styles.text]}>{ text }</Text>
+          </View>
+        )}
+        <View style={[styles.container, isMine ? styles.myMessage : styles.friendsMessage, { marginBottom: isFirst ? 20 : 0 }]}>
+          <Text style={[styles.text, { color: isMine ? Colors.WHITE : Colors.BLACK }]}>{ textSr || text }</Text>
+        </View>
+      </View>
+    </TouchableWithoutFeedback>
+  )
+})
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 10,
+    marginTop: 5,
     paddingLeft: 15,
     paddingRight: 15,
     paddingTop: 10,
@@ -29,12 +46,17 @@ const styles = StyleSheet.create({
     marginLeft: 10
   },
   text: {
-    fontSize: 15
+    fontSize: 15,
+    color: Colors.GRAY_300
   },
   date: {
     alignSelf: 'flex-end',
     fontSize: 14,
     color: Colors.GRAY
+  },
+  originalText: {
+    backgroundColor: Colors.WHITE_300,
+    marginBottom: -10
   }
 })
 
