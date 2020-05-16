@@ -1,18 +1,30 @@
 import React, { memo, useState } from 'react'
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native'
+import { View, Text, StyleSheet, TouchableWithoutFeedback, UIManager, LayoutAnimation, Platform } from 'react-native'
 import Colors from '../../constants/Colors'
+
+if (
+  Platform.OS === 'android' &&
+  UIManager.setLayoutAnimationEnabledExperimental
+) {
+  UIManager.setLayoutAnimationEnabledExperimental(true)
+}
 
 const MessagesItem = memo(({ text, textSr, isMine, isFirst }) => {
   const [showOriginal, setShowOriginal] = useState(false)
 
+  const handleMessagePressed = () => {
+    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
+    setShowOriginal(!showOriginal)
+  }
+
   return (
-    <TouchableWithoutFeedback onPress={() => setShowOriginal(!showOriginal)}>
+    <TouchableWithoutFeedback onPress={handleMessagePressed}>
       <View>
         {showOriginal && (
           <View style={[
             styles.container,
             isMine ? styles.myMessage : styles.friendsMessage,
-            styles.originalText,
+            styles.originalText
           ]}>
             <Text style={[styles.text]}>{ text }</Text>
           </View>
@@ -33,7 +45,7 @@ const styles = StyleSheet.create({
     paddingTop: 10,
     paddingBottom: 10,
     borderRadius: 30,
-    maxWidth: '90%'
+    maxWidth: '80%'
   },
   myMessage : {
     backgroundColor: Colors.MAIN,
@@ -47,7 +59,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 15,
-    color: Colors.GRAY_300
+    color: Colors.BLACK
   },
   date: {
     alignSelf: 'flex-end',
@@ -56,7 +68,8 @@ const styles = StyleSheet.create({
   },
   originalText: {
     backgroundColor: Colors.WHITE_300,
-    marginBottom: -10
+    marginBottom: -10,
+    opacity: 0.5
   }
 })
 

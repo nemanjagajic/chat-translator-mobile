@@ -12,7 +12,7 @@ const MessageInput = ({ sendMessage, handleInputFocus }) => {
         onFocus={handleInputFocus}
         value={value}
         onChangeText={text => setValue(text)}
-        style={[styles.input, { paddingTop: Platform.OS === 'ios' ? 15 : 10 }]}
+        style={[styles.input, { paddingTop: Platform.OS === 'ios' ? 12 : 10 }]}
         multiline={true}
         placeholder={'Type a message'}
       />
@@ -21,10 +21,10 @@ const MessageInput = ({ sendMessage, handleInputFocus }) => {
           sendMessage(value)
           setValue('')
         }}
-        style={styles.sendButton}
+        style={[styles.sendButton]}
         disabled={value === ''}
       >
-        <Ionicons name='ios-send' size={30} color={value ? Colors.ACCENT : Colors.GRAY_100} />
+        <Ionicons name='ios-send' size={30} color={value ? Colors.MAIN : Colors.MAIN_300 } />
       </TouchableOpacity>
     </View>
   )
@@ -38,32 +38,30 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     width: '100%',
     marginTop: 5,
-    marginBottom: 25
+    marginBottom: Platform.OS === 'ios' ? 25 : 15,
+    elevation: 1
   },
   input: {
     backgroundColor: Colors.WHITE_200,
     color: Colors.BLACK,
     padding: 10,
     flex: 1,
-    minHeight: 50,
+    minHeight: 45,
     marginLeft: 10,
     marginRight: 10,
     borderRadius: 30,
     fontSize: 16,
-    paddingRight: 50,
-    display: 'flex',
-    alignSelf: 'center',
+    display: 'flex'
   },
   sendButton: {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-    width: 50,
-    height: 50,
+    width: 48,
+    height: 48,
     borderRadius: 100,
     marginRight: 10,
-    position: 'absolute',
-    right: 0
+    backgroundColor: Colors.WHITE_300
   }
 })
 
