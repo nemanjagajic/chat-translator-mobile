@@ -53,8 +53,8 @@ const styles = StyleSheet.create({
     height: 80,
   },
   image: {
-    width: 60,
-    height: 60,
+    width: 50,
+    height: 50,
     marginRight: 15
   },
   fullNameText: {
@@ -64,7 +64,7 @@ const styles = StyleSheet.create({
     paddingBottom: 5
   },
   chatText: {
-    fontSize: 15,
+    fontSize: 14,
     color: Colors.GRAY
   },
   date: {
