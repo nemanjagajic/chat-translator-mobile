@@ -8,8 +8,10 @@ export default {
   GRAY: '#808080',
   GRAY_100: '#b3b3b3',
   GRAY_200: '#cccccc',
+  GRAY_300: '#b3b3b3',
   BLACK: '#0d1126',
   ACCENT: '#03DAC5',
+  GREEN_100: '#c9e8e6',
 
   BACKGROUND: '#ffffff',
   DRAWER_BACKGROUND: '#f5f5f5'

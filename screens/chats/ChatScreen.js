@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from 'react'
-import { StyleSheet, KeyboardAvoidingView } from 'react-native'
+import React, { useEffect, useRef, useState } from 'react'
+import { StyleSheet, KeyboardAvoidingView, TouchableOpacity, Text } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import {
@@ -14,6 +14,9 @@ import MessagesList from '../../components/messages/MessagesList'
 import MessageInput from '../../components/messages/MessageInput'
 import ChatNavbar from '../../components/chats/ChatNavbar'
 import { MESSAGES_PAGINATION_LIMIT } from '../../constants/Messages'
+import IconSettings from '../../assets/settings-outline.svg'
+import Modal from 'react-native-modalbox'
+import ChatSettingsModal from '../../components/modals/ChatSettingsModal'
 
 const KEYBOARD_VERTICAL_OFFSET = 72
 
@@ -23,6 +26,8 @@ const ChatScreen = ({ navigation }) => {
   const offset = useSelector(state => state.chats.messagesOffset)
   const activeUser = useSelector(state => state.auth.user)
   const chatId = navigation.getParam('chatId')
+
+  const [isModalOpen, setModalOpen] = useState(false)
 
   let listRef = useRef(null)
 
@@ -40,6 +45,12 @@ const ChatScreen = ({ navigation }) => {
       dispatch(setMessagesOffset(0))
     }
   }, [])
+
+  useEffect(() => {
+    navigation.setParams({
+      toggleModal: () => setModalOpen(!isModalOpen)
+    })
+  }, [isModalOpen])
 
   const handleSendMessage = text => {
     dispatch(sendMessage({
@@ -70,6 +81,7 @@ const ChatScreen = ({ navigation }) => {
         sendMessage={handleSendMessage}
         handleInputFocus={() => listRef.current.scrollToOffset({ animated: true, offset: 0 })}
       />
+      <ChatSettingsModal isOpen={isModalOpen} closeModal={() => { setModalOpen(false) }} />
     </KeyboardAvoidingView>
   )
 }
@@ -81,7 +93,15 @@ ChatScreen.navigationOptions = ({ navigation }) => ({
     shadowColor: 'transparent',
     elevation: 0
   },
-  headerLeft: () => <ChatNavbar navigation={navigation} />
+  headerLeft: () => <ChatNavbar navigation={navigation} />,
+  headerRight: () => (
+    <TouchableOpacity
+      onPress={navigation.state.params.toggleModal}
+      style={styles.settingsButton}
+    >
+      <IconSettings height={28} width={28} />
+    </TouchableOpacity>
+  )
 })
 
 const styles = StyleSheet.create({
@@ -106,6 +126,9 @@ const styles = StyleSheet.create({
     height: 40,
     marginLeft: 25,
     marginRight: 15
+  },
+  settingsButton: {
+    marginRight: 20,
   }
 })
 

@@ -9,5 +9,12 @@
   },
   "Friends": {
     "headerTitle": "Friends"
+  },
+  "Chat": {
+    "alwaysShowOriginalMessages": "Always show original messages",
+    "selectSendingCountry": "Select the country in whose language you want to:",
+    "sendMessages": "Send messages",
+    "receiveMessages": "Receive messages",
+    "selectCountry": "Select country"
   }
 }
