@@ -4,6 +4,8 @@ import Modal from 'react-native-modalbox'
 import $t from '../../i18n'
 import Colors from '../../constants/Colors'
 import CountryPicker, { FlagButton } from 'react-native-country-picker-modal'
+import IconArrowLeft from '../../assets/arrow-back-black-outline.svg'
+import IconArrowRight from '../../assets/arrow-forward-outline.svg'
 
 const ChatSettingsModal = ({ isOpen, closeModal }) => {
   const [showOriginals, setShowOriginals] = useState(true)
@@ -35,7 +37,10 @@ const ChatSettingsModal = ({ isOpen, closeModal }) => {
         </View>
         <Text style={styles.selectCountry}>{$t('Chat.selectSendingCountry')}</Text>
         <View>
-          <Text style={[styles.optionText, { marginTop: 30 }]}>{$t('Chat.sendMessages')}</Text>
+          <View style={styles.messageOptionWrapper}>
+            <Text style={styles.optionText}>{$t('Chat.sendMessages')}</Text>
+            <IconArrowRight height={20} width={20} />
+          </View>
           <View style={styles.pickedCountry}>
             <FlagButton withEmoji countryCode={sendMessagesCountry && sendMessagesCountry.cca2} />
             <Text style={styles.countryText}>{ sendMessagesCountry && sendMessagesCountry.name }</Text>
@@ -50,7 +55,10 @@ const ChatSettingsModal = ({ isOpen, closeModal }) => {
           />
         </View>
         <View>
-          <Text style={[styles.optionText, { marginTop: 30 }]}>{$t('Chat.receiveMessages')}</Text>
+          <View style={styles.messageOptionWrapper}>
+            <Text style={styles.optionText}>{$t('Chat.receiveMessages')}</Text>
+            <IconArrowLeft height={20} width={20} />
+          </View>
           <View style={styles.pickedCountry}>
             <FlagButton withEmoji countryCode={receiveMessagesCountry && receiveMessagesCountry.cca2} />
             <Text style={styles.countryText}>{ receiveMessagesCountry && receiveMessagesCountry.name }</Text>
@@ -102,7 +110,8 @@ const styles = StyleSheet.create({
   optionText: {
     fontSize: 18,
     color: Colors.BLACK,
-    textAlign: 'center'
+    textAlign: 'center',
+    marginRight: 10
   },
   countryPickerButton: {
     width: 150,
@@ -132,6 +141,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginLeft: 5,
     fontWeight: '400'
+  },
+  messageOptionWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 30
   }
 })
 
