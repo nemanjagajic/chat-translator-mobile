@@ -12,6 +12,7 @@ import {
   SET_SENDING_MESSAGE_FINISHED,
   APPEND_MESSAGE_AND_CROP_LIMIT, SET_MESSAGES_OFFSET,
 } from './constants'
+import languages from '../../utils/languages'
 
 const initialState = {
   chats: [],
@@ -20,7 +21,8 @@ const initialState = {
   isFetchingMessages: false,
   openedChat: null,
   isSendingMessage: false,
-  messagesOffset: 0
+  messagesOffset: 0,
+  languages
 }
 
 export default (state = initialState, { type, payload }) => {

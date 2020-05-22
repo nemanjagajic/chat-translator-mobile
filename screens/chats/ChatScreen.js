@@ -15,7 +15,6 @@ import MessageInput from '../../components/messages/MessageInput'
 import ChatNavbar from '../../components/chats/ChatNavbar'
 import { MESSAGES_PAGINATION_LIMIT } from '../../constants/Messages'
 import IconSettings from '../../assets/settings-outline.svg'
-import Modal from 'react-native-modalbox'
 import ChatSettingsModal from '../../components/modals/ChatSettingsModal'
 
 const KEYBOARD_VERTICAL_OFFSET = 72

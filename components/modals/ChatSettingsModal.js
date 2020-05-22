@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
-import { StyleSheet, Text, View, Switch } from 'react-native'
+import { StyleSheet, Text, View, Switch, TouchableOpacity } from 'react-native'
 import Modal from 'react-native-modalbox'
 import $t from '../../i18n'
 import Colors from '../../constants/Colors'
-import CountryPicker, { FlagButton } from 'react-native-country-picker-modal'
-import IconArrowLeft from '../../assets/arrow-back-black-outline.svg'
-import IconArrowRight from '../../assets/arrow-forward-outline.svg'
+import LanguagesModal from './LanguagesModal'
+import { useSelector } from 'react-redux'
+import { RECEIVE, SEND } from '../../constants/Messages'
 
 const ChatSettingsModal = ({ isOpen, closeModal }) => {
+  const languages = useSelector(state => state.chats.languages)
+
   const [showOriginals, setShowOriginals] = useState(true)
-  const [sendMessagesCountry, setSendMessagesCountry] = useState(null)
-  const [receiveMessagesCountry, setReceiveMessagesCountry] = useState(null)
+  const [selectingLanguage, setSelectingLanguage] = useState(null)
+  const [languageSend, setLanguageSend] = useState(null)
+  const [languageReceive, setLanguageReceive] = useState(null)
 
   return (
     <Modal
@@ -35,43 +38,37 @@ const ChatSettingsModal = ({ isOpen, closeModal }) => {
             value={showOriginals}
           />
         </View>
-        <Text style={styles.selectCountry}>{$t('Chat.selectSendingCountry')}</Text>
-        <View>
-          <View style={styles.messageOptionWrapper}>
-            <Text style={styles.optionText}>{$t('Chat.sendMessages')}</Text>
-            <IconArrowRight height={20} width={20} />
+        <Text style={styles.selectCountry}>{$t('Chat.selectLanguages')}</Text>
+        <View style={styles.countryPickerWrapper}>
+          <View style={styles.pickedLanguageWrapper}>
+            <Text style={styles.pickLanguageText}>{$t('Chat.sendMessages')}</Text>
+            <TouchableOpacity onPress={() => setSelectingLanguage(SEND)} style={styles.pickedLanguage}>
+              <Text style={[styles.languageText, { color: languageSend ? Colors.MAIN : Colors.MAIN_300 }]}>
+                { languageSend ? languageSend.name : $t('Chat.selectLanguage') }
+              </Text>
+            </TouchableOpacity>
           </View>
-          <View style={styles.pickedCountry}>
-            <FlagButton withEmoji countryCode={sendMessagesCountry && sendMessagesCountry.cca2} />
-            <Text style={styles.countryText}>{ sendMessagesCountry && sendMessagesCountry.name }</Text>
+          <View style={styles.pickedLanguageWrapper}>
+            <Text style={styles.pickLanguageText}>{$t('Chat.receiveMessages')}</Text>
+            <TouchableOpacity onPress={() => setSelectingLanguage(RECEIVE)} style={styles.pickedLanguage}>
+              <Text style={[styles.languageText, { color: languageReceive ? Colors.MAIN : Colors.MAIN_300 }]}>
+                { languageReceive ? languageReceive.name : $t('Chat.selectLanguage') }
+              </Text>
+            </TouchableOpacity>
           </View>
-          <CountryPicker
-            withFilter
-            withAlphaFilter
-            withEmoji
-            onSelect={c => setSendMessagesCountry(c)}
-            containerButtonStyle={styles.countryPickerButton}
-            placeholder={$t('Chat.selectCountry')}
-          />
         </View>
         <View>
-          <View style={styles.messageOptionWrapper}>
-            <Text style={styles.optionText}>{$t('Chat.receiveMessages')}</Text>
-            <IconArrowLeft height={20} width={20} />
-          </View>
-          <View style={styles.pickedCountry}>
-            <FlagButton withEmoji countryCode={receiveMessagesCountry && receiveMessagesCountry.cca2} />
-            <Text style={styles.countryText}>{ receiveMessagesCountry && receiveMessagesCountry.name }</Text>
-          </View>
-          <CountryPicker
-            withFilter
-            withAlphaFilter
-            withEmoji
-            onSelect={c => setReceiveMessagesCountry(c)}
-            containerButtonStyle={styles.countryPickerButton}
-            placeholder={$t('Chat.selectCountry')}
-          />
+
         </View>
+        <LanguagesModal
+          isOpen={selectingLanguage}
+          closeModal={() => setSelectingLanguage(null)}
+          languages={languages}
+          setLanguage={l => {
+            selectingLanguage === SEND ? setLanguageSend(l) : setLanguageReceive(l)
+            setSelectingLanguage(null)
+          }}
+        />
       </View>
     </Modal>
   )
@@ -79,7 +76,7 @@ const ChatSettingsModal = ({ isOpen, closeModal }) => {
 
 const styles = StyleSheet.create({
   modal: {
-    height: 600,
+    height: 300,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
   },
@@ -95,7 +92,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   originalMessagesText: {
-    fontSize: 18,
+    fontSize: 16,
     color: Colors.BLACK,
   },
   switch: {
@@ -107,24 +104,16 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: Colors.GRAY_300
   },
-  optionText: {
-    fontSize: 18,
-    color: Colors.BLACK,
-    textAlign: 'center',
-    marginRight: 10
-  },
-  countryPickerButton: {
-    width: 150,
-    height: 50,
+  countryPickerWrapper: {
     display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: Colors.ACCENT,
-    borderRadius: 20,
-    marginTop: 5,
-    alignSelf: 'center'
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 20
   },
-  pickedCountry: {
+  pickedLanguageWrapper: {
+    width: '48%'
+  },
+  pickedLanguage: {
     display: 'flex',
     flexDirection: 'row',
     backgroundColor: Colors.WHITE_100,
@@ -133,21 +122,17 @@ const styles = StyleSheet.create({
     marginTop: 10,
     borderRadius: 20,
     alignItems: 'center',
-    paddingLeft: 20
+    justifyContent: 'center'
   },
-  countryText: {
-    fontSize: 18,
-    color: Colors.BLACK,
+  pickLanguageText: {
     textAlign: 'center',
-    marginLeft: 5,
-    fontWeight: '400'
+    fontSize: 15,
+    color: Colors.BLACK
   },
-  messageOptionWrapper: {
-    display: 'flex',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 30
+  languageText: {
+    fontSize: 16,
+    color: Colors.MAIN_300,
+    fontWeight: '500'
   }
 })
 

@@ -11,10 +11,11 @@
     "headerTitle": "Friends"
   },
   "Chat": {
-    "alwaysShowOriginalMessages": "Always show original messages",
-    "selectSendingCountry": "Select the country in whose language you want to:",
+    "alwaysShowOriginalMessages": "Show original and translated messages",
+    "selectLanguages": "Languages in which you want to",
     "sendMessages": "Send messages",
     "receiveMessages": "Receive messages",
-    "selectCountry": "Select country"
+    "selectLanguage": "Select language",
+    "searchLanguage": "Search language"
   }
 }
