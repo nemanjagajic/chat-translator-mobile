@@ -22,9 +22,10 @@ const styles = StyleSheet.create({
     width: '95%',
     alignSelf: 'center',
     borderRadius: 30,
-    marginTop: 10,
+    marginTop: 50,
     paddingLeft: 20,
-    fontSize: 16
+    fontSize: 16,
+    color: Colors.BLACK,
   }
 })
 

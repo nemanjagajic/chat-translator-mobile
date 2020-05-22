@@ -8,7 +8,7 @@ const LanguagesList = ({ languages, setLanguage }) => {
   const [filteredLanguages, setFilteredLanguages] = useState(languages)
 
   const filterLanguages = text => {
-    const languagesResult = languages.filter(l => l.name.includes(text))
+    const languagesResult = languages.filter(l => l.name.toLowerCase().includes(text.toLowerCase()))
     setFilteredLanguages(languagesResult)
   }
 

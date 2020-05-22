@@ -25,7 +25,7 @@ const LanguagesModal = ({ isOpen, closeModal, languages, setLanguage }) => {
 
 const styles = StyleSheet.create({
   modal: {
-    height: 500,
+    height: '100%',
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30
   },
