@@ -4,20 +4,46 @@ import Modal from 'react-native-modalbox'
 import $t from '../../i18n'
 import Colors from '../../constants/Colors'
 import LanguagesModal from './LanguagesModal'
-import { useSelector } from 'react-redux'
-import { RECEIVE, SEND } from '../../constants/Messages'
+import { useDispatch, useSelector } from 'react-redux'
+import {
+  RECEIVE,
+  RECEIVE_LANGUAGE_PROPERTY,
+  SEND,
+  SEND_LANGUAGE_PROPERTY,
+  SHOW_ORIGINAL_MESSAGES_PROPERTY
+} from '../../constants/Messages'
+import { setChatSettingsProperty } from '../../store/chats/actions'
 
-const ChatSettingsModal = ({ chat, isOpen, closeModal }) => {
+const ChatSettingsModal = ({ chat, isOpen, closeModal, showOriginalMessages }) => {
+  const dispatch = useDispatch()
   const languages = useSelector(state => state.chats.languages)
 
-  const show = chat && chat.me.showOriginalMessages
   const send = chat && languages && languages.find(l => l.code === chat.me.sendLanguage)
   const receive = chat && languages && languages.find(l => l.code === chat.me.receiveLanguage)
 
-  const [showOriginals, setShowOriginals] = useState(show)
+  const [showOriginals, setShowOriginals] = useState(showOriginalMessages)
   const [selectingLanguage, setSelectingLanguage] = useState(null)
   const [languageSend, setLanguageSend] = useState(send)
   const [languageReceive, setLanguageReceive] = useState(receive)
+
+  const setLanguage = l => {
+    dispatch(setChatSettingsProperty({
+      chatId: chat._id,
+      property: selectingLanguage === SEND ? SEND_LANGUAGE_PROPERTY : RECEIVE_LANGUAGE_PROPERTY,
+      value: l.code
+    }))
+    selectingLanguage === SEND ? setLanguageSend(l) : setLanguageReceive(l)
+    setSelectingLanguage(null)
+  }
+
+  const setShowOriginalMessages = showOriginals => {
+    dispatch(setChatSettingsProperty({
+      chatId: chat._id,
+      property: SHOW_ORIGINAL_MESSAGES_PROPERTY,
+      value: showOriginals
+    }))
+    setShowOriginals(showOriginals)
+  }
 
   return (
     <Modal
@@ -38,7 +64,7 @@ const ChatSettingsModal = ({ chat, isOpen, closeModal }) => {
             trackColor={{ false: Colors.GRAY_100, true: Colors.GREEN_100 }}
             thumbColor={showOriginals ? Colors.ACCENT : Colors.WHITE_200}
             ios_backgroundColor={Colors.WHITE_200}
-            onValueChange={() => setShowOriginals(!showOriginals)}
+            onValueChange={() => setShowOriginalMessages(!showOriginals)}
             value={showOriginals}
           />
         </View>
@@ -68,10 +94,7 @@ const ChatSettingsModal = ({ chat, isOpen, closeModal }) => {
           isOpen={!!selectingLanguage}
           closeModal={() => setSelectingLanguage(null)}
           languages={languages}
-          setLanguage={l => {
-            selectingLanguage === SEND ? setLanguageSend(l) : setLanguageReceive(l)
-            setSelectingLanguage(null)
-          }}
+          setLanguage={setLanguage}
         />
       </View>
     </Modal>

@@ -23,7 +23,9 @@ const ChatScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const messages = useSelector(state => state.chats.messages)
   const offset = useSelector(state => state.chats.messagesOffset)
+  const openedChat = useSelector(state => state.chats.openedChat)
   const activeUser = useSelector(state => state.auth.user)
+
   const chat = navigation.getParam('chat')
 
   const [isModalOpen, setModalOpen] = useState(false)
@@ -72,22 +74,29 @@ const ChatScreen = ({ navigation }) => {
       style={styles.container} behavior={'height'}
       keyboardVerticalOffset={KEYBOARD_VERTICAL_OFFSET}
     >
-      <MessagesList
-        showOriginalMessages={chat && chat.me.showOriginalMessages}
-        forwardedRef={listRef}
-        messages={messages}
-        activeUser={activeUser}
-        fetchAdditionalMessages={fetchAdditionalMessages}
-      />
+      {openedChat && (
+        <MessagesList
+          openedChat={openedChat}
+          showOriginalMessages={openedChat && openedChat.me.showOriginalMessages}
+          forwardedRef={listRef}
+          messages={messages}
+          activeUser={activeUser}
+          fetchAdditionalMessages={fetchAdditionalMessages}
+        />
+      )}
       <MessageInput
         sendMessage={handleSendMessage}
         handleInputFocus={() => listRef.current.scrollToOffset({ animated: true, offset: 0 })}
       />
-      <ChatSettingsModal
-        chat={chat}
-        isOpen={isModalOpen}
-        closeModal={() => { setModalOpen(false) }}
-      />
+      {openedChat && (
+        <ChatSettingsModal
+          chat={openedChat}
+          showOriginalMessages={openedChat && openedChat.me.showOriginalMessages}
+          isOpen={isModalOpen}
+          closeModal={() => { setModalOpen(false) }}
+        />
+      )}
+
     </KeyboardAvoidingView>
   )
 }

@@ -10,18 +10,18 @@ if (
 }
 
 const MessagesItem = memo(({ text, textTranslated, isMine, isFirst, showOriginalMessages }) => {
-  console.log({ showOriginalMessages })
   const [showOriginal, setShowOriginal] = useState(showOriginalMessages)
 
   const handleMessagePressed = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-    setShowOriginal(!showOriginal)
+    // TODO show message data on click
+    // setShowOriginal(!showOriginal)
   }
 
   return (
     <TouchableWithoutFeedback onPress={handleMessagePressed}>
       <View>
-        {showOriginal && (
+        {showOriginalMessages && (
           <View style={[
             styles.container,
             isMine ? styles.myMessage : styles.friendsMessage,

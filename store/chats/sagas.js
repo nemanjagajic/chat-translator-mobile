@@ -1,6 +1,6 @@
 import { all, takeLatest, put, call, select } from 'redux-saga/effects'
 import socket from '../../socket'
-import { GET_CHATS, GET_MESSAGES, SEND_MESSAGE } from './constants'
+import { GET_CHATS, GET_MESSAGES, SEND_MESSAGE, SET_CHAT_SETTINGS_PROPERTY } from './constants'
 import {
   setFetchingChats,
   setFetchingChatsFinished,
@@ -10,7 +10,7 @@ import {
   appendMessages,
   setSendingMessage,
   setSendingMessageFinished,
-  appendMessageAndCropLimit, setMessagesOffset
+  appendMessageAndCropLimit, setMessagesOffset, setOpenedChat
 } from './actions'
 import chatsService from '../../services/api/ChatsService'
 import { MESSAGES_PAGINATION_LIMIT } from '../../constants/Messages'
@@ -63,10 +63,21 @@ export function* sendMessage$({ payload }) {
   }
 }
 
+export function* setChatSettingsProperty$({ payload }) {
+  const { chatId, property, value } = payload
+  try {
+    const { data } = yield call(chatsService.setChatSettingsProperty, { chatId, property, value })
+    yield put(setOpenedChat(data))
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export default function* sagas() {
   yield all([
     takeLatest(GET_CHATS, getChats$),
     takeLatest(GET_MESSAGES, getMessages$),
-    takeLatest(SEND_MESSAGE, sendMessage$)
+    takeLatest(SEND_MESSAGE, sendMessage$),
+    takeLatest(SET_CHAT_SETTINGS_PROPERTY, setChatSettingsProperty$)
   ])
 }

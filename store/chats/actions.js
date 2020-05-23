@@ -14,7 +14,7 @@ import {
   SET_SENDING_MESSAGE,
   SET_SENDING_MESSAGE_FINISHED,
   APPEND_MESSAGE_AND_CROP_LIMIT,
-  SET_MESSAGES_OFFSET
+  SET_MESSAGES_OFFSET, SET_CHAT_SETTINGS_PROPERTY
 } from './constants'
 
 export const getChats = payload => ({
@@ -86,5 +86,10 @@ export const appendMessageAndCropLimit = payload => ({
 
 export const setMessagesOffset = payload => ({
   type: SET_MESSAGES_OFFSET,
+  payload
+})
+
+export const setChatSettingsProperty = payload => ({
+  type: SET_CHAT_SETTINGS_PROPERTY,
   payload
 })
