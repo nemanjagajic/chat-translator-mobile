@@ -3,7 +3,7 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import defaultAvatar from '../../assets/defaultAvatar.png'
-import {getChats, setOpenedChat} from '../../store/chats/actions'
+import { getChats, setOpenedChat } from '../../store/chats/actions'
 import IconBack from '../../assets/arrow-back-outline.svg'
 
 const ChatNavbar = ({ navigation }) => {
