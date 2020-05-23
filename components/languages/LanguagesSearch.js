@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, TextInput, TouchableOpacity, Platform } from 'react-native'
 import Colors from '../../constants/Colors'
 import $t from '../../i18n'
 import IconSearch from '../../assets/search-outline.svg'
@@ -15,7 +15,7 @@ const LanguagesSearch = ({ filterLanguages, closeModal }) => {
           onChangeText={text => filterLanguages(text)}
           placeholder={$t('Chat.searchLanguage')}
           placeholderTextColor={Colors.GRAY}
-          color={Colors.BLACK}
+          color={Platform.OS === 'ios' ? Colors.BLACK : null}
         />
       </View>
       <TouchableOpacity

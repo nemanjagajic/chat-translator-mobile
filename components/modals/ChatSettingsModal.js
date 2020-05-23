@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, Text, View, Switch, TouchableOpacity } from 'react-native'
 import Modal from 'react-native-modalbox'
 import $t from '../../i18n'
@@ -12,7 +12,7 @@ import {
   SEND_LANGUAGE_PROPERTY,
   SHOW_ORIGINAL_MESSAGES_PROPERTY
 } from '../../constants/Messages'
-import { setChatSettingsProperty } from '../../store/chats/actions'
+import {sendMessage, setChatSettingsProperty} from '../../store/chats/actions'
 
 const ChatSettingsModal = ({ chat, isOpen, closeModal, showOriginalMessages }) => {
   const dispatch = useDispatch()
@@ -26,13 +26,25 @@ const ChatSettingsModal = ({ chat, isOpen, closeModal, showOriginalMessages }) =
   const [languageSend, setLanguageSend] = useState(send)
   const [languageReceive, setLanguageReceive] = useState(receive)
 
-  const setLanguage = l => {
+  const setLanguage = (language) => {
     dispatch(setChatSettingsProperty({
       chatId: chat._id,
       property: selectingLanguage === SEND ? SEND_LANGUAGE_PROPERTY : RECEIVE_LANGUAGE_PROPERTY,
-      value: l.code
+      value: language.code
     }))
-    selectingLanguage === SEND ? setLanguageSend(l) : setLanguageReceive(l)
+    selectingLanguage === SEND ? setLanguageSend(language) : setLanguageReceive(language)
+    if (!languageSend) setLanguagePredefined(language, SEND_LANGUAGE_PROPERTY)
+    if (!languageReceive) setLanguagePredefined(language, RECEIVE_LANGUAGE_PROPERTY)
+    setSelectingLanguage(null)
+  }
+
+  const setLanguagePredefined = (language, property = '') => {
+    dispatch(setChatSettingsProperty({
+      chatId: chat._id,
+      property: property,
+      value: language.code
+    }))
+    property === SEND_LANGUAGE_PROPERTY ? setLanguageSend(language) : setLanguageReceive(language)
     setSelectingLanguage(null)
   }
 

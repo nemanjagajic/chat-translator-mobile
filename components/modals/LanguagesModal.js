@@ -12,7 +12,7 @@ const LanguagesModal = ({ isOpen, closeModal, languages, setLanguage }) => {
       onClosed={closeModal}
       coverScreen
       easing={null}
-      animationDuration={250}
+      animationDuration={0}
       useNativeDriver={false}
       backdrop={true}
       backdropOpacity={0}
@@ -26,9 +26,7 @@ const LanguagesModal = ({ isOpen, closeModal, languages, setLanguage }) => {
 
 const styles = StyleSheet.create({
   modal: {
-    height: '100%',
-    borderTopRightRadius: 30,
-    borderTopLeftRadius: 30
+    height: '100%'
   },
 })
 
