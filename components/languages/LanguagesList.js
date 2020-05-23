@@ -4,7 +4,7 @@ import Colors from '../../constants/Colors'
 import LanguagesItem from './LanguagesItem'
 import LanguagesSearch from './LanguagesSearch'
 
-const LanguagesList = ({ languages, setLanguage }) => {
+const LanguagesList = ({ languages, setLanguage, closeModal }) => {
   const [filteredLanguages, setFilteredLanguages] = useState(languages)
 
   const filterLanguages = text => {
@@ -14,7 +14,7 @@ const LanguagesList = ({ languages, setLanguage }) => {
 
   return (
     <View style={styles.container}>
-      <LanguagesSearch filterLanguages={filterLanguages} />
+      <LanguagesSearch filterLanguages={filterLanguages} closeModal={closeModal} />
       {filteredLanguages.length > 0 ? (
         <FlatList
           data={filteredLanguages}

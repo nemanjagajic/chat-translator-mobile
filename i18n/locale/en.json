@@ -11,7 +11,7 @@
     "headerTitle": "Friends"
   },
   "Chat": {
-    "alwaysShowOriginalMessages": "Show original and translated messages",
+    "alwaysShowOriginalMessages": "Show original and translated",
     "selectLanguages": "Languages in which you want to",
     "sendMessages": "Send messages",
     "receiveMessages": "Receive messages",

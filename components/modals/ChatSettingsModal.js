@@ -43,7 +43,7 @@ const ChatSettingsModal = ({ isOpen, closeModal }) => {
           <View style={styles.pickedLanguageWrapper}>
             <Text style={styles.pickLanguageText}>{$t('Chat.sendMessages')}</Text>
             <TouchableOpacity onPress={() => setSelectingLanguage(SEND)} style={styles.pickedLanguage}>
-              <Text style={[styles.languageText, { color: languageSend ? Colors.MAIN : Colors.MAIN_300 }]}>
+              <Text style={[styles.languageText, { color: languageSend ? Colors.MAIN : Colors.MAIN_200 }]}>
                 { languageSend ? languageSend.name : $t('Chat.selectLanguage') }
               </Text>
             </TouchableOpacity>
@@ -51,7 +51,7 @@ const ChatSettingsModal = ({ isOpen, closeModal }) => {
           <View style={styles.pickedLanguageWrapper}>
             <Text style={styles.pickLanguageText}>{$t('Chat.receiveMessages')}</Text>
             <TouchableOpacity onPress={() => setSelectingLanguage(RECEIVE)} style={styles.pickedLanguage}>
-              <Text style={[styles.languageText, { color: languageReceive ? Colors.MAIN : Colors.MAIN_300 }]}>
+              <Text style={[styles.languageText, { color: languageReceive ? Colors.MAIN : Colors.MAIN_200 }]}>
                 { languageReceive ? languageReceive.name : $t('Chat.selectLanguage') }
               </Text>
             </TouchableOpacity>
@@ -61,7 +61,7 @@ const ChatSettingsModal = ({ isOpen, closeModal }) => {
 
         </View>
         <LanguagesModal
-          isOpen={selectingLanguage}
+          isOpen={!!selectingLanguage}
           closeModal={() => setSelectingLanguage(null)}
           languages={languages}
           setLanguage={l => {

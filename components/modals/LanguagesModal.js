@@ -17,8 +17,9 @@ const LanguagesModal = ({ isOpen, closeModal, languages, setLanguage }) => {
       backdrop={true}
       backdropOpacity={0}
       swipeToClose={false}
+      keyboardTopOffset={0}
     >
-      <LanguagesList languages={languages} setLanguage={setLanguage} />
+      <LanguagesList languages={languages} setLanguage={setLanguage} closeModal={closeModal} />
     </Modal>
   )
 }
