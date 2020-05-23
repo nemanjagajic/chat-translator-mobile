@@ -76,7 +76,6 @@ const ChatScreen = ({ navigation }) => {
     >
       {openedChat && (
         <MessagesList
-          openedChat={openedChat}
           showOriginalMessages={openedChat && openedChat.me.showOriginalMessages}
           forwardedRef={listRef}
           messages={messages}
