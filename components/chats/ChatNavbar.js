@@ -3,8 +3,8 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import defaultAvatar from '../../assets/defaultAvatar.png'
-import { getChats, setOpenedChat } from '../../store/chats/actions'
 import IconBack from '../../assets/arrow-back-outline.svg'
+import { clearMessages, clearOpenedChat, setMessagesOffset } from '../../store/chats/actions'
 
 const ChatNavbar = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -14,8 +14,9 @@ const ChatNavbar = ({ navigation }) => {
       <TouchableOpacity
         style={{ marginLeft: 15 }}
         onPress={() => {
-          dispatch(getChats({ showLoadingIndicator: false }))
-          dispatch(setOpenedChat(null))
+          dispatch(clearOpenedChat())
+          dispatch(clearMessages())
+          dispatch(setMessagesOffset(0))
           navigation.goBack()
         }}
       >

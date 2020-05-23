@@ -16,6 +16,7 @@
     "sendMessages": "Send messages",
     "receiveMessages": "Receive messages",
     "selectLanguage": "Select language",
-    "searchLanguage": "Search language"
+    "searchLanguage": "Search language",
+    "selectLanguagesFriend": "Languages your friend has selected"
   }
 }

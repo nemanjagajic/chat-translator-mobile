@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import {
   clearMessages,
-  clearOpenedChat,
+  clearOpenedChat, getChats,
   getMessages,
   sendMessage,
   setMessagesOffset,
@@ -46,6 +46,7 @@ const ChatScreen = ({ navigation }) => {
       dispatch(clearOpenedChat())
       dispatch(clearMessages())
       dispatch(setMessagesOffset(0))
+      dispatch(getChats({ showLoadingIndicator: false }))
     }
   }, [])
 

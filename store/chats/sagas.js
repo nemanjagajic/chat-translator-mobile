@@ -67,6 +67,7 @@ export function* setChatSettingsProperty$({ payload }) {
   const { chatId, property, value } = payload
   try {
     const { data } = yield call(chatsService.setChatSettingsProperty, { chatId, property, value })
+    socket.emit('chatSettingChanged', data)
     yield put(setOpenedChat(data))
   } catch (e) {
     console.log(e)

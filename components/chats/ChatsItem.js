@@ -10,7 +10,9 @@ const DEFAULT_TOP_MARGIN = 0
 const DEFAULT_BOTTOM_MARGIN = 15
 const TEXT_LIMIT = 25
 
-const ChatsItem = ({ _id, friend, me, lastMessage: { text, createdAt }, isFirst, isLast, navigation }) => {
+const ChatsItem = ({ _id, friend, me, lastMessage: { text, textTranslated, createdAt }, isFirst, isLast, navigation }) => {
+  const textToDisplay = textTranslated || text
+
   return (
     <TouchableWithoutFeedback
       onPress={() => navigation.navigate('ChatScreen', {
@@ -33,9 +35,9 @@ const ChatsItem = ({ _id, friend, me, lastMessage: { text, createdAt }, isFirst,
           <Text style={styles.fullNameText}>{`${friend.firstName} ${friend.lastName}`}</Text>
           <Text style={styles.chatText}>
             {
-              ((text).length > TEXT_LIMIT) ?
-                (((text).substring(0, TEXT_LIMIT - 3)).trim() + '...') :
-                text
+              ((textToDisplay).length > TEXT_LIMIT) ?
+                (((textToDisplay).substring(0, TEXT_LIMIT - 3)).trim() + '...') :
+                textToDisplay
             }
           </Text>
         </View>

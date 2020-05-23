@@ -12,7 +12,7 @@ import {
   SEND_LANGUAGE_PROPERTY,
   SHOW_ORIGINAL_MESSAGES_PROPERTY
 } from '../../constants/Messages'
-import {sendMessage, setChatSettingsProperty} from '../../store/chats/actions'
+import { setChatSettingsProperty } from '../../store/chats/actions'
 
 const ChatSettingsModal = ({ chat, isOpen, closeModal, showOriginalMessages }) => {
   const dispatch = useDispatch()
@@ -20,6 +20,8 @@ const ChatSettingsModal = ({ chat, isOpen, closeModal, showOriginalMessages }) =
 
   const send = chat && languages && languages.find(l => l.code === chat.me.sendLanguage)
   const receive = chat && languages && languages.find(l => l.code === chat.me.receiveLanguage)
+  const friendSend = chat && languages && languages.find(l => l.code === chat.friend.sendLanguage)
+  const friendReceive = chat && languages && languages.find(l => l.code === chat.friend.receiveLanguage)
 
   const [showOriginals, setShowOriginals] = useState(showOriginalMessages)
   const [selectingLanguage, setSelectingLanguage] = useState(null)
@@ -45,7 +47,6 @@ const ChatSettingsModal = ({ chat, isOpen, closeModal, showOriginalMessages }) =
       value: language.code
     }))
     property === SEND_LANGUAGE_PROPERTY ? setLanguageSend(language) : setLanguageReceive(language)
-    setSelectingLanguage(null)
   }
 
   const setShowOriginalMessages = showOriginals => {
@@ -99,9 +100,25 @@ const ChatSettingsModal = ({ chat, isOpen, closeModal, showOriginalMessages }) =
             </TouchableOpacity>
           </View>
         </View>
-        <View>
 
+        <Text style={styles.selectCountry}>{$t('Chat.selectLanguagesFriend')}</Text>
+        <View style={styles.countryPickerWrapper}>
+          <View style={styles.pickedLanguageWrapper}>
+            <View onPress={() => setSelectingLanguage(SEND)} style={styles.pickedLanguage}>
+              <Text style={[styles.languageText, { color: Colors.GRAY_300 }]}>
+                { friendSend && friendSend.name }
+              </Text>
+            </View>
+          </View>
+          <View style={styles.pickedLanguageWrapper}>
+            <View onPress={() => setSelectingLanguage(RECEIVE)} style={styles.pickedLanguage}>
+              <Text style={[styles.languageText, { color: Colors.GRAY_300 }]}>
+                { friendReceive && friendReceive.name }
+              </Text>
+            </View>
+          </View>
         </View>
+
         <LanguagesModal
           isOpen={!!selectingLanguage}
           closeModal={() => setSelectingLanguage(null)}
@@ -115,7 +132,7 @@ const ChatSettingsModal = ({ chat, isOpen, closeModal, showOriginalMessages }) =
 
 const styles = StyleSheet.create({
   modal: {
-    height: 300,
+    height: 450,
     borderTopRightRadius: 30,
     borderTopLeftRadius: 30,
   },
