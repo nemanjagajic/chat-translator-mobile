@@ -7,13 +7,17 @@ import LanguagesModal from './LanguagesModal'
 import { useSelector } from 'react-redux'
 import { RECEIVE, SEND } from '../../constants/Messages'
 
-const ChatSettingsModal = ({ isOpen, closeModal }) => {
+const ChatSettingsModal = ({ chat, isOpen, closeModal }) => {
   const languages = useSelector(state => state.chats.languages)
 
-  const [showOriginals, setShowOriginals] = useState(true)
+  const show = chat && chat.me.showOriginalMessages
+  const send = chat && languages && languages.find(l => l.code === chat.me.sendLanguage)
+  const receive = chat && languages && languages.find(l => l.code === chat.me.receiveLanguage)
+
+  const [showOriginals, setShowOriginals] = useState(show)
   const [selectingLanguage, setSelectingLanguage] = useState(null)
-  const [languageSend, setLanguageSend] = useState(null)
-  const [languageReceive, setLanguageReceive] = useState(null)
+  const [languageSend, setLanguageSend] = useState(send)
+  const [languageReceive, setLanguageReceive] = useState(receive)
 
   return (
     <Modal

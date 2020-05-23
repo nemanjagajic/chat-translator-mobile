@@ -24,7 +24,7 @@ const ChatScreen = ({ navigation }) => {
   const messages = useSelector(state => state.chats.messages)
   const offset = useSelector(state => state.chats.messagesOffset)
   const activeUser = useSelector(state => state.auth.user)
-  const chatId = navigation.getParam('chatId')
+  const chat = navigation.getParam('chat')
 
   const [isModalOpen, setModalOpen] = useState(false)
 
@@ -32,10 +32,12 @@ const ChatScreen = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(setOpenedChat({
-      _id: chatId
+      _id: chat._id,
+      me: chat.me,
+      friend: chat.friend
     }))
     dispatch(getMessages({
-      chatId,
+      chatId: chat._id,
     }))
 
     return () => {
@@ -54,14 +56,14 @@ const ChatScreen = ({ navigation }) => {
   const handleSendMessage = text => {
     dispatch(sendMessage({
       text,
-      chatId,
+      chatId: chat._id,
     }))
   }
 
   const fetchAdditionalMessages = () => {
     if (messages.length < MESSAGES_PAGINATION_LIMIT * offset) return
     dispatch(getMessages({
-      chatId,
+      chatId: chat._id,
     }))
   }
 
@@ -71,6 +73,7 @@ const ChatScreen = ({ navigation }) => {
       keyboardVerticalOffset={KEYBOARD_VERTICAL_OFFSET}
     >
       <MessagesList
+        showOriginalMessages={chat && chat.me.showOriginalMessages}
         forwardedRef={listRef}
         messages={messages}
         activeUser={activeUser}
@@ -80,7 +83,11 @@ const ChatScreen = ({ navigation }) => {
         sendMessage={handleSendMessage}
         handleInputFocus={() => listRef.current.scrollToOffset({ animated: true, offset: 0 })}
       />
-      <ChatSettingsModal isOpen={isModalOpen} closeModal={() => { setModalOpen(false) }} />
+      <ChatSettingsModal
+        chat={chat}
+        isOpen={isModalOpen}
+        closeModal={() => { setModalOpen(false) }}
+      />
     </KeyboardAvoidingView>
   )
 }

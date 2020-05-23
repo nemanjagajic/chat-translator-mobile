@@ -9,8 +9,9 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true)
 }
 
-const MessagesItem = memo(({ text, textSr, isMine, isFirst }) => {
-  const [showOriginal, setShowOriginal] = useState(false)
+const MessagesItem = memo(({ text, textTranslated, isMine, isFirst, showOriginalMessages }) => {
+  console.log({ showOriginalMessages })
+  const [showOriginal, setShowOriginal] = useState(showOriginalMessages)
 
   const handleMessagePressed = () => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
@@ -30,7 +31,7 @@ const MessagesItem = memo(({ text, textSr, isMine, isFirst }) => {
           </View>
         )}
         <View style={[styles.container, isMine ? styles.myMessage : styles.friendsMessage, { marginBottom: isFirst ? 20 : 0 }]}>
-          <Text style={[styles.text, { color: isMine ? Colors.WHITE : Colors.BLACK }]}>{ textSr || text }</Text>
+          <Text style={[styles.text, { color: isMine ? Colors.WHITE : Colors.BLACK }]}>{ textTranslated || text }</Text>
         </View>
       </View>
     </TouchableWithoutFeedback>

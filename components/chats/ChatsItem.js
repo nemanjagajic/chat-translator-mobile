@@ -10,11 +10,11 @@ const DEFAULT_TOP_MARGIN = 0
 const DEFAULT_BOTTOM_MARGIN = 15
 const TEXT_LIMIT = 25
 
-const ChatsItem = ({ _id, friend, lastMessage: { text, createdAt }, isFirst, isLast, navigation }) => {
+const ChatsItem = ({ _id, friend, me, lastMessage: { text, createdAt }, isFirst, isLast, navigation }) => {
   return (
     <TouchableWithoutFeedback
       onPress={() => navigation.navigate('ChatScreen', {
-        chatId: _id,
+        chat: { _id, friend, me },
         friend
       })}
     >

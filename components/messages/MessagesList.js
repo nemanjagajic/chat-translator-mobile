@@ -3,7 +3,7 @@ import { FlatList, StyleSheet } from 'react-native'
 import Colors from '../../constants/Colors'
 import MessagesItem from './MessagesItem'
 
-const MessagesList = ({ messages, activeUser, fetchAdditionalMessages, forwardedRef }) => {
+const MessagesList = ({ messages, activeUser, fetchAdditionalMessages, forwardedRef, showOriginalMessages }) => {
   return (
     <FlatList
       ref={forwardedRef}
@@ -11,7 +11,12 @@ const MessagesList = ({ messages, activeUser, fetchAdditionalMessages, forwarded
       style={styles.container}
       data={messages}
       renderItem={({ item, index }) => (
-        <MessagesItem {...item} isFirst={index === 0} isMine={item.senderId === activeUser._id} />
+        <MessagesItem
+          {...item}
+          isFirst={index === 0}
+          isMine={item.senderId === activeUser._id}
+          showOriginalMessages={showOriginalMessages}
+        />
       )}
       keyExtractor={item => item._id}
       showsVerticalScrollIndicator={false}
