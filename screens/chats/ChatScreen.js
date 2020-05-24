@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { StyleSheet, KeyboardAvoidingView, TouchableOpacity, Text } from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, TouchableOpacity, Text, View } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import {
@@ -25,6 +25,7 @@ const ChatScreen = ({ navigation }) => {
   const offset = useSelector(state => state.chats.messagesOffset)
   const openedChat = useSelector(state => state.chats.openedChat)
   const activeUser = useSelector(state => state.auth.user)
+  const isFetchingMessages = useSelector(state => state.chats.isFetchingMessages)
 
   const chat = navigation.getParam('chat')
 
@@ -82,6 +83,7 @@ const ChatScreen = ({ navigation }) => {
           messages={messages}
           activeUser={activeUser}
           fetchAdditionalMessages={fetchAdditionalMessages}
+          isLoading={isFetchingMessages}
         />
       )}
       <MessageInput
