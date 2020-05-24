@@ -89,6 +89,7 @@ const ChatScreen = ({ navigation }) => {
       <MessageInput
         sendMessage={handleSendMessage}
         handleInputFocus={() => listRef.current.scrollToOffset({ animated: true, offset: 0 })}
+        openedChat={openedChat}
       />
       {openedChat && (
         <ChatSettingsModal

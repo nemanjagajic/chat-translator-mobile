@@ -14,7 +14,7 @@ import {
   SET_SENDING_MESSAGE,
   SET_SENDING_MESSAGE_FINISHED,
   APPEND_MESSAGE_AND_CROP_LIMIT,
-  SET_MESSAGES_OFFSET, SET_CHAT_SETTINGS_PROPERTY
+  SET_MESSAGES_OFFSET, SET_CHAT_SETTINGS_PROPERTY, SET_FRIEND_TYPING, REMOVE_FRIEND_TYPING
 } from './constants'
 
 export const getChats = payload => ({
@@ -91,5 +91,15 @@ export const setMessagesOffset = payload => ({
 
 export const setChatSettingsProperty = payload => ({
   type: SET_CHAT_SETTINGS_PROPERTY,
+  payload
+})
+
+export const setFriendTyping = payload => ({
+  type: SET_FRIEND_TYPING,
+  payload
+})
+
+export const removeFriendTyping = payload => ({
+  type: REMOVE_FRIEND_TYPING,
   payload
 })

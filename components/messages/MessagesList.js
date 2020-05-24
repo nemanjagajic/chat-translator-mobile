@@ -1,5 +1,5 @@
 import React from 'react'
-import { FlatList, StyleSheet, View, Text } from 'react-native'
+import { FlatList, StyleSheet, View } from 'react-native'
 import AnimatedEllipsis from 'react-native-animated-ellipsis'
 import Colors from '../../constants/Colors'
 import MessagesItem from './MessagesItem'

@@ -10,7 +10,7 @@ import {
   CLEAR_MESSAGES,
   SET_SENDING_MESSAGE,
   SET_SENDING_MESSAGE_FINISHED,
-  APPEND_MESSAGE_AND_CROP_LIMIT, SET_MESSAGES_OFFSET,
+  APPEND_MESSAGE_AND_CROP_LIMIT, SET_MESSAGES_OFFSET, SET_FRIEND_TYPING, REMOVE_FRIEND_TYPING,
 } from './constants'
 import languages from '../../utils/languages'
 
@@ -22,7 +22,8 @@ const initialState = {
   openedChat: null,
   isSendingMessage: false,
   messagesOffset: 0,
-  languages
+  languages,
+  friendsTyping: []
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -107,6 +108,20 @@ export default (state = initialState, { type, payload }) => {
     return {
       ...state,
       messagesOffset: payload
+    }
+  }
+  case SET_FRIEND_TYPING: {
+    const updatedFriendsTyping = state.friendsTyping.concat(payload)
+    return {
+      ...state,
+      friendsTyping: updatedFriendsTyping
+    }
+  }
+  case REMOVE_FRIEND_TYPING: {
+    const updatedFriendsTyping = state.friendsTyping.filter(item => item !== payload)
+    return {
+      ...state,
+      friendsTyping: updatedFriendsTyping
     }
   }
   default:

@@ -1,6 +1,12 @@
 import socket from './index'
 import store from '../store'
-import { appendMessageAndCropLimit, getChats, setOpenedChat } from '../store/chats/actions'
+import {
+  appendMessageAndCropLimit,
+  getChats,
+  removeFriendTyping,
+  setFriendTyping,
+  setOpenedChat
+} from '../store/chats/actions'
 import { MESSAGES_PAGINATION_LIMIT } from '../constants/Messages'
 import { AsyncStorage } from 'react-native'
 
@@ -29,6 +35,15 @@ socket.on('loadChatSettings', data => {
   } else {
     store.dispatch(getChats({ showLoadingIndicator: false }))
   }
+})
+
+socket.on('friendStartedTyping', data => {
+  store.dispatch(setFriendTyping(data.chatId))
+})
+
+socket.on('friendStoppedTyping', data => {
+  store.dispatch(removeFriendTyping(data.chatId))
+
 })
 
 export default {}

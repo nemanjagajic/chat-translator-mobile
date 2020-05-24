@@ -1,10 +1,29 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, TextInput, TouchableOpacity, View, Platform } from 'react-native'
 import Colors from '../../constants/Colors'
 import IconSend from '../../assets/paper-plane.svg'
+import socket from '../../socket'
 
-const MessageInput = ({ sendMessage, handleInputFocus }) => {
+const MessageInput = ({ sendMessage, handleInputFocus, openedChat }) => {
   const [value, setValue] = useState('')
+  const [isTyping, setIsTyping] = useState(false)
+
+  useEffect(() => {
+    if (value.length === 1 && !isTyping) {
+      setIsTyping(true)
+      socket.emit('startedTyping', {
+        friendId: openedChat && openedChat.friend._id,
+        chatId: openedChat._id
+      })
+    }
+    if (value.length === 0 && isTyping) {
+      setIsTyping(false)
+      socket.emit('stoppedTyping', {
+        friendId: openedChat && openedChat.friend._id,
+        chatId: openedChat._id
+      })
+    }
+  }, [value])
 
   return (
     <View style={styles.container}>
