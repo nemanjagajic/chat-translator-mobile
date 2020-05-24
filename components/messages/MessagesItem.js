@@ -9,7 +9,7 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true)
 }
 
-const MessagesItem = memo(({ text, textTranslated, isMine, isFirst, showOriginalMessages }) => {
+const MessagesItem = memo(({ text, textTranslated, isMine, isFirst, showOriginalMessages, isFriendTyping }) => {
   const [showOriginal, setShowOriginal] = useState(showOriginalMessages)
 
   const handleMessagePressed = () => {
@@ -30,7 +30,11 @@ const MessagesItem = memo(({ text, textTranslated, isMine, isFirst, showOriginal
             <Text style={[styles.text]}>{ text }</Text>
           </View>
         )}
-        <View style={[styles.container, isMine ? styles.myMessage : styles.friendsMessage, { marginBottom: isFirst ? 20 : 0 }]}>
+        <View style={[
+          styles.container,
+          isMine ? styles.myMessage : styles.friendsMessage,
+          { marginBottom: isFirst ? (isFriendTyping ? 50 : 20) : 0 }
+        ]}>
           <Text style={[styles.text, { color: isMine ? Colors.WHITE : Colors.BLACK }]}>{ textTranslated || text }</Text>
         </View>
       </View>

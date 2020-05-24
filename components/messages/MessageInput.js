@@ -9,7 +9,7 @@ const MessageInput = ({ sendMessage, handleInputFocus, openedChat }) => {
   const [isTyping, setIsTyping] = useState(false)
 
   useEffect(() => {
-    if (value.length === 1 && !isTyping) {
+    if (value.length > 0 && !isTyping) {
       setIsTyping(true)
       socket.emit('startedTyping', {
         friendId: openedChat && openedChat.friend._id,

@@ -1,13 +1,15 @@
 import React from 'react'
-import { FlatList, StyleSheet, View } from 'react-native'
+import { FlatList, StyleSheet, View, Text } from 'react-native'
 import AnimatedEllipsis from 'react-native-animated-ellipsis'
 import Colors from '../../constants/Colors'
 import MessagesItem from './MessagesItem'
 
-const MessagesList = ({ messages, activeUser, fetchAdditionalMessages, forwardedRef, showOriginalMessages, isLoading }) => {
+const MessagesList = ({
+  messages, activeUser, fetchAdditionalMessages, forwardedRef, showOriginalMessages, isLoading, isFriendTyping
+}) => {
   return (
     <View style={styles.container}>
-      {isLoading || messages.length === 0 ? (
+      {isLoading && messages.length === 0 ? (
         <AnimatedEllipsis
           numberOfDots={3}
           minOpacity={0.4}
@@ -31,6 +33,7 @@ const MessagesList = ({ messages, activeUser, fetchAdditionalMessages, forwarded
               isFirst={index === 0}
               isMine={item.senderId === activeUser._id}
               showOriginalMessages={showOriginalMessages}
+              isFriendTyping={isFriendTyping}
             />
           )}
           keyExtractor={item => item._id}
@@ -38,6 +41,21 @@ const MessagesList = ({ messages, activeUser, fetchAdditionalMessages, forwarded
           onEndReachedThreshold={1}
           onEndReached={fetchAdditionalMessages}
         />
+      )}
+      {isFriendTyping && (
+        <View style={styles.typing}>
+          <AnimatedEllipsis
+            numberOfDots={3}
+            minOpacity={0.4}
+            animationDelay={200}
+            style={{
+              color: Colors.MAIN_300,
+              fontSize: 40,
+              marginTop: -24,
+              letterSpacing: -10
+            }}
+          />
+        </View>
       )}
     </View>
   )
@@ -56,6 +74,19 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: Colors.BACKGROUND,
     width: '100%'
+  },
+  typing: {
+    width: 100,
+    height: 40,
+    backgroundColor: Colors.WHITE_300,
+    left: 10,
+    bottom: 5,
+    position: 'absolute',
+    borderRadius: 30,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
   }
 })
 

@@ -26,10 +26,12 @@ const ChatScreen = ({ navigation }) => {
   const openedChat = useSelector(state => state.chats.openedChat)
   const activeUser = useSelector(state => state.auth.user)
   const isFetchingMessages = useSelector(state => state.chats.isFetchingMessages)
+  const friendsTyping = useSelector(state => state.chats.friendsTyping)
 
   const chat = navigation.getParam('chat')
 
   const [isModalOpen, setModalOpen] = useState(false)
+  const [isFriendTyping, setIsFriendTyping] = useState(false)
 
   let listRef = useRef(null)
 
@@ -56,6 +58,13 @@ const ChatScreen = ({ navigation }) => {
       toggleModal: () => setModalOpen(!isModalOpen)
     })
   }, [isModalOpen])
+
+  useEffect(() => {
+    const isTyping = openedChat && !!friendsTyping.find(item => item === openedChat._id)
+    console.log({ friendsTyping })
+    console.log({ isTyping })
+    setIsFriendTyping(isTyping)
+  }, [friendsTyping, openedChat])
 
   const handleSendMessage = text => {
     dispatch(sendMessage({
@@ -84,6 +93,7 @@ const ChatScreen = ({ navigation }) => {
           activeUser={activeUser}
           fetchAdditionalMessages={fetchAdditionalMessages}
           isLoading={isFetchingMessages}
+          isFriendTyping={isFriendTyping}
         />
       )}
       <MessageInput
