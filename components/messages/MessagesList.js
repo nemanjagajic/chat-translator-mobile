@@ -16,9 +16,9 @@ const MessagesList = ({
           animationDelay={200}
           style={{
             color: Colors.MAIN_300,
-            fontSize: 100,
+            fontSize: 80,
             letterSpacing: -15,
-            marginBottom: 100
+            marginBottom: 80
           }}
         />
       ) : (
