@@ -61,8 +61,6 @@ const ChatScreen = ({ navigation }) => {
 
   useEffect(() => {
     const isTyping = openedChat && !!friendsTyping.find(item => item === openedChat._id)
-    console.log({ friendsTyping })
-    console.log({ isTyping })
     setIsFriendTyping(isTyping)
   }, [friendsTyping, openedChat])
 
@@ -98,7 +96,7 @@ const ChatScreen = ({ navigation }) => {
       )}
       <MessageInput
         sendMessage={handleSendMessage}
-        handleInputFocus={() => listRef.current.scrollToOffset({ animated: true, offset: 0 })}
+        handleInputFocus={() => listRef.current && listRef.current.scrollToOffset({ animated: true, offset: 0 })}
         openedChat={openedChat}
       />
       {openedChat && (
