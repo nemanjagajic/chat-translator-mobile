@@ -1,6 +1,6 @@
 import { all, takeLatest, put, call, select } from 'redux-saga/effects'
 import socket from '../../socket'
-import {GET_CHATS, GET_MESSAGES, SEND_MESSAGE, SET_CHAT_SETTINGS_PROPERTY, SET_CHAT_VISITED} from './constants'
+import { GET_CHATS, GET_MESSAGES, SEND_MESSAGE, SET_CHAT_SETTINGS_PROPERTY, SET_CHAT_VISITED } from './constants'
 import {
   setFetchingChats,
   setFetchingChatsFinished,
@@ -82,9 +82,11 @@ export function* setChatSettingsProperty$({ payload }) {
 }
 
 export function* setChatVisited$({ payload }) {
+  const me = yield select(getActiveUser)
   try {
     const { chatId } = payload
     yield call(chatsService.setChatVisited, { chatId })
+    socket.emit('friendVisitedChat', { chatId, userId: me._id })
   } catch (e) {
     console.log(e)
   }

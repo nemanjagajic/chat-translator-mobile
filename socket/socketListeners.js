@@ -2,7 +2,7 @@ import socket from './index'
 import store from '../store'
 import {
   appendMessageAndCropLimit,
-  getChats,
+  getChats, getMessages,
   removeFriendTyping, setChatVisited,
   setFriendTyping,
   setOpenedChat
@@ -44,7 +44,20 @@ socket.on('friendStartedTyping', data => {
 
 socket.on('friendStoppedTyping', data => {
   store.dispatch(removeFriendTyping(data.chatId))
+})
 
+socket.on('updateFriendVisitData', data => {
+  const state = store.getState()
+  const openedChat = state.chats.openedChat
+  if (!openedChat) {
+    store.dispatch(getChats({ showLoadingIndicator: false }))
+    return
+  }
+  if (openedChat._id === data.chatId) {
+    const updatedOpenedChat = { ...openedChat }
+    updatedOpenedChat.friend.lastVisit = data.newLastVisit
+    store.dispatch(setOpenedChat(updatedOpenedChat))
+  }
 })
 
 export default {}
