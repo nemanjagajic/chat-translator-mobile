@@ -10,7 +10,7 @@ const DEFAULT_TOP_MARGIN = 0
 const DEFAULT_BOTTOM_MARGIN = 15
 const TEXT_LIMIT = 25
 
-const ChatsItem = ({ _id, friend, me, lastMessage: { text, textTranslated, createdAt }, isFirst, isLast, navigation }) => {
+const ChatsItem = ({ _id, friend, me, lastMessage: { text, textTranslated, createdAt, senderId }, isFirst, isLast, navigation }) => {
   const textToDisplay = textTranslated || text
 
   return (
@@ -33,7 +33,11 @@ const ChatsItem = ({ _id, friend, me, lastMessage: { text, textTranslated, creat
         />
         <View>
           <Text style={styles.fullNameText}>{`${friend.firstName} ${friend.lastName}`}</Text>
-          <Text style={styles.chatText}>
+          <Text style={
+            (me.lastVisit <= createdAt && senderId !== me._id)
+              ? styles.chatTextUnread
+              : styles.chatText}
+          >
             {
               ((textToDisplay).length > TEXT_LIMIT) ?
                 (((textToDisplay).substring(0, TEXT_LIMIT - 3)).trim() + '...') :
@@ -68,6 +72,11 @@ const styles = StyleSheet.create({
   chatText: {
     fontSize: 14,
     color: Colors.GRAY
+  },
+  chatTextUnread: {
+    fontSize: 14,
+    color: Colors.BLACK,
+    fontWeight: '700'
   },
   date: {
     position: 'absolute',
