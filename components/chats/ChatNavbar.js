@@ -4,7 +4,7 @@ import { useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import IconBack from '../../assets/arrow-back-outline.svg'
-import { clearMessages, clearOpenedChat, setMessagesOffset } from '../../store/chats/actions'
+import { clearMessages, clearOpenedChat, getChats, setMessagesOffset } from '../../store/chats/actions'
 
 const ChatNavbar = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -17,6 +17,7 @@ const ChatNavbar = ({ navigation }) => {
           dispatch(clearOpenedChat())
           dispatch(clearMessages())
           dispatch(setMessagesOffset(0))
+          dispatch(getChats({ showLoadingIndicator: false }))
           navigation.goBack()
         }}
       >
