@@ -26,6 +26,7 @@ const ChatScreen = ({ navigation }) => {
   const openedChat = useSelector(state => state.chats.openedChat)
   const activeUser = useSelector(state => state.auth.user)
   const isFetchingMessages = useSelector(state => state.chats.isFetchingMessages)
+  const isSendingMessage = useSelector(state => state.chats.isSendingMessage)
   const friendsTyping = useSelector(state => state.chats.friendsTyping)
 
   const chat = navigation.getParam('chat')
@@ -98,6 +99,7 @@ const ChatScreen = ({ navigation }) => {
         sendMessage={handleSendMessage}
         handleInputFocus={() => listRef.current && listRef.current.scrollToOffset({ animated: true, offset: 0 })}
         openedChat={openedChat}
+        isSendingMessage={isSendingMessage}
       />
       {openedChat && (
         <ChatSettingsModal

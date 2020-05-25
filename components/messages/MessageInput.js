@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import { StyleSheet, TextInput, TouchableOpacity, View, Platform } from 'react-native'
+import { StyleSheet, TextInput, TouchableOpacity, View, Platform, Text } from 'react-native'
 import Colors from '../../constants/Colors'
 import IconSend from '../../assets/paper-plane.svg'
+import IconSendAlt from '../../assets/paper-plane-alt.svg'
 import socket from '../../socket'
 
-const MessageInput = ({ sendMessage, handleInputFocus, openedChat }) => {
+const MessageInput = ({ sendMessage, handleInputFocus, openedChat, isSendingMessage }) => {
   const [value, setValue] = useState('')
   const [isTyping, setIsTyping] = useState(false)
 
@@ -41,9 +42,13 @@ const MessageInput = ({ sendMessage, handleInputFocus, openedChat }) => {
           setValue('')
         }}
         style={[styles.sendButton]}
-        disabled={value === ''}
+        disabled={value === '' || isSendingMessage}
       >
-        <IconSend height={28} width={28} />
+        {(value === '' || isSendingMessage) ? (
+          <IconSendAlt height={28} width={28} />
+        ) : (
+          <IconSend height={28} width={28} />
+        )}
       </TouchableOpacity>
     </View>
   )

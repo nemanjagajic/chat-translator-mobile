@@ -16,6 +16,7 @@ import chatsService from '../../services/api/ChatsService'
 import { MESSAGES_PAGINATION_LIMIT } from '../../constants/Messages'
 
 const getMessagesOffset = state => state.chats.messagesOffset
+const getActiveUser = state => state.auth.user
 
 export function* getChats$({ payload }) {
   const { showLoadingIndicator } = payload
@@ -52,8 +53,14 @@ export function* getMessages$({ payload }) {
 export function* sendMessage$({ payload }) {
   const { chatId, text } = payload
   yield put(setSendingMessage())
+  const me = yield select(getActiveUser)
   try {
+    payload.pending = true
+    payload.senderId = me._id
+    console.log({ payload })
+    yield put(appendMessageAndCropLimit({ paginationLimit: MESSAGES_PAGINATION_LIMIT, message: payload }))
     const { data } = yield call(chatsService.sendMessage, { chatId, text })
+    console.log({ data })
     socket.emit('chatMessageSent', data.message)
     yield put(appendMessageAndCropLimit({ paginationLimit: MESSAGES_PAGINATION_LIMIT, message: data.message }))
   } catch (e) {

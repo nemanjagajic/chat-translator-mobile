@@ -34,6 +34,7 @@ const MessagesList = ({
               isMine={item.senderId === activeUser._id}
               showOriginalMessages={showOriginalMessages}
               isFriendTyping={isFriendTyping}
+              isPending={!!item.pending}
             />
           )}
           keyExtractor={item => item._id}

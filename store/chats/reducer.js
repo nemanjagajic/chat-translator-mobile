@@ -96,7 +96,8 @@ export default (state = initialState, { type, payload }) => {
   }
   case APPEND_MESSAGE_AND_CROP_LIMIT: {
     const { message, paginationLimit } = payload
-    const cropped = state.messages.slice(0, paginationLimit - 1)
+    const sentMessages = state.messages.filter(m => !m.pending)
+    const cropped = sentMessages.slice(0, paginationLimit - 1)
     const croppedMessages = [message].concat(cropped)
     return {
       ...state,

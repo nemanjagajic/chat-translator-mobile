@@ -1,6 +1,7 @@
 import React, { memo, useState } from 'react'
 import { View, Text, StyleSheet, TouchableWithoutFeedback, UIManager, LayoutAnimation, Platform } from 'react-native'
 import Colors from '../../constants/Colors'
+import AnimatedEllipsis from 'react-native-animated-ellipsis'
 
 if (
   Platform.OS === 'android' &&
@@ -9,7 +10,7 @@ if (
   UIManager.setLayoutAnimationEnabledExperimental(true)
 }
 
-const MessagesItem = memo(({ text, textTranslated, isMine, isFirst, showOriginalMessages, isFriendTyping }) => {
+const MessagesItem = memo(({ text, textTranslated, isMine, isFirst, showOriginalMessages, isFriendTyping, isPending }) => {
   const [showOriginal, setShowOriginal] = useState(showOriginalMessages)
 
   const handleMessagePressed = () => {
@@ -33,9 +34,26 @@ const MessagesItem = memo(({ text, textTranslated, isMine, isFirst, showOriginal
         <View style={[
           styles.container,
           isMine ? styles.myMessage : styles.friendsMessage,
-          { marginBottom: isFirst ? (isFriendTyping ? 50 : 20) : 0 }
+          {
+            marginBottom: isFirst ? (isFriendTyping ? 50 : 20) : 0,
+            backgroundColor: isPending ? Colors.MAIN_300 : isMine ? Colors.MAIN : Colors.WHITE_200
+          }
         ]}>
-          <Text style={[styles.text, { color: isMine ? Colors.WHITE : Colors.BLACK }]}>{ textTranslated || text }</Text>
+          {isPending ? (
+            <AnimatedEllipsis
+              numberOfDots={3}
+              minOpacity={0.4}
+              animationDelay={200}
+              style={{
+                color: Colors.WHITE,
+                fontSize: 30,
+                marginTop: -18,
+                letterSpacing: -10
+              }}
+            />
+          ) : (
+            <Text style={[styles.text, { color: isMine ? Colors.WHITE : Colors.BLACK }]}>{ textTranslated || text }</Text>
+          )}
         </View>
       </View>
     </TouchableWithoutFeedback>
