@@ -1,6 +1,6 @@
 import { all, takeLatest, put, call, select } from 'redux-saga/effects'
 import socket from '../../socket'
-import { GET_CHATS, GET_MESSAGES, SEND_MESSAGE, SET_CHAT_SETTINGS_PROPERTY } from './constants'
+import {GET_CHATS, GET_MESSAGES, SEND_MESSAGE, SET_CHAT_SETTINGS_PROPERTY, SET_CHAT_VISITED} from './constants'
 import {
   setFetchingChats,
   setFetchingChatsFinished,
@@ -81,11 +81,21 @@ export function* setChatSettingsProperty$({ payload }) {
   }
 }
 
+export function* setChatVisited$({ payload }) {
+  try {
+    const { chatId } = payload
+    yield call(chatsService.setChatVisited, { chatId })
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export default function* sagas() {
   yield all([
     takeLatest(GET_CHATS, getChats$),
     takeLatest(GET_MESSAGES, getMessages$),
     takeLatest(SEND_MESSAGE, sendMessage$),
-    takeLatest(SET_CHAT_SETTINGS_PROPERTY, setChatSettingsProperty$)
+    takeLatest(SET_CHAT_SETTINGS_PROPERTY, setChatSettingsProperty$),
+    takeLatest(SET_CHAT_VISITED, setChatVisited$)
   ])
 }

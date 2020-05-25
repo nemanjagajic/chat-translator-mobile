@@ -20,5 +20,7 @@ class AuthService extends ApiService {
       property,
       value
     })
+
+  setChatVisited = async ({ chatId }) => this.apiClient.post(`${API_ENDPOINTS.CHATS}/setChatVisited`, { chatId })
 }
 export default new AuthService()

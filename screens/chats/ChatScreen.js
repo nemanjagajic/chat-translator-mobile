@@ -6,7 +6,7 @@ import {
   clearMessages,
   clearOpenedChat, getChats,
   getMessages,
-  sendMessage,
+  sendMessage, setChatVisited,
   setMessagesOffset,
   setOpenedChat
 } from '../../store/chats/actions'
@@ -44,6 +44,9 @@ const ChatScreen = ({ navigation }) => {
     }))
     dispatch(getMessages({
       chatId: chat._id,
+    }))
+    dispatch(setChatVisited({
+      chatId: chat._id
     }))
 
     return () => {
@@ -93,6 +96,7 @@ const ChatScreen = ({ navigation }) => {
           fetchAdditionalMessages={fetchAdditionalMessages}
           isLoading={isFetchingMessages}
           isFriendTyping={isFriendTyping}
+          friendLastVisit={openedChat && openedChat.friend.lastVisit}
         />
       )}
       <MessageInput

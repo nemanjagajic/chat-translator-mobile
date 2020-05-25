@@ -5,7 +5,7 @@ import Colors from '../../constants/Colors'
 import MessagesItem from './MessagesItem'
 
 const MessagesList = ({
-  messages, activeUser, fetchAdditionalMessages, forwardedRef, showOriginalMessages, isLoading, isFriendTyping
+  messages, activeUser, fetchAdditionalMessages, forwardedRef, showOriginalMessages, isLoading, isFriendTyping, friendLastVisit
 }) => {
   return (
     <View style={styles.container}>
@@ -35,6 +35,7 @@ const MessagesList = ({
               showOriginalMessages={showOriginalMessages}
               isFriendTyping={isFriendTyping}
               isPending={!!item.pending}
+              isSeen={friendLastVisit >= item.createdAt}
             />
           )}
           keyExtractor={item => item._id}

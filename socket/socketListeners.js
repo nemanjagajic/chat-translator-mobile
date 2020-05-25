@@ -3,7 +3,7 @@ import store from '../store'
 import {
   appendMessageAndCropLimit,
   getChats,
-  removeFriendTyping,
+  removeFriendTyping, setChatVisited,
   setFriendTyping,
   setOpenedChat
 } from '../store/chats/actions'
@@ -22,6 +22,7 @@ socket.on('loadMessage', message => {
   }
   if (openedChat._id === message.chatId) {
     store.dispatch(appendMessageAndCropLimit({ paginationLimit: MESSAGES_PAGINATION_LIMIT, message }))
+    store.dispatch(setChatVisited({ chatId: message.chatId }))
   }
 })
 

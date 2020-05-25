@@ -1,29 +1,16 @@
-import React, { memo, useState } from 'react'
-import { View, Text, StyleSheet, TouchableWithoutFeedback, UIManager, LayoutAnimation, Platform } from 'react-native'
+import React, { memo } from 'react'
+import { View, Text, StyleSheet } from 'react-native'
 import Colors from '../../constants/Colors'
 import AnimatedEllipsis from 'react-native-animated-ellipsis'
 import IconCheck from '../../assets/checkmark.svg'
 import IconCheckDone from '../../assets/checkmark-done.svg'
 import moment from 'moment'
 
-if (
-  Platform.OS === 'android' &&
-  UIManager.setLayoutAnimationEnabledExperimental
-) {
-  UIManager.setLayoutAnimationEnabledExperimental(true)
-}
-
-const MessagesItem = memo(({ text, textTranslated, isMine, isFirst, showOriginalMessages, isFriendTyping, isPending, createdAt }) => {
-  const [showOriginal, setShowOriginal] = useState(showOriginalMessages)
-
-  const handleMessagePressed = () => {
-    LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut)
-    // TODO show message data on click
-    // setShowOriginal(!showOriginal)
-  }
-
+const MessagesItem = memo(({
+  text, textTranslated, isMine, isFirst, showOriginalMessages, isFriendTyping, isPending, createdAt, isSeen
+}) => {
   return (
-    <TouchableWithoutFeedback onPress={handleMessagePressed}>
+    <View>
       <View>
         {showOriginalMessages && (
           <View style={[
@@ -62,13 +49,13 @@ const MessagesItem = memo(({ text, textTranslated, isMine, isFirst, showOriginal
               <Text style={[styles.text, { color: isMine ? Colors.WHITE : Colors.BLACK }]}>{ textTranslated || text }</Text>
               <View style={styles.messageMetaData}>
                 <Text style={styles.dateText}>{ moment(createdAt).format('HH:mm') }</Text>
-                { isMine && <IconCheck height={11} width={11} /> }
+                { isMine && ( isSeen ? <IconCheckDone height={11} width={11} /> : <IconCheck height={11} width={11} />) }
               </View>
             </View>
           )}
         </View>
       </View>
-    </TouchableWithoutFeedback>
+    </View>
   )
 })
 
