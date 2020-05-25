@@ -55,12 +55,12 @@ export function* sendMessage$({ payload }) {
   yield put(setSendingMessage())
   const me = yield select(getActiveUser)
   try {
-    payload.pending = true
-    payload.senderId = me._id
-    console.log({ payload })
-    yield put(appendMessageAndCropLimit({ paginationLimit: MESSAGES_PAGINATION_LIMIT, message: payload }))
+    const pendingMessage = { ...payload }
+    pendingMessage.pending = true
+    pendingMessage._id = Math.random().toString(36).slice(2)
+    pendingMessage.senderId = me._id
+    yield put(appendMessageAndCropLimit({ paginationLimit: MESSAGES_PAGINATION_LIMIT, message: pendingMessage }))
     const { data } = yield call(chatsService.sendMessage, { chatId, text })
-    console.log({ data })
     socket.emit('chatMessageSent', data.message)
     yield put(appendMessageAndCropLimit({ paginationLimit: MESSAGES_PAGINATION_LIMIT, message: data.message }))
   } catch (e) {
