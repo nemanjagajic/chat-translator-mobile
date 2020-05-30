@@ -14,7 +14,7 @@ import IconSend from '../assets/paper-plane-outline.svg'
 import IconMenu from '../assets/menu-outline.svg'
 import IconPlanet from '../assets/planet-outline.svg'
 import { registerNotificationToken } from '../store/auth/actions'
-import {BACKGROUND, DEFAULT, GRANTED} from '../constants/General'
+import {BACKGROUND, DEFAULT, GRANTED, SELECTED} from '../constants/General'
 
 const HomeScreen = props => {
   const dispatch = useDispatch()
@@ -63,7 +63,11 @@ const HomeScreen = props => {
   }
 
   const handleNotification = notification => {
-    if (AppState.currentState === BACKGROUND) {
+    if (AppState.currentState === 'active' && notification.origin === 'received' && Platform.OS === 'android') {
+      Notifications.dismissAllNotificationsAsync()
+    }
+
+    if (notification.origin === SELECTED) {
       const { data } = notification
       props.navigation.navigate('ChatScreen', {
         chat: data.chat,
