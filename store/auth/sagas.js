@@ -1,5 +1,5 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects'
-import { LOG_IN, LOG_OUT, SET_ACTIVE_USER } from './constants'
+import { LOG_IN, LOG_OUT, REGISTER_NOTIFICATION_TOKEN, SET_ACTIVE_USER } from './constants'
 import authService from '../../services/api/AuthService'
 import { removeUser, setLoginFinished, setLoginInProgress, setUser } from './actions'
 
@@ -39,10 +39,20 @@ export function* logOut$({ payload }) {
   }
 }
 
+export function* registerNotificationToken$({ payload }) {
+  try {
+    const { token } = payload
+    yield call(authService.registerNotificationToken, { token })
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export default function* sagas() {
   yield all([
     takeLatest(LOG_IN, logIn$),
     takeLatest(LOG_OUT, logOut$),
-    takeLatest(SET_ACTIVE_USER, setActiveUser$)
+    takeLatest(SET_ACTIVE_USER, setActiveUser$),
+    takeLatest(REGISTER_NOTIFICATION_TOKEN, registerNotificationToken$)
   ])
 }

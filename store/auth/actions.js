@@ -1,6 +1,6 @@
 import {
   LOG_IN,
-  LOG_OUT,
+  LOG_OUT, REGISTER_NOTIFICATION_TOKEN,
   REMOVE_USER,
   SET_ACTIVE_USER,
   SET_LOGIN_FINISHED,
@@ -38,4 +38,9 @@ export const setUser = payload => ({
 
 export const removeUser = () => ({
   type: REMOVE_USER
+})
+
+export const registerNotificationToken = payload => ({
+  type: REGISTER_NOTIFICATION_TOKEN,
+  payload
 })

@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Vibration } from 'react-native'
+import { Notifications } from 'expo'
+import Constants from 'expo-constants'
+import * as Permissions from 'expo-permissions'
 import Colors from '../constants/Colors'
 import AddFriendButton from '../components/buttons/AddFriendButton'
 import SearchButton from '../components/buttons/SearchButton'
@@ -10,15 +13,51 @@ import ChatsList from '../components/chats/ChatsList'
 import IconSend from '../assets/paper-plane-outline.svg'
 import IconMenu from '../assets/menu-outline.svg'
 import IconPlanet from '../assets/planet-outline.svg'
+import { registerNotificationToken } from '../store/auth/actions'
 
 const HomeScreen = props => {
   const dispatch = useDispatch()
   const chats = useSelector(state => state.chats.chats)
   const isFetchingChats = useSelector(state => state.chats.isFetchingChats)
 
-  useEffect(() => {
+  useEffect(async () => {
     dispatch(getChats({ showLoadingIndicator: true }))
+    await registerForPushNotificationsAsync()
+    Notifications.addListener(handleNotification)
   }, [])
+
+  const registerForPushNotificationsAsync = async () => {
+    if (Constants.isDevice) {
+      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+      let finalStatus = existingStatus
+      if (existingStatus !== 'granted') {
+        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS)
+        finalStatus = status
+      }
+      if (finalStatus !== 'granted') {
+        alert('Failed to get push token for push notification!')
+        return
+      }
+      const token = await Notifications.getExpoPushTokenAsync()
+      dispatch(registerNotificationToken({ token }))
+    } else {
+      alert('Must use physical device for Push Notifications')
+    }
+
+    if (Platform.OS === 'android') {
+      Notifications.createChannelAndroidAsync('default', {
+        name: 'default',
+        sound: true,
+        priority: 'max',
+        vibrate: [0, 250, 250, 250],
+      })
+    }
+  }
+
+  const handleNotification = notification => {
+    Vibration.vibrate()
+    console.log({ notification })
+  }
 
   return (
     <View style={styles.container}>
