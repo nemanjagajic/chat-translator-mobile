@@ -18,7 +18,8 @@ const MessagesList = ({
             color: Colors.MAIN_300,
             fontSize: 80,
             letterSpacing: -15,
-            marginBottom: 80
+            marginBottom: 80,
+            width: 22,
           }}
         />
       ) : (
@@ -52,9 +53,10 @@ const MessagesList = ({
             animationDelay={200}
             style={{
               color: Colors.MAIN_300,
-              fontSize: 40,
-              marginTop: -24,
-              letterSpacing: -10
+              fontSize: 48,
+              marginTop: -30,
+              letterSpacing: -10,
+              width: 12
             }}
           />
         </View>
