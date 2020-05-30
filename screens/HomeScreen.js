@@ -1,5 +1,5 @@
-import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, Vibration } from 'react-native'
+import React, { useEffect, useState } from 'react'
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, AppState } from 'react-native'
 import { Notifications } from 'expo'
 import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
@@ -14,38 +14,46 @@ import IconSend from '../assets/paper-plane-outline.svg'
 import IconMenu from '../assets/menu-outline.svg'
 import IconPlanet from '../assets/planet-outline.svg'
 import { registerNotificationToken } from '../store/auth/actions'
+import {BACKGROUND, DEFAULT, GRANTED} from '../constants/General'
 
 const HomeScreen = props => {
   const dispatch = useDispatch()
+  const [notificationSubscription, setNotificationSubscription] = useState(null)
   const chats = useSelector(state => state.chats.chats)
   const isFetchingChats = useSelector(state => state.chats.isFetchingChats)
 
-  useEffect(async () => {
+  useEffect(() => {
     dispatch(getChats({ showLoadingIndicator: true }))
-    await registerForPushNotificationsAsync()
-    Notifications.addListener(handleNotification)
+    setupNotifications()
+    return () => {
+      if (notificationSubscription) notificationSubscription.remove()
+    }
   }, [])
 
-  const registerForPushNotificationsAsync = async () => {
+  const setupNotifications = async () => {
+    await registerForPushNotifications()
+    const subscription = Notifications.addListener(handleNotification)
+    setNotificationSubscription(subscription)
+  }
+
+  const registerForPushNotifications = async () => {
     if (Constants.isDevice) {
       const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
       let finalStatus = existingStatus
-      if (existingStatus !== 'granted') {
+      if (existingStatus !== GRANTED) {
         const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS)
         finalStatus = status
       }
-      if (finalStatus !== 'granted') {
-        alert('Failed to get push token for push notification!')
+      if (finalStatus !== GRANTED) {
+        alert($t('Notifications.tokenFail'))
         return
       }
       const token = await Notifications.getExpoPushTokenAsync()
       dispatch(registerNotificationToken({ token }))
-    } else {
-      alert('Must use physical device for Push Notifications')
     }
 
     if (Platform.OS === 'android') {
-      Notifications.createChannelAndroidAsync('default', {
+      Notifications.createChannelAndroidAsync(DEFAULT, {
         name: 'default',
         sound: true,
         priority: 'max',
@@ -55,8 +63,12 @@ const HomeScreen = props => {
   }
 
   const handleNotification = notification => {
-    Vibration.vibrate()
-    console.log({ notification })
+    if (AppState.currentState === BACKGROUND) {
+      const { data } = notification
+      props.navigation.navigate('ChatScreen', {
+        chat: data.chat,
+      })
+    }
   }
 
   return (

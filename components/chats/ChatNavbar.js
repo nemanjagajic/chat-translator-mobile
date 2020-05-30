@@ -28,7 +28,7 @@ const ChatNavbar = ({ navigation }) => {
         source={defaultAvatar}
       />
       <Text style={styles.fullName}>
-        {`${navigation.getParam('friend').firstName} ${navigation.getParam('friend').lastName}`}
+        {`${navigation.getParam('chat').friend.firstName} ${navigation.getParam('chat').friend.lastName}`}
       </Text>
     </View>
   )

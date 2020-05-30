@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { StyleSheet, KeyboardAvoidingView, TouchableOpacity, Text, View } from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import {

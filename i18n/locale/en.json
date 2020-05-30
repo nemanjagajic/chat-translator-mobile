@@ -18,5 +18,8 @@
     "selectLanguage": "Select language",
     "searchLanguage": "Search language",
     "selectLanguagesFriend": "Languages your friend has selected"
+  },
+  "Notifications": {
+    "tokenFail": "Failed to get push token for push notification!"
   }
 }

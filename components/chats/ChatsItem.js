@@ -17,7 +17,6 @@ const ChatsItem = ({ _id, friend, me, lastMessage: { text, textTranslated, creat
     <TouchableWithoutFeedback
       onPress={() => navigation.navigate('ChatScreen', {
         chat: { _id, friend, me },
-        friend
       })}
     >
       <View
