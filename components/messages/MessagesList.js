@@ -3,6 +3,7 @@ import { FlatList, StyleSheet, View, Text } from 'react-native'
 import AnimatedEllipsis from 'react-native-animated-ellipsis'
 import Colors from '../../constants/Colors'
 import MessagesItem from './MessagesItem'
+import moment from 'moment'
 
 const MessagesList = ({
   messages, activeUser, fetchAdditionalMessages, forwardedRef, showOriginalMessages, isLoading, isFriendTyping, friendLastVisit
@@ -37,6 +38,10 @@ const MessagesList = ({
               isFriendTyping={isFriendTyping}
               isPending={!!item.pending}
               isSeen={friendLastVisit >= item.createdAt}
+              showDateSeparator={
+                index !== 0 && !moment(item.createdAt).isSame(messages[index - 1].createdAt, 'day')
+              }
+              nextMessageDate={messages[index - 1] && messages[index - 1].createdAt}
             />
           )}
           keyExtractor={item => item._id}

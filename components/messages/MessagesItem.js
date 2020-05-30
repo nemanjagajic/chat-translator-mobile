@@ -7,7 +7,17 @@ import IconCheckDone from '../../assets/checkmark-done.svg'
 import moment from 'moment'
 
 const MessagesItem = memo(({
-  text, textTranslated, isMine, isFirst, showOriginalMessages, isFriendTyping, isPending, createdAt, isSeen
+  text,
+  textTranslated,
+  isMine,
+  isFirst,
+  showOriginalMessages,
+  isFriendTyping,
+  isPending,
+  createdAt,
+  isSeen,
+  showDateSeparator,
+  nextMessageDate
 }) => {
   return (
     <View>
@@ -16,7 +26,7 @@ const MessagesItem = memo(({
           <View style={[
             styles.container,
             isMine ? styles.myMessage : styles.friendsMessage,
-            styles.originalText
+            styles.originalText,
           ]}>
             <Text style={[styles.text]}>{ text }</Text>
           </View>
@@ -28,7 +38,7 @@ const MessagesItem = memo(({
             marginBottom: isFirst ? (isFriendTyping ? 50 : 20) : 0,
             backgroundColor: isPending ? Colors.MAIN_300 : isMine ? Colors.MAIN : Colors.WHITE_200,
             paddingBottom: 5
-          }
+          },
         ]}>
           {isPending ? (
             <View style={styles.pendingContainer}>
@@ -55,6 +65,13 @@ const MessagesItem = memo(({
           )}
         </View>
       </View>
+      {showDateSeparator && (
+        <View style={styles.separatorWrapper}>
+          <View style={styles.separatorLine} />
+          <Text style={styles.separatorText}>{moment(nextMessageDate).format('MMM DD, YYYY')}</Text>
+          <View style={styles.separatorLine} />
+        </View>
+      )}
     </View>
   )
 })
@@ -119,6 +136,25 @@ const styles = StyleSheet.create({
     width: 42,
     display: 'flex',
     alignItems: 'center'
+  },
+  separatorWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    height: 20,
+    marginTop: 40,
+    marginBottom: 40,
+    alignItems: 'center',
+    justifyContent: 'space-around',
+    width: '95%',
+    alignSelf: 'center'
+  },
+  separatorLine: {
+    width: '30%',
+    height: 1,
+    backgroundColor: Colors.WHITE_200
+  },
+  separatorText: {
+    color: Colors.GRAY_300
   }
 })
 
