@@ -154,7 +154,8 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.WHITE_200
   },
   separatorText: {
-    color: Colors.GRAY_300
+    color: Colors.GRAY_300,
+    fontSize: 12
   }
 })
 

@@ -1,4 +1,4 @@
-export const MESSAGES_PAGINATION_LIMIT = 50
+export const MESSAGES_PAGINATION_LIMIT = 100
 export const SEND = 'SEND'
 export const RECEIVE = 'RECEIVE'
 export const SEND_LANGUAGE_PROPERTY = 'sendLanguage'
