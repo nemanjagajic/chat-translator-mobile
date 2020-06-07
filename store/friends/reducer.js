@@ -1,10 +1,11 @@
 import {
-  SET_FETCHING_FRIENDS, SET_FETCHING_FRIENDS_FINISHED, SET_FRIENDS,
+  SET_FETCHING_FRIENDS, SET_FETCHING_FRIENDS_FINISHED, SET_FRIEND_REQUESTS, SET_FRIENDS,
 } from './constants'
 
 const initialState = {
   friends: [],
-  isFetchingFriends: false
+  isFetchingFriends: false,
+  friendRequests: []
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -25,6 +26,12 @@ export default (state = initialState, { type, payload }) => {
     return {
       ...state,
       isFetchingFriends: false
+    }
+  }
+  case SET_FRIEND_REQUESTS: {
+    return {
+      ...state,
+      friendRequests: payload
     }
   }
   default:

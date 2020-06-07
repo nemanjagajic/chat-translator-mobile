@@ -8,7 +8,10 @@
     "emptyChatDesc": "You haven't chatted with anyone yet, feel free to add friends and start chatting!"
   },
   "Friends": {
-    "headerTitle": "Friends"
+    "headerTitle": "Friends",
+    "friends": "Friends",
+    "receivedRequests": "Received requests",
+    "sentRequests": "Sent requests"
   },
   "Chat": {
     "alwaysShowOriginalMessages": "Show original and translated",
