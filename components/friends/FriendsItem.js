@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import Colors from '../../constants/Colors'
-import IconDots from '../../assets/ellipsis-horizontal.svg'
 import { FRIENDS, RECEIVED_REQUESTS, SENT_REQUESTS } from '../../constants/General'
 import IconCheck from '../../assets/checkmark-done.svg'
 import IconReject from '../../assets/close-red.svg'
+import IconSend from '../../assets/paper-plane.svg'
 import { removeFriend, respondToFriendRequest } from '../../store/friends/actions'
 import $t from '../../i18n'
 
@@ -15,10 +15,11 @@ const LAST_ITEM_BOTTOM_MARGIN = 30
 const DEFAULT_TOP_MARGIN = 0
 const DEFAULT_BOTTOM_MARGIN = 15
 
-const FriendsItem = ({ _id, firstName, lastName, email, isFirst, isLast, type }) => {
+const FriendsItem = ({ _id, firstName, lastName, email, isFirst, isLast, type, navigation }) => {
   const dispatch = useDispatch()
 
   const isRespondingToFriendRequest = useSelector(state => state.friends.isRespondingToFriendRequest)
+  const chats = useSelector(state => state.chats.chats)
 
   const acceptFriend = () => {
     dispatch(respondToFriendRequest({ userId: _id, accept: true }))
@@ -44,14 +45,24 @@ const FriendsItem = ({ _id, firstName, lastName, email, isFirst, isLast, type })
       ])
   }
 
+  const openChat = () => {
+    const chat = chats.find(c => c.friend._id === _id)
+    if (chat) {
+      navigation.navigate('ChatScreen', {
+        chat: { _id: chat._id, friend: chat.friend, me: chat.me }
+      })
+    }
+  }
+
   const renderOptions = () => {
     if (type === FRIENDS) {
       return (
         <View style={[styles.right, styles.receivedWrapper]}>
           <TouchableOpacity
             style={styles.button}
+            onPress={openChat}
           >
-            <IconCheck height={20} width={20} />
+            <IconSend height={20} width={20} />
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.button}
@@ -143,7 +154,7 @@ const styles = StyleSheet.create({
   },
   right: {
     position: 'absolute',
-    right: 10
+    right: 0
   },
   button: {
     backgroundColor: Colors.WHITE_200,

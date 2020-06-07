@@ -9,7 +9,7 @@ import IconBack from '../../assets/arrow-back-outline.svg'
 import { FRIENDS, RECEIVED_REQUESTS, SENT_REQUESTS } from '../../constants/General'
 import FriendsHeaderItem from '../../components/friends/FriendsHeaderItem'
 
-const FriendsScreen = () => {
+const FriendsScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const friends = useSelector(state => state.friends.friends)
   const friendRequests = useSelector(state => state.friends.friendRequests)
@@ -59,7 +59,12 @@ const FriendsScreen = () => {
               number={sentRequests && sentRequests.length}
             />
           </View>
-          <FriendsList type={selected} friends={selectedData()} isFetching={isFetching} />
+          <FriendsList
+            type={selected}
+            friends={selectedData()}
+            isFetching={isFetching}
+            navigation={navigation}
+          />
         </View>
       )}
     </View>
