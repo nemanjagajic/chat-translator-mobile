@@ -10,8 +10,12 @@
   "Friends": {
     "headerTitle": "Friends",
     "friends": "Friends",
-    "receivedRequests": "Received requests",
-    "sentRequests": "Sent requests"
+    "receivedRequests": "Requests",
+    "sentRequests": "Pending",
+    "deleteFriend": "Delete friend",
+    "deleteAreYouSure": "Are you sure you want to delete {{firstName}} {{lastName}} from friends?",
+    "rejectFriend": "Reject friend request",
+    "rejectAreYouSure": "Are you sure you want to reject friend request from {{firstName}} {{lastName}}?"
   },
   "Chat": {
     "alwaysShowOriginalMessages": "Show original and translated",
@@ -24,5 +28,9 @@
   },
   "Notifications": {
     "tokenFail": "Failed to get push token for push notification!"
+  },
+  "Common": {
+    "yes": "Yes",
+    "cancel": "Cancel"
   }
 }

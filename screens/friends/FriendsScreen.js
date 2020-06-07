@@ -21,10 +21,13 @@ const FriendsScreen = () => {
     dispatch(getFriends())
   }, [])
 
+  const receivedRequests = friendRequests.filter(fr => !fr.requestedByMe)
+  const sentRequests = friendRequests.filter(fr => fr.requestedByMe)
+
   const selectedData = () => {
     if (selected === FRIENDS) return friends
-    if (selected === RECEIVED_REQUESTS) return friendRequests.filter(fr => !fr.requestedByMe)
-    if (selected === SENT_REQUESTS) return friendRequests.filter(fr => fr.requestedByMe)
+    if (selected === RECEIVED_REQUESTS) return receivedRequests
+    if (selected === SENT_REQUESTS) return sentRequests
   }
 
   return (
@@ -39,21 +42,24 @@ const FriendsScreen = () => {
               text={$t('Friends.friends')}
               selected={selected}
               setSelected={setSelected}
+              number={friends && friends.length}
             />
             <FriendsHeaderItem
               type={RECEIVED_REQUESTS}
               text={$t('Friends.receivedRequests')}
               selected={selected}
               setSelected={setSelected}
+              number={receivedRequests && receivedRequests.length}
             />
             <FriendsHeaderItem
               type={SENT_REQUESTS}
               text={$t('Friends.sentRequests')}
               selected={selected}
               setSelected={setSelected}
+              number={sentRequests && sentRequests.length}
             />
           </View>
-          <FriendsList friends={selectedData()} isFetching={isFetching} />
+          <FriendsList type={selected} friends={selectedData()} isFetching={isFetching} />
         </View>
       )}
     </View>
@@ -97,7 +103,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-around',
     marginTop: 30,
-    marginBottom: 10
+    marginBottom: 5
   }
 })
 

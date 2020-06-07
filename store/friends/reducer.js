@@ -1,11 +1,16 @@
 import {
-  SET_FETCHING_FRIENDS, SET_FETCHING_FRIENDS_FINISHED, SET_FRIEND_REQUESTS, SET_FRIENDS,
+  SET_FETCHING_FRIENDS,
+  SET_FETCHING_FRIENDS_FINISHED,
+  SET_FRIEND_REQUESTS,
+  SET_FRIENDS,
+  SET_RESPONDING_TO_FRIEND_REQUEST, SET_RESPONDING_TO_FRIEND_REQUEST_FINISHED,
 } from './constants'
 
 const initialState = {
   friends: [],
   isFetchingFriends: false,
-  friendRequests: []
+  friendRequests: [],
+  isRespondingToFriendRequest: false
 }
 
 export default (state = initialState, { type, payload }) => {
@@ -32,6 +37,18 @@ export default (state = initialState, { type, payload }) => {
     return {
       ...state,
       friendRequests: payload
+    }
+  }
+  case SET_RESPONDING_TO_FRIEND_REQUEST: {
+    return {
+      ...state,
+      isRespondingToFriendRequest: true
+    }
+  }
+  case SET_RESPONDING_TO_FRIEND_REQUEST_FINISHED: {
+    return {
+      ...state,
+      isRespondingToFriendRequest: false
     }
   }
   default:

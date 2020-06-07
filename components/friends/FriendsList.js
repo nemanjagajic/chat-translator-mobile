@@ -3,13 +3,13 @@ import { FlatList, StyleSheet } from 'react-native'
 import FriendsItem from './FriendsItem'
 import Colors from '../../constants/Colors'
 
-const FriendsList = ({ friends }) => {
+const FriendsList = ({ friends, type }) => {
   return (
     <FlatList
       style={styles.container}
       data={friends}
       renderItem={({ item, index }) => (
-        <FriendsItem {...item} isFirst={index === 0} isLast={index === friends.length - 1} />
+        <FriendsItem {...item} type={type} isFirst={index === 0} isLast={index === friends.length - 1} />
       )}
       keyExtractor={item => item._id}
       showsVerticalScrollIndicator={false}
