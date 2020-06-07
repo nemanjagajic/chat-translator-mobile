@@ -7,6 +7,7 @@ import { getFriends } from '../../store/friends/actions'
 import FriendsList from '../../components/friends/FriendsList'
 import IconBack from '../../assets/arrow-back-outline.svg'
 import { FRIENDS, RECEIVED_REQUESTS, SENT_REQUESTS } from '../../constants/General'
+import FriendsHeaderItem from '../../components/friends/FriendsHeaderItem'
 
 const FriendsScreen = () => {
   const dispatch = useDispatch()
@@ -33,30 +34,24 @@ const FriendsScreen = () => {
       ): (
         <View style={styles.listWrapper}>
           <View style={styles.header}>
-            <TouchableOpacity
-              style={selected === FRIENDS ? styles.headerItemActive : styles.headerItem}
-              onPress={() => setSelected(FRIENDS)}
-            >
-              <Text style={selected === FRIENDS ? styles.headerTextActive : styles.headerText}>
-                {$t('Friends.friends')}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={selected === RECEIVED_REQUESTS ? styles.headerItemActive : styles.headerItem}
-              onPress={() => setSelected(RECEIVED_REQUESTS)}
-            >
-              <Text style={selected === RECEIVED_REQUESTS ? styles.headerTextActive : styles.headerText}>
-                {$t('Friends.receivedRequests')}
-              </Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={selected === SENT_REQUESTS ? styles.headerItemActive : styles.headerItem}
-              onPress={() => setSelected(SENT_REQUESTS)}
-            >
-              <Text style={selected === SENT_REQUESTS ? styles.headerTextActive : styles.headerText}>
-                {$t('Friends.sentRequests')}
-              </Text>
-            </TouchableOpacity>
+            <FriendsHeaderItem
+              type={FRIENDS}
+              text={$t('Friends.friends')}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <FriendsHeaderItem
+              type={RECEIVED_REQUESTS}
+              text={$t('Friends.receivedRequests')}
+              selected={selected}
+              setSelected={setSelected}
+            />
+            <FriendsHeaderItem
+              type={SENT_REQUESTS}
+              text={$t('Friends.sentRequests')}
+              selected={selected}
+              setSelected={setSelected}
+            />
           </View>
           <FriendsList friends={selectedData()} isFetching={isFetching} />
         </View>
@@ -103,24 +98,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     marginTop: 30,
     marginBottom: 10
-  },
-  headerItem: {
-    backgroundColor: Colors.WHITE_100,
-    padding: 10,
-    borderRadius: 20
-  },
-  headerText: {
-    color: Colors.GRAY,
-    fontSize: 15
-  },
-  headerItemActive: {
-    backgroundColor: Colors.MAIN,
-    padding: 10,
-    borderRadius: 30
-  },
-  headerTextActive: {
-    color: Colors.WHITE,
-    fontSize: 15
   }
 })
 
