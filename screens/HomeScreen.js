@@ -14,7 +14,7 @@ import IconSend from '../assets/paper-plane-outline.svg'
 import IconMenu from '../assets/menu-outline.svg'
 import IconPlanet from '../assets/planet-outline.svg'
 import { registerNotificationToken } from '../store/auth/actions'
-import {BACKGROUND, DEFAULT, GRANTED, SELECTED} from '../constants/General'
+import { DEFAULT, GRANTED, SELECTED } from '../constants/General'
 
 const HomeScreen = props => {
   const dispatch = useDispatch()
@@ -25,10 +25,16 @@ const HomeScreen = props => {
   useEffect(() => {
     dispatch(getChats({ showLoadingIndicator: true }))
     setupNotifications()
+    AppState.addEventListener('change', handleAppStateChange)
     return () => {
       if (notificationSubscription) notificationSubscription.remove()
+      AppState.removeEventListener('change', handleAppStateChange)
     }
   }, [])
+
+  const handleAppStateChange = () => {
+    if (AppState.currentState === 'active' && Platform.OS === 'android') Notifications.dismissAllNotificationsAsync()
+  }
 
   const setupNotifications = async () => {
     await registerForPushNotifications()
@@ -63,6 +69,7 @@ const HomeScreen = props => {
   }
 
   const handleNotification = notification => {
+    console.log({ notification })
     if (AppState.currentState === 'active' && notification.origin === 'received' && Platform.OS === 'android') {
       Notifications.dismissAllNotificationsAsync()
     }
