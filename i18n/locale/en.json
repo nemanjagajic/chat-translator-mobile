@@ -15,7 +15,9 @@
     "deleteFriend": "Delete friend",
     "deleteAreYouSure": "Are you sure you want to delete {{firstName}} {{lastName}} from friends?",
     "rejectFriend": "Reject friend request",
-    "rejectAreYouSure": "Are you sure you want to reject friend request from {{firstName}} {{lastName}}?"
+    "rejectAreYouSure": "Are you sure you want to reject friend request from {{firstName}} {{lastName}}?",
+    "addFriendTitle": "Add friend",
+    "searchResults": "Search results will appear here if there are any"
   },
   "Chat": {
     "alwaysShowOriginalMessages": "Show original and translated",

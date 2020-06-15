@@ -1,0 +1,1 @@
+export const FRIENDS_PAGINATION_LIMIT = 50

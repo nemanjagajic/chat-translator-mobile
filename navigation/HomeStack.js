@@ -3,11 +3,13 @@ import { createAppContainer } from 'react-navigation'
 import HomeScreen from '../screens/HomeScreen'
 import FriendsScreen from '../screens/friends/FriendsScreen'
 import ChatScreen from '../screens/chats/ChatScreen'
+import AddFriendScreen from '../screens/friends/AddFriendScreen'
 
 const HomeStack = createStackNavigator({
   HomeScreen,
   FriendsScreen,
-  ChatScreen
+  ChatScreen,
+  AddFriendScreen
 })
 
 export default createAppContainer(HomeStack)

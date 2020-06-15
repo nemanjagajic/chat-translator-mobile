@@ -1,9 +1,9 @@
 import {
-  GET_FRIENDS, REMOVE_FRIEND, RESPOND_TO_FRIEND_REQUEST,
+  GET_FRIENDS, REMOVE_FRIEND, RESPOND_TO_FRIEND_REQUEST, SEARCH_USER,
   SET_FETCHING_FRIENDS,
-  SET_FETCHING_FRIENDS_FINISHED,
+  SET_FETCHING_FRIENDS_FINISHED, SET_FETCHING_SEARCH_LIST, SET_FETCHING_SEARCH_LIST_FINISHED,
   SET_FRIEND_REQUESTS,
-  SET_FRIENDS, SET_RESPONDING_TO_FRIEND_REQUEST, SET_RESPONDING_TO_FRIEND_REQUEST_FINISHED
+  SET_FRIENDS, SET_RESPONDING_TO_FRIEND_REQUEST, SET_RESPONDING_TO_FRIEND_REQUEST_FINISHED, SET_SEARCH_LIST
 } from './constants'
 
 export const getFriends = () => ({
@@ -43,5 +43,23 @@ export const setRespondingToFriendRequestFinished = () => ({
 
 export const removeFriend = payload => ({
   type: REMOVE_FRIEND,
+  payload
+})
+
+export const searchUser = payload => ({
+  type: SEARCH_USER,
+  payload
+})
+
+export const setFetchingSearchList = () => ({
+  type: SET_FETCHING_SEARCH_LIST
+})
+
+export const setFetchingSearchListFinished = () => ({
+  type: SET_FETCHING_SEARCH_LIST_FINISHED
+})
+
+export const setSearchList = payload => ({
+  type: SET_SEARCH_LIST,
   payload
 })

@@ -69,7 +69,6 @@ const HomeScreen = props => {
   }
 
   const handleNotification = notification => {
-    console.log({ notification })
     if (AppState.currentState === 'active' && notification.origin === 'received' && Platform.OS === 'android') {
       Notifications.dismissAllNotificationsAsync()
     }
@@ -131,7 +130,10 @@ HomeScreen.navigationOptions = ({ navigation }) => ({
   ),
   headerRight: () => (
     <View style={styles.headerRight}>
-      <AddFriendButton style={{ marginRight: 20 }} />
+      <AddFriendButton
+        onPress={() => navigation.navigate('AddFriendScreen')}
+        style={{ marginRight: 20 }}
+      />
       <SearchButton />
     </View>
   )
