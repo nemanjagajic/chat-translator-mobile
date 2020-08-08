@@ -30,7 +30,8 @@ const AddFriendScreen = ({ navigation }) => {
       <SearchInput
         value={value}
         onChangeText={setValue}
-        searchUser={text => dispatch(searchUser({ text, offset: 0 }))}
+        handleSearch={text => dispatch(searchUser({ text, offset: 0 }))}
+        placeholder={$t('Friends.searchFriend')}
       />
       {isFetchingSearchList ? (
         <ActivityIndicator style={styles.indicator} size="large" color={Colors.ACCENT} />

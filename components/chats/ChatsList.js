@@ -3,7 +3,7 @@ import { FlatList, StyleSheet } from 'react-native'
 import Colors from '../../constants/Colors'
 import ChatsItem from './ChatsItem'
 
-const ChatsList = ({ chats, navigation }) => {
+const ChatsList = ({ chats, navigation, clearSearch }) => {
   return (
     <FlatList
       style={styles.container}
@@ -14,10 +14,12 @@ const ChatsList = ({ chats, navigation }) => {
           isFirst={index === 0}
           isLast={index === chats.length - 1}
           navigation={navigation}
+          clearSearch={clearSearch}
         />
       )}
       keyExtractor={item => item._id}
       showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps={'handled'}
     />
   )
 }

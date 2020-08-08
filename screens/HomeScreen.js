@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, AppState } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, AppState, TextInput } from 'react-native'
 import { Notifications } from 'expo'
 import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
 import Colors from '../constants/Colors'
 import AddFriendButton from '../components/buttons/AddFriendButton'
-import SearchButton from '../components/buttons/SearchButton'
 import $t from '../i18n'
 import { useDispatch, useSelector } from 'react-redux'
 import { getChats } from '../store/chats/actions'
@@ -15,15 +14,18 @@ import IconMenu from '../assets/menu-outline.svg'
 import IconPlanet from '../assets/planet-outline.svg'
 import { registerNotificationToken } from '../store/auth/actions'
 import { DEFAULT, GRANTED, SELECTED } from '../constants/General'
+import SearchInput from '../components/inputs/SearchInput'
 
 const HomeScreen = props => {
   const dispatch = useDispatch()
-  const [notificationSubscription, setNotificationSubscription] = useState(null)
-  const chats = useSelector(state => state.chats.chats)
   const isFetchingChats = useSelector(state => state.chats.isFetchingChats)
+  const chats = useSelector(state => state.chats.chats)
+  const [notificationSubscription, setNotificationSubscription] = useState(null)
+  const [searchText, setSearchText] = useState('')
+  const [displayingChats, setDisplayingChats] = useState([])
 
   useEffect(() => {
-    dispatch(getChats({ showLoadingIndicator: true }))
+    dispatch(getChats({ showLoadingIndicator: true, setDisplayingChats }))
     setupNotifications()
     AppState.addEventListener('change', handleAppStateChange)
     return () => {
@@ -81,6 +83,25 @@ const HomeScreen = props => {
     }
   }
 
+  const handleSearchChat = text => {
+    const filteredChats = chats.filter(c => {
+      const { firstName, lastName } = c.friend
+      const fullName = `${firstName} ${lastName}`
+      return fullName.toLowerCase().includes(text.toLowerCase())
+    })
+    setDisplayingChats(filteredChats)
+  }
+
+  const handleChangeText = text => {
+    setSearchText(text)
+    handleSearchChat(text)
+  }
+
+  const clearSearch = () => {
+    setSearchText('')
+    handleSearchChat('')
+  }
+
   return (
     <View style={styles.container}>
       {
@@ -88,8 +109,21 @@ const HomeScreen = props => {
           <ActivityIndicator style={styles.indicator} size='large' color={Colors.ACCENT} />
         ) : (
           <View style={styles.contentWrapper}>
-            {chats.length > 0 ? (
-              <ChatsList chats={chats} navigation={props.navigation} />
+            <SearchInput
+              value={searchText}
+              handleSearch={() => {}}
+              onChangeText={handleChangeText}
+              placeholder={$t('Chat.searchChat')}
+              returnKeyType={'done'}
+            />
+            {displayingChats.length > 0 ? (
+              <View style={styles.listWrapper}>
+                <ChatsList
+                  chats={displayingChats}
+                  navigation={props.navigation}
+                  clearSearch={clearSearch}
+                />
+              </View>
             ) : (
               <View style={styles.emptyChat}>
                 <IconPlanet height={72} width={72} />
@@ -132,9 +166,8 @@ HomeScreen.navigationOptions = ({ navigation }) => ({
     <View style={styles.headerRight}>
       <AddFriendButton
         onPress={() => navigation.navigate('AddFriendScreen')}
-        style={{ marginRight: 20 }}
+        style={{ marginRight: 10 }}
       />
-      <SearchButton />
     </View>
   )
 })
@@ -187,6 +220,9 @@ const styles = StyleSheet.create({
   contentWrapper: {
     flex: 1,
     width: '100%'
+  },
+  listWrapper: {
+    flex: 1
   }
 })
 

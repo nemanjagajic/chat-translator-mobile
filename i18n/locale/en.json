@@ -20,7 +20,8 @@
     "addFriendTitle": "Add friend",
     "searchResults": "Search results will appear here if there are any",
     "success": "Success",
-    "successfullyAccepted": "Successfully accepted friend request"
+    "successfullyAccepted": "Successfully accepted friend request",
+    "searchFriend": "Search friend"
   },
   "Chat": {
     "alwaysShowOriginalMessages": "Show original and translated",
@@ -30,7 +31,8 @@
     "selectLanguage": "Select language",
     "searchLanguage": "Search language",
     "selectLanguagesFriend": "Languages your friend has selected",
-    "noMessages": "No messages yet"
+    "noMessages": "No messages yet",
+    "searchChat": "Search chat"
   },
   "Notifications": {
     "tokenFail": "Failed to get push token for push notification!"

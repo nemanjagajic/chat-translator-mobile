@@ -26,12 +26,13 @@ const getMessagesOffset = state => state.chats.messagesOffset
 const getActiveUser = state => state.auth.user
 
 export function* getChats$({ payload }) {
-  const { showLoadingIndicator } = payload
+  const { showLoadingIndicator, setDisplayingChats } = payload
 
   if (showLoadingIndicator) yield put(setFetchingChats())
   try {
     const { data } = yield call(chatsService.getAll)
     yield put(setChats(data))
+    if (setDisplayingChats) setDisplayingChats(data)
   } catch (e) {
     console.log(e)
   } finally {

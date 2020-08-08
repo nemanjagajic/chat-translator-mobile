@@ -17,7 +17,6 @@ export function* getFriends$() {
   yield put(setFetchingFriends())
   try {
     const { data: { friends, friendRequests } } = yield call(friendsService.getAll)
-    console.log(friendRequests)
     yield put(setFriends(friends))
     yield put(setFriendRequests(friendRequests))
   } catch (e) {

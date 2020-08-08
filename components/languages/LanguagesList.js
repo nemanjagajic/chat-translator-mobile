@@ -27,6 +27,7 @@ const LanguagesList = ({ languages, setLanguage, closeModal }) => {
           )}
           keyExtractor={item => item.code}
           showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps={'handled'}
         />
       ) : (
         <Text style={styles.noResults}>No Results</Text>
