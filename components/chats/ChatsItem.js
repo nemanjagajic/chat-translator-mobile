@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableWithoutFeedback } from 'react-n
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import Colors from '../../constants/Colors'
 import { formatChatPreviewDate } from '../../utils/dateFormatter'
+import $t from '../../i18n'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
@@ -32,19 +33,23 @@ const ChatsItem = ({ _id, friend, me, lastMessage: { text, textTranslated, creat
         />
         <View>
           <Text style={styles.fullNameText}>{`${friend.firstName} ${friend.lastName}`}</Text>
-          <Text style={
-            (me.lastVisit <= createdAt && senderId !== me._id)
-              ? styles.chatTextUnread
-              : styles.chatText}
-          >
-            {
-              ((textToDisplay).length > TEXT_LIMIT) ?
-                (((textToDisplay).substring(0, TEXT_LIMIT - 3)).trim() + '...') :
-                textToDisplay
-            }
-          </Text>
+          {textToDisplay ? (
+            <Text style={
+              (me.lastVisit <= createdAt && senderId !== me._id)
+                ? styles.chatTextUnread
+                : styles.chatText}
+            >
+              {
+                ((textToDisplay).length > TEXT_LIMIT) ?
+                  (((textToDisplay).substring(0, TEXT_LIMIT - 3)).trim() + '...') :
+                  textToDisplay
+              }
+            </Text>
+          ) : (
+            <Text style={styles.noMessages}>{$t('Chat.noMessages')}</Text>
+          )}
         </View>
-        <Text style={styles.date}>{formatChatPreviewDate(createdAt)}</Text>
+        {textToDisplay && <Text style={styles.date}>{formatChatPreviewDate(createdAt)}</Text>}
       </View>
     </TouchableWithoutFeedback>
   )
@@ -82,6 +87,11 @@ const styles = StyleSheet.create({
     right: 10,
     fontSize: 12,
     color: Colors.GRAY
+  },
+  noMessages: {
+    fontSize: 14,
+    color: Colors.GRAY_300,
+    fontStyle: 'italic'
   }
 })
 

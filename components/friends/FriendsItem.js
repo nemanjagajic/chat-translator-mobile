@@ -9,6 +9,7 @@ import IconReject from '../../assets/close-red.svg'
 import IconSend from '../../assets/paper-plane.svg'
 import { removeFriend, respondToFriendRequest } from '../../store/friends/actions'
 import $t from '../../i18n'
+import {createChat} from '../../store/chats/actions'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
@@ -51,6 +52,11 @@ const FriendsItem = ({ _id, firstName, lastName, email, isFirst, isLast, type, n
       navigation.navigate('ChatScreen', {
         chat: { _id: chat._id, friend: chat.friend, me: chat.me }
       })
+    } else {
+      dispatch(createChat({
+        friendId: _id,
+        navigation
+      }))
     }
   }
 

@@ -5,7 +5,7 @@ import SearchInput from '../../components/inputs/SearchInput'
 import $t from '../../i18n'
 import Colors from '../../constants/Colors'
 import IconBack from '../../assets/arrow-back-outline.svg'
-import {searchUser, setSearchList} from '../../store/friends/actions'
+import { searchUser, setSearchList } from '../../store/friends/actions'
 import SearchList from '../../components/search/SearchList'
 
 const AddFriendScreen = () => {

@@ -26,7 +26,8 @@
     "receiveMessages": "Receive messages",
     "selectLanguage": "Select language",
     "searchLanguage": "Search language",
-    "selectLanguagesFriend": "Languages your friend has selected"
+    "selectLanguagesFriend": "Languages your friend has selected",
+    "noMessages": "No messages yet"
   },
   "Notifications": {
     "tokenFail": "Failed to get push token for push notification!"
