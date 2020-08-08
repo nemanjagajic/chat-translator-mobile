@@ -37,6 +37,7 @@ const ChatScreen = ({ navigation }) => {
   let listRef = useRef(null)
 
   useEffect(() => {
+    if (!chat) return
     dispatch(setOpenedChat({
       _id: chat._id,
       me: chat.me,
@@ -64,6 +65,7 @@ const ChatScreen = ({ navigation }) => {
   }, [isModalOpen])
 
   useEffect(() => {
+    if (!openedChat) return
     const isTyping = openedChat && !!friendsTyping.find(item => item === openedChat._id)
     setIsFriendTyping(isTyping)
   }, [friendsTyping, openedChat])

@@ -9,7 +9,7 @@ import IconReject from '../../assets/close-red.svg'
 import IconSend from '../../assets/paper-plane.svg'
 import { removeFriend, respondToFriendRequest } from '../../store/friends/actions'
 import $t from '../../i18n'
-import {createChat} from '../../store/chats/actions'
+import { createChat } from '../../store/chats/actions'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
@@ -26,10 +26,12 @@ const FriendsItem = ({ _id, firstName, lastName, email, isFirst, isLast, type, n
     dispatch(respondToFriendRequest({ userId: _id, accept: true }))
   }
 
-  const rejectFriend = () => {
+  const rejectFriend = sentRequest => {
     Alert.alert(
       $t('Friends.rejectFriend'),
-      $t('Friends.rejectAreYouSure', { firstName, lastName }),
+      sentRequest ?
+        $t('Friends.rejectMineAreYouSure', { firstName, lastName })
+        : $t('Friends.rejectAreYouSure', { firstName, lastName }),
       [
         { text: $t('Common.yes'), onPress: () => dispatch(respondToFriendRequest({ userId: _id, accept: false })) },
         { text: $t('Common.cancel'), style: 'cancel' },
@@ -107,7 +109,7 @@ const FriendsItem = ({ _id, firstName, lastName, email, isFirst, isLast, type, n
         <View style={styles.right}>
           <TouchableOpacity
             style={styles.button}
-            onPress={rejectFriend}
+            onPress={() => rejectFriend(true)}
             disabled={isRespondingToFriendRequest}
           >
             <IconReject height={20} width={20} />

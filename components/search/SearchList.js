@@ -3,7 +3,7 @@ import { FlatList, StyleSheet } from 'react-native'
 import Colors from '../../constants/Colors'
 import SearchItem from './SearchItem'
 
-const SearchList = ({ users }) => {
+const SearchList = ({ users, receivedRequests, sentRequests, navigation, activeUser }) => {
   return (
     <FlatList
       style={styles.container}
@@ -13,6 +13,10 @@ const SearchList = ({ users }) => {
           {...item}
           isFirst={index === 0}
           isLast={index === users.length - 1}
+          receivedRequests={receivedRequests}
+          sentRequests={sentRequests}
+          navigation={navigation}
+          activeUser={activeUser}
         />
       )}
       keyExtractor={item => item._id}

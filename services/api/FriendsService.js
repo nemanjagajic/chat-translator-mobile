@@ -5,7 +5,8 @@ const API_ENDPOINTS = {
   FRIENDS: '/friends',
   RESPOND_TO_FRIEND_REQUEST: 'friends/respondToFriendRequest',
   REMOVE_FRIEND: 'friends/remove',
-  SEARCH_USER: 'friends/searchUser'
+  SEARCH_USER: 'friends/searchUser',
+  SEND_FRIEND_REQUEST: 'friends/sendFriendRequest'
 }
 
 class AuthService extends ApiService {
@@ -25,5 +26,7 @@ class AuthService extends ApiService {
   searchUser = async({ text, offset, limit }) => {
     return this.apiClient.get(`${API_ENDPOINTS.SEARCH_USER}?text=${text}&offset=${offset}&limit=${limit}`)
   }
+
+  sendFriendRequest = async ({ userId }) => this.apiClient.post(API_ENDPOINTS.SEND_FRIEND_REQUEST, { userId })
 }
 export default new AuthService()

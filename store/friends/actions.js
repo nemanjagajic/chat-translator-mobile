@@ -1,5 +1,5 @@
 import {
-  GET_FRIENDS, REMOVE_FRIEND, RESPOND_TO_FRIEND_REQUEST, SEARCH_USER,
+  GET_FRIENDS, REMOVE_FRIEND, RESPOND_TO_FRIEND_REQUEST, SEARCH_USER, SEND_FRIEND_REQUEST,
   SET_FETCHING_FRIENDS,
   SET_FETCHING_FRIENDS_FINISHED, SET_FETCHING_SEARCH_LIST, SET_FETCHING_SEARCH_LIST_FINISHED,
   SET_FRIEND_REQUESTS,
@@ -61,5 +61,10 @@ export const setFetchingSearchListFinished = () => ({
 
 export const setSearchList = payload => ({
   type: SET_SEARCH_LIST,
+  payload
+})
+
+export const sendFriendRequest = payload => ({
+  type: SEND_FRIEND_REQUEST,
   payload
 })

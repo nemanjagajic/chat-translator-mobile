@@ -8,6 +8,7 @@ import FriendsList from '../../components/friends/FriendsList'
 import IconBack from '../../assets/arrow-back-outline.svg'
 import { FRIENDS, RECEIVED_REQUESTS, SENT_REQUESTS } from '../../constants/General'
 import FriendsHeaderItem from '../../components/friends/FriendsHeaderItem'
+import { ADDED_FRIEND } from '../../constants/Friends'
 
 const FriendsScreen = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -19,6 +20,8 @@ const FriendsScreen = ({ navigation }) => {
 
   useEffect(() => {
     dispatch(getFriends())
+    const label = navigation.getParam('label')
+    if (label) setSelected(label === ADDED_FRIEND ? SENT_REQUESTS : FRIENDS)
   }, [])
 
   const receivedRequests = friendRequests.filter(fr => !fr.requestedByMe)
@@ -98,7 +101,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.BACKGROUND
   },
   indicator: {
-    marginTop: 50
+    marginTop: 90
   },
   listWrapper: {
     flex: 1

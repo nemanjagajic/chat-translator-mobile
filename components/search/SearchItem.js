@@ -1,17 +1,32 @@
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import defaultAvatar from '../../assets/defaultAvatar.png'
 import Colors from '../../constants/Colors'
 import IconAddFriend from '../../assets/person-add.svg'
+import { respondToFriendRequest, sendFriendRequest } from '../../store/friends/actions'
+import IconCheck from '../../assets/checkmark-done.svg'
+import { ACCEPTED_FRIEND, ADDED_FRIEND } from '../../constants/Friends'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
 const DEFAULT_TOP_MARGIN = 0
 const DEFAULT_BOTTOM_MARGIN = 15
 
-const SearchItem = ({ _id, firstName, lastName, email, isFirst, isLast, isFriend }) => {
+const SearchItem = ({ _id, firstName, lastName, email, isFirst, isLast, isFriend, receivedRequests, sentRequests, navigation, activeUser }) => {
   const dispatch = useDispatch()
+  const pending = sentRequests && sentRequests.find(r => r._id === _id)
+  const received = receivedRequests && receivedRequests.find(r => r._id === _id)
+
+  const acceptFriend = () => {
+    dispatch(respondToFriendRequest({ userId: _id, accept: true, navigation, label: ACCEPTED_FRIEND }))
+  }
+
+  const sendRequest = () => {
+    dispatch(sendFriendRequest({ userId: _id, navigation, label: ADDED_FRIEND }))
+  }
+
+  if (activeUser._id === _id) return null
 
   return (
     <View style={[
@@ -27,12 +42,36 @@ const SearchItem = ({ _id, firstName, lastName, email, isFirst, isLast, isFriend
         <Text style={styles.fullNameText}>{`${firstName} ${lastName}`}</Text>
         <Text style={styles.emailText}>{`${email}`}</Text>
       </View>
-      {!isFriend && (
+      {(!isFriend && !received && !pending) && (
         <TouchableOpacity
+          onPress={sendRequest}
           style={[styles.right, styles.button]}
         >
           <IconAddFriend width={22} height={22} />
         </TouchableOpacity>
+      )}
+      {received && (
+        <TouchableOpacity
+          onPress={acceptFriend}
+          style={[styles.right, styles.button]}
+        >
+          <IconCheck height={20} width={20} />
+        </TouchableOpacity>
+      )}
+      {pending && (
+        <View
+          style={[styles.right, styles.label]}
+        >
+          <Text style={styles.labelText}>Pending</Text>
+        </View>
+      )}
+      {isFriend && (
+        <View
+          onPress={() => dispatch(sendFriendRequest({ userId: _id }))}
+          style={[styles.right, styles.label]}
+        >
+          <Text style={styles.labelText}>Friends</Text>
+        </View>
       )}
     </View>
   )
@@ -83,6 +122,16 @@ const styles = StyleSheet.create({
   receivedWrapper: {
     display: 'flex',
     flexDirection: 'row'
+  },
+  labelText: {
+    color: Colors.GRAY
+  },
+  label: {
+    padding: 10,
+    borderRadius: 30,
+    marginLeft: 15,
+    borderWidth: 1,
+    borderColor: Colors.WHITE_200
   }
 })
 

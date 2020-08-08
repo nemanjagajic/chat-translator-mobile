@@ -5,13 +5,17 @@ import SearchInput from '../../components/inputs/SearchInput'
 import $t from '../../i18n'
 import Colors from '../../constants/Colors'
 import IconBack from '../../assets/arrow-back-outline.svg'
-import { searchUser, setSearchList } from '../../store/friends/actions'
+import { getFriends, searchUser, setSearchList } from '../../store/friends/actions'
 import SearchList from '../../components/search/SearchList'
 
-const AddFriendScreen = () => {
+const AddFriendScreen = ({ navigation }) => {
   const dispatch = useDispatch()
   const searchList = useSelector(state => state.friends.searchList)
   const isFetchingSearchList = useSelector(state => state.friends.isFetchingSearchList)
+  const friendRequests = useSelector(state => state.friends.friendRequests)
+  const activeUser = useSelector(state => state.auth.user)
+  const receivedRequests = friendRequests.filter(fr => !fr.requestedByMe)
+  const sentRequests = friendRequests.filter(fr => fr.requestedByMe)
 
   const [value, setValue] = useState('')
 
@@ -33,7 +37,13 @@ const AddFriendScreen = () => {
       ) : (
         <View style={styles.listWrapper}>
           {searchList && searchList.length > 0 ? (
-            <SearchList users={searchList} />
+            <SearchList
+              users={searchList}
+              receivedRequests={receivedRequests}
+              sentRequests={sentRequests}
+              navigation={navigation}
+              activeUser={activeUser}
+            />
           ) : (
             <Text style={styles.searchResults}>{$t('Friends.searchResults')}</Text>
           )}
