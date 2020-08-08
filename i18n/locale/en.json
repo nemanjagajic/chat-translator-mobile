@@ -22,7 +22,8 @@
     "searchResults": "Search results will appear here if there are any",
     "success": "Success",
     "successfullyAccepted": "Successfully accepted friend request",
-    "searchFriend": "Search friend"
+    "searchFriend": "Search user",
+    "pending": "Pending"
   },
   "Chat": {
     "alwaysShowOriginalMessages": "Show original and translated",

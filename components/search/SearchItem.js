@@ -7,6 +7,7 @@ import IconAddFriend from '../../assets/person-add.svg'
 import { respondToFriendRequest, sendFriendRequest } from '../../store/friends/actions'
 import IconCheck from '../../assets/checkmark-done.svg'
 import { ACCEPTED_FRIEND, ADDED_FRIEND } from '../../constants/Friends'
+import $t from '../../i18n'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
@@ -26,7 +27,7 @@ const SearchItem = ({ _id, firstName, lastName, email, isFirst, isLast, isFriend
     dispatch(sendFriendRequest({ userId: _id, navigation, label: ADDED_FRIEND }))
   }
 
-  if (activeUser._id === _id) return null
+  if (activeUser && activeUser._id === _id) return null
 
   return (
     <View style={[
@@ -62,7 +63,7 @@ const SearchItem = ({ _id, firstName, lastName, email, isFirst, isLast, isFriend
         <View
           style={[styles.right, styles.label]}
         >
-          <Text style={styles.labelText}>Pending</Text>
+          <Text style={styles.labelText}>{$t('Friends.pending')}</Text>
         </View>
       )}
       {isFriend && (
@@ -70,7 +71,7 @@ const SearchItem = ({ _id, firstName, lastName, email, isFirst, isLast, isFriend
           onPress={() => dispatch(sendFriendRequest({ userId: _id }))}
           style={[styles.right, styles.label]}
         >
-          <Text style={styles.labelText}>Friends</Text>
+          <Text style={styles.labelText}>{$t('Friends.friends')}</Text>
         </View>
       )}
     </View>

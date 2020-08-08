@@ -33,7 +33,7 @@ const MessagesList = ({
             <MessagesItem
               {...item}
               isFirst={index === 0}
-              isMine={item.senderId === activeUser._id}
+              isMine={item.senderId === activeUser && activeUser._id}
               showOriginalMessages={showOriginalMessages}
               isFriendTyping={isFriendTyping}
               isPending={!!item.pending}
