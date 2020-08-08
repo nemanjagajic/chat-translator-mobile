@@ -17,7 +17,7 @@ import {
   appendMessages,
   setSendingMessage,
   setSendingMessageFinished,
-  appendMessageAndCropLimit, setMessagesOffset, setOpenedChat
+  appendMessageAndCropLimit, setMessagesOffset, setOpenedChat, getChats
 } from './actions'
 import chatsService from '../../services/api/ChatsService'
 import { MESSAGES_PAGINATION_LIMIT } from '../../constants/Messages'
@@ -26,13 +26,12 @@ const getMessagesOffset = state => state.chats.messagesOffset
 const getActiveUser = state => state.auth.user
 
 export function* getChats$({ payload }) {
-  const { showLoadingIndicator, setDisplayingChats } = payload
+  const { showLoadingIndicator } = payload
 
   if (showLoadingIndicator) yield put(setFetchingChats())
   try {
     const { data } = yield call(chatsService.getAll)
     yield put(setChats(data))
-    if (setDisplayingChats) setDisplayingChats(data)
   } catch (e) {
     console.log(e)
   } finally {
@@ -106,6 +105,7 @@ export function* createChat$({ payload }) {
     const { friendId, navigation } = payload
     const { data } = yield call(chatsService.createChat, { friendId })
     const friend = data.users.find(u => u._id !== me._id)
+    yield put(getChats({ showLoadingIndicator: false }))
     navigation.navigate('ChatScreen', {
       chat: { _id: data._id, friend, me }
     })

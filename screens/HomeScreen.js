@@ -22,10 +22,9 @@ const HomeScreen = props => {
   const chats = useSelector(state => state.chats.chats)
   const [notificationSubscription, setNotificationSubscription] = useState(null)
   const [searchText, setSearchText] = useState('')
-  const [displayingChats, setDisplayingChats] = useState([])
 
   useEffect(() => {
-    dispatch(getChats({ showLoadingIndicator: true, setDisplayingChats }))
+    dispatch(getChats({ showLoadingIndicator: true }))
     setupNotifications()
     AppState.addEventListener('change', handleAppStateChange)
     return () => {
@@ -83,23 +82,18 @@ const HomeScreen = props => {
     }
   }
 
-  const handleSearchChat = text => {
-    const filteredChats = chats.filter(c => {
+  const filteredChats = text => {
+    if (!chats) return []
+
+    return chats.filter(c => {
       const { firstName, lastName } = c.friend
       const fullName = `${firstName} ${lastName}`
       return fullName.toLowerCase().includes(text.toLowerCase())
     })
-    setDisplayingChats(filteredChats)
-  }
-
-  const handleChangeText = text => {
-    setSearchText(text)
-    handleSearchChat(text)
   }
 
   const clearSearch = () => {
     setSearchText('')
-    handleSearchChat('')
   }
 
   return (
@@ -112,14 +106,14 @@ const HomeScreen = props => {
             <SearchInput
               value={searchText}
               handleSearch={() => {}}
-              onChangeText={handleChangeText}
+              onChangeText={text => setSearchText(text)}
               placeholder={$t('Chat.searchChat')}
               returnKeyType={'done'}
             />
-            {displayingChats.length > 0 ? (
+            {filteredChats(searchText).length > 0 ? (
               <View style={styles.listWrapper}>
                 <ChatsList
-                  chats={displayingChats}
+                  chats={filteredChats(searchText)}
                   navigation={props.navigation}
                   clearSearch={clearSearch}
                 />
@@ -127,7 +121,9 @@ const HomeScreen = props => {
             ) : (
               <View style={styles.emptyChat}>
                 <IconPlanet height={72} width={72} />
-                <Text style={styles.emptyChatText}>{$t('Home.emptyChatDesc')}</Text>
+                <Text style={styles.emptyChatText}>{
+                  chats.length === 0 ? $t('Home.emptyChatDesc') : $t('Home.noResults')
+                }</Text>
               </View>
             )}
           </View>

@@ -5,7 +5,8 @@
   },
   "Home": {
     "headerTitle": "Chats",
-    "emptyChatDesc": "You haven't chatted with anyone yet, feel free to add friends and start chatting!"
+    "emptyChatDesc": "You haven't chatted with anyone yet, feel free to add friends and start chatting!",
+    "noResults": "No results matching given search parameters"
   },
   "Friends": {
     "headerTitle": "Friends",
