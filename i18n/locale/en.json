@@ -1,4 +1,9 @@
 {
+  "Auth": {
+    "logIn": "Log in",
+    "signUp": "Sign up",
+    "loginWithGoogle": "Log in with Google"
+  },
   "Drawer": {
     "friends": "Friends",
     "logOut": "Log out"

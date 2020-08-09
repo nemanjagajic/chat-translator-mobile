@@ -1,39 +1,33 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native'
-import { logIn } from '../store/auth/actions'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
+import Colors from '../constants/Colors'
+import googleLogo from '../assets/googleLogo.png'
+import $t from '../i18n'
 
-const AuthScreen = props => {
-  const dispatch = useDispatch()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-
+const AuthScreen = () => {
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Auth Screen</Text>
-      <TextInput
-        style={styles.input}
-        placeholder={'email'}
-        value={email}
-        onChangeText={text => setEmail(text)}
-        autoCapitalize={'none'}
-      />
-      <TextInput
-        style={styles.input}
-        secureTextEntry
-        placeholder={'password'}
-        value={password}
-        onChangeText={text => setPassword(text)}
-      />
-      <TouchableOpacity
-        onPress={() => dispatch(logIn({
-          email,
-          password,
-          navigateHome: () => props.navigation.navigate('Home')
-        }))}
-      >
-        <Text style={styles.loginButton}>Log in</Text>
-      </TouchableOpacity>
+      <View style={styles.upperContent} />
+      <View style={styles.authContent}>
+        <View style={styles.authButtonsWrapper}>
+          <TouchableOpacity
+            style={[styles.authButton, styles.loginButton]}
+          >
+            <Text style={styles.loginText}>{$t('Auth.logIn')}</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.authButton}
+          >
+            <Text style={styles.signupText}>{$t('Auth.signUp')}</Text>
+          </TouchableOpacity>
+        </View>
+        <TouchableOpacity
+          style={styles.googleLoginButton}
+        >
+          <Image style={styles.googleLogo} source={googleLogo} />
+          <Text style={styles.googleText}>{$t('Auth.loginWithGoogle')}</Text>
+        </TouchableOpacity>
+      </View>
     </View>
   )
 }
@@ -41,25 +35,69 @@ const AuthScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    display: 'flex'
+  },
+  upperContent: {
+    flex: 3,
+    backgroundColor: Colors.MAIN
+  },
+  authContent: {
+    flex: 1,
+    backgroundColor: Colors.WHITE,
+    paddingHorizontal: 20
+  },
+  authButtonsWrapper: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    marginTop: 30
+  },
+  authButton: {
+    width: 170,
+    backgroundColor: Colors.MAIN,
+    height: 60,
+    borderRadius: 20,
     display: 'flex',
     alignItems: 'center',
-    justifyContent: 'center'
-  },
-  title: {
-    fontSize: 28,
-    marginBottom: 20
-  },
-  input: {
-    width: 200,
-    height: 40,
-    borderWidth: 1,
-    borderColor: '#cccccc',
-    borderRadius: 7,
-    margin: 5,
-    padding: 10
+    justifyContent: 'center',
+    borderWidth: 2,
+    borderColor: Colors.MAIN
   },
   loginButton: {
-    padding: 10
+    backgroundColor: Colors.WHITE,
+    borderWidth: 2,
+    borderColor: Colors.MAIN
+  },
+  loginText: {
+    fontSize: 20,
+    color: Colors.MAIN,
+    fontWeight: '500'
+  },
+  signupText: {
+    fontSize: 20,
+    color: Colors.WHITE,
+    fontWeight: '500'
+  },
+  googleLoginButton: {
+    backgroundColor: Colors.WHITE_200,
+    marginTop: 30,
+    height: 50,
+    borderRadius: 20,
+    display: 'flex',
+    flexDirection: 'row',
+    paddingLeft: 10,
+    alignItems: 'center'
+  },
+  googleLogo: {
+    width: 35,
+    height: 35
+  },
+  googleText: {
+    fontSize: 18,
+    color: Colors.GRAY_400,
+    flex: 1,
+    textAlign: 'center',
+    marginLeft: -40,
   }
 })
 
