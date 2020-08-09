@@ -4,6 +4,7 @@ import socket from '../../socket'
 
 const API_ENDPOINTS = {
   LOGIN: '/auth/login',
+  REGISTER: '/auth/register',
   REGISTER_NOTIFICATION_TOKEN: '/auth/registerNotificationToken'
 }
 
@@ -29,6 +30,8 @@ class AuthService extends ApiService {
   }
 
   logIn = ({ email, password }) => this.apiClient.post(API_ENDPOINTS.LOGIN, { email, password })
+
+  register = data => this.apiClient.post(API_ENDPOINTS.REGISTER, data)
 
   registerNotificationToken = ({ token }) => this.apiClient.post(API_ENDPOINTS.REGISTER_NOTIFICATION_TOKEN, { token })
 }

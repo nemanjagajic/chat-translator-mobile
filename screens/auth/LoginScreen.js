@@ -59,6 +59,7 @@ const LoginScreen = ({ navigation }) => {
             placeholder={$t('Auth.email')}
             placeholderTextColor={Colors.GRAY}
             color={Platform.OS === 'ios' ? Colors.BLACK : null}
+            autoCapitalize={'none'}
           />
           <Text style={styles.inputDescription}>
             Please enter <Text style={{ color: isEmailValid() ? Colors.ACCENT : Colors.RED }}>valid</Text> email format

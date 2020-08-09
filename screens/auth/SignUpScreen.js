@@ -5,8 +5,8 @@ import $t from '../../i18n'
 import Colors from '../../constants/Colors'
 import IconBack from '../../assets/arrow-back-outline.svg'
 import ButtonStep from '../../components/buttons/ButtonStep'
-import {REGISTER_EMAIL, REGISTER_PASSWORD, REGISTER_USER_DATA} from '../../constants/Auth'
-import { logIn } from '../../store/auth/actions'
+import { REGISTER_EMAIL, REGISTER_PASSWORD, REGISTER_USER_DATA } from '../../constants/Auth'
+import { register } from '../../store/auth/actions'
 
 const MIN_PASSWORD_LENGTH = 8
 
@@ -30,8 +30,10 @@ const SignUpScreen = ({ navigation }) => {
     } else if (step === REGISTER_USER_DATA) {
       navigation.setParams({ step: REGISTER_PASSWORD })
     } else {
-      dispatch(logIn({
+      dispatch(register({
         email,
+        firstName,
+        lastName,
         password,
         navigateHome: () => navigation.navigate('Home')
       }))
@@ -67,6 +69,7 @@ const SignUpScreen = ({ navigation }) => {
             placeholder={$t('Auth.email')}
             placeholderTextColor={Colors.GRAY}
             color={Platform.OS === 'ios' ? Colors.BLACK : null}
+            autoCapitalize={'none'}
           />
           <Text style={styles.inputDescription}>
             Please enter <Text style={{ color: isEmailValid() ? Colors.ACCENT : Colors.RED }}>valid</Text> email format
