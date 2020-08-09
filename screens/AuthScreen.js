@@ -17,6 +17,7 @@ const AuthScreen = ({ navigation }) => {
             <Text style={styles.loginText}>{$t('Auth.logIn')}</Text>
           </TouchableOpacity>
           <TouchableOpacity
+            onPress={() => navigation.navigate('SignUpScreen')}
             style={styles.authButton}
           >
             <Text style={styles.signupText}>{$t('Auth.signUp')}</Text>
