@@ -18,7 +18,7 @@ const AuthLoadingScreen = props => {
         navigateHome: () => props.navigation.navigate('Home')
       }))
     } else {
-      props.navigation.navigate('AuthScreen')
+      props.navigation.navigate('AuthStack')
     }
   }
 

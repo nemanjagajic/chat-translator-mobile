@@ -4,13 +4,14 @@ import Colors from '../constants/Colors'
 import googleLogo from '../assets/googleLogo.png'
 import $t from '../i18n'
 
-const AuthScreen = () => {
+const AuthScreen = ({ navigation }) => {
   return (
     <View style={styles.container}>
       <View style={styles.upperContent} />
       <View style={styles.authContent}>
         <View style={styles.authButtonsWrapper}>
           <TouchableOpacity
+            onPress={() => navigation.navigate('LoginScreen')}
             style={[styles.authButton, styles.loginButton]}
           >
             <Text style={styles.loginText}>{$t('Auth.logIn')}</Text>
@@ -31,6 +32,10 @@ const AuthScreen = () => {
     </View>
   )
 }
+
+AuthScreen.navigationOptions = () => ({
+  headerShown: false
+})
 
 const styles = StyleSheet.create({
   container: {
@@ -53,7 +58,7 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   authButton: {
-    width: 170,
+    width: '47%',
     backgroundColor: Colors.MAIN,
     height: 60,
     borderRadius: 20,

@@ -1,11 +1,11 @@
 import { createAppContainer, createSwitchNavigator } from 'react-navigation'
 import AuthLoadingScreen from '../screens/AuthLoadingScreen'
-import AuthScreen from '../screens/AuthScreen'
 import AppDrawer from './AppDrawer'
+import AuthStack from './AuthStack'
 
 const AppNavigator = createSwitchNavigator({
   AuthLoadingScreen,
-  AuthScreen,
+  AuthStack,
   Home: AppDrawer
 })
 

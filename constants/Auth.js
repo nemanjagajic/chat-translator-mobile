@@ -1,0 +1,2 @@
+export const LOGIN_EMAIL = 'LOGIN_EMAIL'
+export const LOGIN_PASSWORD = 'LOGIN_PASSWORD'
