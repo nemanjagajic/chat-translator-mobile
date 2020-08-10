@@ -24,6 +24,7 @@ const SignUpScreen = ({ navigation }) => {
   }, [])
 
   const handleButtonStepPressed = () => {
+    if (isButtonDisabled()) return
     const step = navigation.getParam('step')
     if (step === REGISTER_EMAIL) {
       navigation.setParams({ step: REGISTER_USER_DATA })
@@ -55,7 +56,7 @@ const SignUpScreen = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView
-      behavior={'padding'}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
       style={styles.container}
       keyboardVerticalOffset={90}
     >
@@ -70,6 +71,7 @@ const SignUpScreen = ({ navigation }) => {
             placeholderTextColor={Colors.GRAY}
             color={Platform.OS === 'ios' ? Colors.BLACK : null}
             autoCapitalize={'none'}
+            onSubmitEditing={handleButtonStepPressed}
           />
           <Text style={styles.inputDescription}>
             Please enter <Text style={{ color: isEmailValid() ? Colors.ACCENT : Colors.RED }}>valid</Text> email format
@@ -86,6 +88,7 @@ const SignUpScreen = ({ navigation }) => {
             placeholder={$t('Auth.firstName')}
             placeholderTextColor={Colors.GRAY}
             color={Platform.OS === 'ios' ? Colors.BLACK : null}
+            onSubmitEditing={handleButtonStepPressed}
           />
           <TextInput
             value={lastName}
@@ -94,6 +97,7 @@ const SignUpScreen = ({ navigation }) => {
             placeholder={$t('Auth.lastName')}
             placeholderTextColor={Colors.GRAY}
             color={Platform.OS === 'ios' ? Colors.BLACK : null}
+            onSubmitEditing={handleButtonStepPressed}
           />
           <Text style={styles.inputDescription}>
             Both fields must be <Text style={{ color: isFullNameValid() ? Colors.ACCENT : Colors.RED }}>populated</Text>
@@ -111,6 +115,7 @@ const SignUpScreen = ({ navigation }) => {
             placeholder={$t('Auth.password')}
             placeholderTextColor={Colors.GRAY}
             color={Platform.OS === 'ios' ? Colors.BLACK : null}
+            onSubmitEditing={handleButtonStepPressed}
           />
           <Text style={styles.inputDescription}>
             Password must be at least

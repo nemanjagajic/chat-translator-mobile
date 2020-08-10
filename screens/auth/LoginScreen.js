@@ -22,6 +22,7 @@ const LoginScreen = ({ navigation }) => {
   }, [])
 
   const handleButtonStepPressed = () => {
+    if (isButtonDisabled()) return
     const step = navigation.getParam('step')
     if (step === LOGIN_EMAIL) {
       navigation.setParams({ step: LOGIN_PASSWORD })
@@ -45,7 +46,7 @@ const LoginScreen = ({ navigation }) => {
 
   return (
     <KeyboardAvoidingView
-      behavior={'padding'}
+      behavior={Platform.OS === 'ios' ? 'padding' : null}
       style={styles.container}
       keyboardVerticalOffset={90}
     >
@@ -60,6 +61,7 @@ const LoginScreen = ({ navigation }) => {
             placeholderTextColor={Colors.GRAY}
             color={Platform.OS === 'ios' ? Colors.BLACK : null}
             autoCapitalize={'none'}
+            onSubmitEditing={handleButtonStepPressed}
           />
           <Text style={styles.inputDescription}>
             Please enter <Text style={{ color: isEmailValid() ? Colors.ACCENT : Colors.RED }}>valid</Text> email format
@@ -76,6 +78,7 @@ const LoginScreen = ({ navigation }) => {
             placeholder={$t('Auth.password')}
             placeholderTextColor={Colors.GRAY}
             color={Platform.OS === 'ios' ? Colors.BLACK : null}
+            onSubmitEditing={handleButtonStepPressed}
           />
           <Text style={styles.inputDescription}>
             Password must be at least

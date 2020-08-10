@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
   },
   googleLoginButton: {
     backgroundColor: Colors.WHITE_200,
-    marginTop: 30,
+    marginTop: 20,
     height: 50,
     borderRadius: 20,
     display: 'flex',
