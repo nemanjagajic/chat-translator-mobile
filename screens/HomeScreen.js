@@ -20,6 +20,7 @@ const HomeScreen = props => {
   const dispatch = useDispatch()
   const isFetchingChats = useSelector(state => state.chats.isFetchingChats)
   const chats = useSelector(state => state.chats.chats)
+  const friendsTyping = useSelector(state => state.chats.friendsTyping)
   const [notificationSubscription, setNotificationSubscription] = useState(null)
   const [searchText, setSearchText] = useState('')
 
@@ -116,6 +117,7 @@ const HomeScreen = props => {
                   chats={filteredChats(searchText)}
                   navigation={props.navigation}
                   clearSearch={clearSearch}
+                  friendsTyping={friendsTyping}
                 />
               </View>
             ) : (

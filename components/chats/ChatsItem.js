@@ -11,7 +11,7 @@ const DEFAULT_TOP_MARGIN = 0
 const DEFAULT_BOTTOM_MARGIN = 15
 const TEXT_LIMIT = 25
 
-const ChatsItem = ({ _id, friend, me, lastMessage: { text, textTranslated, createdAt, senderId }, isFirst, isLast, navigation, clearSearch }) => {
+const ChatsItem = ({ _id, friend, me, lastMessage: { text, textTranslated, createdAt, senderId }, isFirst, isLast, navigation, clearSearch, friendsTyping }) => {
   const textToDisplay = textTranslated || text
 
   const handlePress = () => {
@@ -19,6 +19,27 @@ const ChatsItem = ({ _id, friend, me, lastMessage: { text, textTranslated, creat
       chat: { _id, friend, me },
     })
     clearSearch()
+  }
+
+  const textToShow = () => {
+    const isTyping = friendsTyping.find(chatId => chatId === _id)
+    if (isTyping) return <Text style={styles.typing}>{$t('Chat.typing')}</Text>
+
+    return textToDisplay ? (
+      <Text style={
+        (me.lastVisit <= createdAt && senderId !== me._id)
+          ? styles.chatTextUnread
+          : styles.chatText}
+      >
+        {
+          ((textToDisplay).length > TEXT_LIMIT) ?
+            (((textToDisplay).substring(0, TEXT_LIMIT - 3)).trim() + '...') :
+            textToDisplay
+        }
+      </Text>
+    ) : (
+      <Text style={styles.noMessages}>{$t('Chat.noMessages')}</Text>
+    )
   }
 
   return (
@@ -38,21 +59,7 @@ const ChatsItem = ({ _id, friend, me, lastMessage: { text, textTranslated, creat
         />
         <View>
           <Text style={styles.fullNameText}>{`${friend.firstName} ${friend.lastName}`}</Text>
-          {textToDisplay ? (
-            <Text style={
-              (me.lastVisit <= createdAt && senderId !== me._id)
-                ? styles.chatTextUnread
-                : styles.chatText}
-            >
-              {
-                ((textToDisplay).length > TEXT_LIMIT) ?
-                  (((textToDisplay).substring(0, TEXT_LIMIT - 3)).trim() + '...') :
-                  textToDisplay
-              }
-            </Text>
-          ) : (
-            <Text style={styles.noMessages}>{$t('Chat.noMessages')}</Text>
-          )}
+          {textToShow()}
         </View>
         {textToDisplay && <Text style={styles.date}>{formatChatPreviewDate(createdAt)}</Text>}
       </View>
@@ -96,6 +103,11 @@ const styles = StyleSheet.create({
   noMessages: {
     fontSize: 14,
     color: Colors.GRAY_300,
+    fontStyle: 'italic'
+  },
+  typing: {
+    fontSize: 14,
+    color: Colors.GRAY,
     fontStyle: 'italic'
   }
 })
