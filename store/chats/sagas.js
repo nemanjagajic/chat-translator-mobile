@@ -1,4 +1,4 @@
-import { all, takeLatest, put, call, select } from 'redux-saga/effects'
+import { all, takeLatest, takeEvery, put, call, select } from 'redux-saga/effects'
 import socket from '../../socket'
 import {
   CREATE_CHAT,
@@ -119,7 +119,7 @@ export default function* sagas() {
     takeLatest(GET_CHATS, getChats$),
     takeLatest(GET_MESSAGES, getMessages$),
     takeLatest(SEND_MESSAGE, sendMessage$),
-    takeLatest(SET_CHAT_SETTINGS_PROPERTY, setChatSettingsProperty$),
+    takeEvery(SET_CHAT_SETTINGS_PROPERTY, setChatSettingsProperty$),
     takeLatest(SET_CHAT_VISITED, setChatVisited$),
     takeLatest(CREATE_CHAT, createChat$)
   ])

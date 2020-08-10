@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { StyleSheet, KeyboardAvoidingView, TouchableOpacity } from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, TouchableOpacity, Text } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import {
@@ -16,6 +16,7 @@ import ChatNavbar from '../../components/chats/ChatNavbar'
 import { MESSAGES_PAGINATION_LIMIT } from '../../constants/Messages'
 import IconSettings from '../../assets/settings-outline.svg'
 import ChatSettingsModal from '../../components/modals/ChatSettingsModal'
+import $t from '../../i18n'
 
 const KEYBOARD_VERTICAL_OFFSET = 72
 
@@ -107,6 +108,9 @@ const ChatScreen = ({ navigation }) => {
           friendLastVisit={openedChat && openedChat.friend.lastVisit}
         />
       )}
+      {!isFetchingMessages && messages && messages.length === 0 && (
+        <Text style={styles.emptyChat}>{$t('Chat.empty')}</Text>
+      )}
       <MessageInput
         sendMessage={handleSendMessage}
         handleInputFocus={() => listRef.current && listRef.current.scrollToOffset({ animated: true, offset: 0 })}
@@ -169,6 +173,12 @@ const styles = StyleSheet.create({
   },
   settingsButton: {
     marginRight: 20,
+  },
+  emptyChat: {
+    padding: 30,
+    color: Colors.MAIN_300,
+    textAlign: 'center',
+    fontSize: 16
   }
 })
 

@@ -47,7 +47,8 @@
     "searchLanguage": "Search language",
     "selectLanguagesFriend": "Languages your friend has selected",
     "noMessages": "No messages yet",
-    "searchChat": "Search chat"
+    "searchChat": "Search chat",
+    "empty": "No messages yet, start chatting"
   },
   "Notifications": {
     "tokenFail": "Failed to get push token for push notification!"

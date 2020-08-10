@@ -41,6 +41,8 @@ const ChatSettingsModal = ({ chat, isOpen, closeModal, showOriginalMessages }) =
   }
 
   const setLanguagePredefined = (language, property = '') => {
+    console.log('setLanguagePredefined')
+    console.log({ language, property })
     dispatch(setChatSettingsProperty({
       chatId: chat._id,
       property: property,
