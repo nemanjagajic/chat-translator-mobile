@@ -33,6 +33,7 @@ const ChatScreen = ({ navigation }) => {
 
   const [isModalOpen, setModalOpen] = useState(false)
   const [isFriendTyping, setIsFriendTyping] = useState(false)
+  const [isInitialModalSeen, setIsInitialModalSeen] = useState(false)
 
   let listRef = useRef(null)
 
@@ -66,6 +67,11 @@ const ChatScreen = ({ navigation }) => {
 
   useEffect(() => {
     if (!openedChat) return
+    const { me: { sendLanguage, receiveLanguage } } = openedChat
+    if ((!sendLanguage || !receiveLanguage) && !isInitialModalSeen) {
+      setIsInitialModalSeen(true)
+      setModalOpen(true)
+    }
     const isTyping = openedChat && !!friendsTyping.find(item => item === openedChat._id)
     setIsFriendTyping(isTyping)
   }, [friendsTyping, openedChat])
