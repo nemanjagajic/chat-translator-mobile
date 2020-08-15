@@ -7,6 +7,8 @@ import IconBack from '../../assets/arrow-back-outline.svg'
 import ButtonStep from '../../components/buttons/ButtonStep'
 import { LOGIN_EMAIL, LOGIN_PASSWORD } from '../../constants/Auth'
 import { logIn } from '../../store/auth/actions'
+import IconEye from '../../assets/eye-outline.svg'
+import IconEyeOff from '../../assets/eye-off-outline.svg'
 
 const MIN_PASSWORD_LENGTH = 8
 
@@ -16,6 +18,7 @@ const LoginScreen = ({ navigation }) => {
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
 
   useEffect(() => {
     navigation.setParams({ step: LOGIN_EMAIL })
@@ -52,7 +55,7 @@ const LoginScreen = ({ navigation }) => {
     >
       {step === LOGIN_EMAIL ? (
         <View style={styles.contentContainer}>
-          <Text style={styles.enterEmail}>{$t('Auth.enterEmail')}</Text>
+          <Text style={styles.enterText}>{$t('Auth.enterEmail')}</Text>
           <TextInput
             value={email}
             style={styles.input}
@@ -69,17 +72,32 @@ const LoginScreen = ({ navigation }) => {
         </View>
       ) : (
         <View style={styles.contentContainer}>
-          <Text style={styles.enterEmail}>{$t('Auth.enterPassword')}</Text>
-          <TextInput
-            value={password}
-            secureTextEntry={true}
-            style={styles.input}
-            onChangeText={text => setPassword(text)}
-            placeholder={$t('Auth.password')}
-            placeholderTextColor={Colors.GRAY}
-            color={Platform.OS === 'ios' ? Colors.BLACK : null}
-            onSubmitEditing={handleButtonStepPressed}
-          />
+          <Text style={styles.enterText}>{$t('Auth.enterPassword')}</Text>
+          <View style={styles.passwordContainer}>
+            <TextInput
+              value={password}
+              secureTextEntry={!showPassword}
+              style={styles.inputPassword}
+              onChangeText={text => setPassword(text)}
+              placeholder={$t('Auth.password')}
+              placeholderTextColor={Colors.GRAY}
+              color={Platform.OS === 'ios' ? Colors.BLACK : null}
+              onSubmitEditing={handleButtonStepPressed}
+            />
+            {showPassword ? (
+              <TouchableOpacity
+                onPress={() => setShowPassword(false)}
+              >
+                <IconEyeOff height={28} width={28} />
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={() => setShowPassword(true)}
+              >
+                <IconEye height={28} width={28} />
+              </TouchableOpacity>
+            )}
+          </View>
           <Text style={styles.inputDescription}>
             Password must be at least
             <Text style={{ color: isPasswordValid() ? Colors.ACCENT : Colors.RED }}> {MIN_PASSWORD_LENGTH} characters</Text> long
@@ -136,7 +154,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
     fontSize: 18
   },
-  enterEmail: {
+  inputPassword: {
+    width: '85%',
+    height: 50,
+    backgroundColor: Colors.WHITE_200,
+    borderRadius: 20,
+    paddingLeft: 10,
+    fontSize: 18
+  },
+  enterText: {
     fontSize: 20,
     paddingLeft: 5,
     color: Colors.BLACK,
@@ -173,6 +199,14 @@ const styles = StyleSheet.create({
     marginTop: 30,
     paddingLeft: 5,
     color: Colors.GRAY_500
+  },
+  passwordContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: 20,
+    justifyContent: 'space-between',
+    paddingRight: 10
   }
 })
 
