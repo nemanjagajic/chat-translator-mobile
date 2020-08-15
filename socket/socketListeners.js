@@ -32,6 +32,12 @@ socket.on('loadChatSettings', data => {
   if (openedChat && (openedChat._id === data.chatId)) {
     const updatedOpenedChat = openedChat
     updatedOpenedChat.friend = data.friend
+    if (data.sendLanguage && !data.receiveLanguage) {
+      updatedOpenedChat.receiveLanguage = data.sendLanguage
+    }
+    if (data.receiveLanguage && !data.sendLanguage) {
+      updatedOpenedChat.sendLanguage = data.receiveLanguage
+    }
     store.dispatch(setOpenedChat(updatedOpenedChat))
   } else {
     store.dispatch(getChats({ showLoadingIndicator: false }))
