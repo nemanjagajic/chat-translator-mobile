@@ -9,6 +9,7 @@ import IconBack from '../../assets/arrow-back-outline.svg'
 import { FRIENDS, RECEIVED_REQUESTS, SENT_REQUESTS } from '../../constants/General'
 import FriendsHeaderItem from '../../components/friends/FriendsHeaderItem'
 import { ADDED_FRIEND } from '../../constants/Friends'
+import SearchInput from '../../components/inputs/SearchInput'
 
 const FriendsScreen = ({ navigation }) => {
   const dispatch = useDispatch()
@@ -17,6 +18,7 @@ const FriendsScreen = ({ navigation }) => {
   const isFetching = useSelector(state => state.friends.isFetchingFriends)
 
   const [selected, setSelected] = useState(FRIENDS)
+  const [searchText, setSearchText] = useState('')
 
   useEffect(() => {
     dispatch(getFriends())
@@ -31,6 +33,16 @@ const FriendsScreen = ({ navigation }) => {
     if (selected === FRIENDS) return friends
     if (selected === RECEIVED_REQUESTS) return receivedRequests
     if (selected === SENT_REQUESTS) return sentRequests
+  }
+
+  const filteredData = text => {
+    if (!selectedData()) return []
+
+    return selectedData().filter(item => {
+      const { firstName, lastName } = item
+      const fullName = `${firstName} ${lastName}`
+      return fullName.toLowerCase().includes(text.toLowerCase())
+    })
   }
 
   return (
@@ -62,9 +74,19 @@ const FriendsScreen = ({ navigation }) => {
               number={sentRequests && sentRequests.length}
             />
           </View>
+          <View style={styles.searchWrapper}>
+            <SearchInput
+              value={searchText}
+              handleSearch={() => {}}
+              onChangeText={text => setSearchText(text)}
+              placeholder={$t('Chat.searchChat')}
+              returnKeyType={'done'}
+              customStyles={styles.searchInput}
+            />
+          </View>
           <FriendsList
             type={selected}
-            friends={selectedData()}
+            friends={filteredData(searchText)}
             isFetching={isFetching}
             navigation={navigation}
           />
@@ -98,7 +120,7 @@ FriendsScreen.navigationOptions = ({ navigation }) => ({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: Colors.BACKGROUND
+    backgroundColor: Colors.BACKGROUND,
   },
   indicator: {
     marginTop: 90
@@ -109,9 +131,17 @@ const styles = StyleSheet.create({
   header: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'space-around',
+    justifyContent: 'space-between',
     marginTop: 30,
-    marginBottom: 5
+    marginBottom: 5,
+    paddingHorizontal: 10
+  },
+  searchWrapper: {
+    paddingHorizontal: 10
+  },
+  searchInput: {
+    width: '100%',
+    marginTop: 10
   }
 })
 

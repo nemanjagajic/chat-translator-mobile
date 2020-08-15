@@ -133,6 +133,7 @@ const HomeScreen = props => {
       }
       <TouchableOpacity
         style={styles.newMessageButton}
+        onPress={() => props.navigation.navigate('FriendsScreen')}
       >
         <IconSend width={30} height={30} />
       </TouchableOpacity>
@@ -208,7 +209,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: Colors.ACCENT,
     position: 'absolute',
-    bottom: 20,
+    bottom: 40,
     right: 20,
     elevation: 1
   },

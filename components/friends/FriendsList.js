@@ -19,6 +19,7 @@ const FriendsList = ({ friends, type, navigation }) => {
       )}
       keyExtractor={item => item._id}
       showsVerticalScrollIndicator={false}
+      keyboardShouldPersistTaps={'handled'}
     />
   )
 }

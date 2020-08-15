@@ -3,9 +3,9 @@ import { View, TextInput, StyleSheet } from 'react-native'
 import IconSearch from '../../assets/search-outline.svg'
 import Colors from '../../constants/Colors'
 
-const SearchInput = ({ value, onChangeText, handleSearch, placeholder, returnKeyType = 'search' }) => {
+const SearchInput = ({ value, onChangeText, handleSearch, placeholder, returnKeyType = 'search', customStyles = null }) => {
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, customStyles]}>
       <IconSearch width={24} height={24} />
       <TextInput
         style={styles.input}
