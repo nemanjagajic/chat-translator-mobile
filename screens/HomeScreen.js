@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, AppState, TextInput } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, AppState } from 'react-native'
 import { Notifications } from 'expo'
 import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
