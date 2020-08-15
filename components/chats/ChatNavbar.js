@@ -18,7 +18,7 @@ const ChatNavbar = ({ navigation }) => {
           dispatch(clearMessages())
           dispatch(setMessagesOffset(0))
           dispatch(getChats({ showLoadingIndicator: false }))
-          navigation.goBack()
+          navigation.navigate('HomeScreen')
         }}
       >
         <IconBack height={28} width={28} />

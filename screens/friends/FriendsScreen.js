@@ -88,7 +88,7 @@ FriendsScreen.navigationOptions = ({ navigation }) => ({
   headerLeft: () => (
     <TouchableOpacity
       style={{ marginLeft: 15 }}
-      onPress={() => navigation.goBack()}
+      onPress={() => navigation.navigate('HomeScreen')}
     >
       <IconBack height={28} width={28} />
     </TouchableOpacity>
