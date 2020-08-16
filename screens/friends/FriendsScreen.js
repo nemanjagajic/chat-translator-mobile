@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { View, TouchableOpacity, StyleSheet, ActivityIndicator, Text } from 'react-native'
+import {View, TouchableOpacity, StyleSheet, ActivityIndicator, Text, BackHandler} from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import Colors from '../../constants/Colors'
 import $t from '../../i18n'
@@ -24,6 +24,14 @@ const FriendsScreen = ({ navigation }) => {
     dispatch(getFriends())
     const label = navigation.getParam('label')
     if (label) setSelected(label === ADDED_FRIEND ? SENT_REQUESTS : FRIENDS)
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => navigation.navigate('HomeScreen')
+    )
+
+    return () => {
+      backHandler.remove()
+    }
   }, [])
 
   const receivedRequests = friendRequests.filter(fr => !fr.requestedByMe)

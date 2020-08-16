@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react'
-import { StyleSheet, KeyboardAvoidingView, TouchableOpacity, Text } from 'react-native'
+import { StyleSheet, KeyboardAvoidingView, TouchableOpacity, Text, BackHandler } from 'react-native'
 import { useSelector, useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
 import {
@@ -51,12 +51,17 @@ const ChatScreen = ({ navigation }) => {
     dispatch(setChatVisited({
       chatId: chat._id
     }))
+    const backHandler = BackHandler.addEventListener(
+      'hardwareBackPress',
+      () => navigation.navigate('HomeScreen')
+    )
 
     return () => {
       dispatch(clearOpenedChat())
       dispatch(clearMessages())
       dispatch(setMessagesOffset(0))
       dispatch(getChats({ showLoadingIndicator: false }))
+      backHandler.remove()
     }
   }, [])
 
