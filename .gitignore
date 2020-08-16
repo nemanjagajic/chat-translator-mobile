@@ -14,3 +14,6 @@ web-report/
 .DS_Store
 .idea
 config
+GoogleService-Info.plist
+google-services.json
+app.json
