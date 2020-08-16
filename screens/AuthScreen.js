@@ -1,10 +1,14 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { useDispatch } from 'react-redux'
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import Colors from '../constants/Colors'
 import googleLogo from '../assets/googleLogo.png'
 import $t from '../i18n'
+import { logInGoogle } from '../store/auth/actions'
 
 const AuthScreen = ({ navigation }) => {
+  const dispatch = useDispatch()
+
   return (
     <View style={styles.container}>
       <View style={styles.upperContent} />
@@ -24,6 +28,7 @@ const AuthScreen = ({ navigation }) => {
           </TouchableOpacity>
         </View>
         <TouchableOpacity
+          onPress={() => dispatch(logInGoogle({ navigateHome: () => navigation.navigate('Home') }))}
           style={styles.googleLoginButton}
         >
           <Image style={styles.googleLogo} source={googleLogo} />

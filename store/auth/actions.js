@@ -1,5 +1,6 @@
 import {
   LOG_IN,
+  LOG_IN_GOOGLE,
   LOG_OUT, REGISTER, REGISTER_NOTIFICATION_TOKEN,
   REMOVE_USER,
   SET_ACTIVE_USER,
@@ -47,5 +48,10 @@ export const registerNotificationToken = payload => ({
 
 export const register = payload => ({
   type: REGISTER,
+  payload
+})
+
+export const logInGoogle = payload => ({
+  type: LOG_IN_GOOGLE,
   payload
 })

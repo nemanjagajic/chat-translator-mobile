@@ -1,7 +1,10 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects'
-import {LOG_IN, LOG_OUT, REGISTER, REGISTER_NOTIFICATION_TOKEN, SET_ACTIVE_USER} from './constants'
+import { LOG_IN, LOG_IN_GOOGLE, LOG_OUT, REGISTER, REGISTER_NOTIFICATION_TOKEN, SET_ACTIVE_USER } from './constants'
 import authService from '../../services/api/AuthService'
-import {logIn, removeUser, setLoginFinished, setLoginInProgress, setUser} from './actions'
+import { removeUser, setLoginFinished, setLoginInProgress, setUser } from './actions'
+import * as GoogleSignIn from 'expo-google-sign-in'
+import { SUCCESS } from '../../constants/Auth'
+import { Alert } from 'react-native'
 
 export function* logIn$({ payload }) {
   yield put(setLoginInProgress())
@@ -68,12 +71,32 @@ export function* registerNotificationToken$({ payload }) {
   }
 }
 
+export function* logInGoogle$({ payload }) {
+  try {
+    const { navigateHome } = payload
+    yield call(GoogleSignIn.askForPlayServicesAsync)
+    const { type, user: { auth: { accessToken } } } = yield call(GoogleSignIn.signInAsync)
+    if (type === SUCCESS) {
+      const { data } = yield call(authService.logInGoogle, { accessToken })
+      yield call(setActiveUser$, {
+        payload: {
+          user: data,
+          navigateHome
+        }
+      })
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}
+
 export default function* sagas() {
   yield all([
     takeLatest(LOG_IN, logIn$),
     takeLatest(LOG_OUT, logOut$),
     takeLatest(SET_ACTIVE_USER, setActiveUser$),
     takeLatest(REGISTER_NOTIFICATION_TOKEN, registerNotificationToken$),
-    takeLatest(REGISTER, register$)
+    takeLatest(REGISTER, register$),
+    takeLatest(LOG_IN_GOOGLE, logInGoogle$)
   ])
 }
