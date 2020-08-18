@@ -8,7 +8,7 @@ import { LOGIN_EMAIL } from '../../constants/Auth'
 import IconBack from '../../assets/arrow-back-outline.svg'
 import IconImage from '../../assets/image-outline.svg'
 import defaultAvatar from '../../assets/defaultAvatar.png'
-import {updateUserData} from '../../store/profile/actions'
+import { updateUserData } from '../../store/profile/actions'
 
 const ProfileScreen = () => {
   const dispatch = useDispatch()
@@ -22,7 +22,7 @@ const ProfileScreen = () => {
   const openImagePicker = async () => {
     const result = await ImagePicker.launchImageLibraryAsync({
       allowsEditing: true,
-      aspect: [3, 4],
+      aspect: [3, 3],
       quality: 0.4
     })
     if (!result.cancelled) setImage(result)
@@ -70,7 +70,7 @@ const ProfileScreen = () => {
           onChangeText={text => setFirstName(text)}
           placeholder={$t('Profile.firstName')}
           placeholderTextColor={Colors.GRAY}
-          color={Colors.MAIN}
+          color={Platform.OS === 'ios' ? Colors.MAIN : null}
           autoCapitalize={'none'}
         />
         <TextInput
@@ -79,7 +79,7 @@ const ProfileScreen = () => {
           onChangeText={text => setLastName(text)}
           placeholder={$t('Profile.lastName')}
           placeholderTextColor={Colors.GRAY}
-          color={Colors.MAIN}
+          color={Platform.OS === 'ios' ? Colors.MAIN : null}
           autoCapitalize={'none'}
         />
         {isProfileEdited() && (
