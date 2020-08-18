@@ -8,6 +8,7 @@ import { LOGIN_EMAIL } from '../../constants/Auth'
 import IconBack from '../../assets/arrow-back-outline.svg'
 import IconImage from '../../assets/image-outline.svg'
 import defaultAvatar from '../../assets/defaultAvatar.png'
+import {updateUserData} from '../../store/profile/actions'
 
 const ProfileScreen = () => {
   const dispatch = useDispatch()
@@ -36,7 +37,9 @@ const ProfileScreen = () => {
     )
   }
 
-  console.log(isProfileEdited())
+  const handleSubmit = () => {
+    dispatch(updateUserData({ firstName, lastName, avatar: image }))
+  }
 
   return (
     <KeyboardAvoidingView
@@ -81,7 +84,7 @@ const ProfileScreen = () => {
         />
         {isProfileEdited() && (
           <TouchableOpacity
-            onPress={() => {}}
+            onPress={handleSubmit}
             style={styles.saveChangesButton}
           >
             <Text style={styles.saveChangesText}>{$t('Profile.saveChanges')}</Text>

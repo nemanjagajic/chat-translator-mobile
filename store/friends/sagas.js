@@ -2,7 +2,6 @@ import { Alert } from 'react-native'
 import { all, takeLatest, put, call } from 'redux-saga/effects'
 import { GET_FRIENDS, REMOVE_FRIEND, RESPOND_TO_FRIEND_REQUEST, SEARCH_USER, SEND_FRIEND_REQUEST } from './constants'
 import {
-  getFriends,
   setFetchingFriends,
   setFetchingFriendsFinished, setFetchingSearchList, setFetchingSearchListFinished,
   setFriendRequests,
