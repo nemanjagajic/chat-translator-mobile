@@ -13,6 +13,7 @@
     "lastName": "Last name"
   },
   "Drawer": {
+    "profile": "Profile",
     "friends": "Friends",
     "logOut": "Log out"
   },
@@ -57,5 +58,11 @@
   "Common": {
     "yes": "Yes",
     "cancel": "Cancel"
+  },
+  "Profile": {
+    "title": "Profile",
+    "firstName": "First name",
+    "lastName": "Last name",
+    "saveChanges": "Save changes"
   }
 }

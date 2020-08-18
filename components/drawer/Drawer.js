@@ -4,6 +4,7 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Colors from '../../constants/Colors'
 import { logOut } from '../../store/auth/actions'
 import $t from '../../i18n'
+import IconProfile from '../../assets/person-outline.svg'
 import IconPeople from '../../assets/people-outline.svg'
 import IconLogout from '../../assets/log-out-outline.svg'
 
@@ -17,8 +18,15 @@ const Drawer = props => {
         {activeUser && `${activeUser.firstName} ${activeUser.lastName}`}
       </Text>
       <TouchableOpacity
-        onPress={() => props.navigation.navigate('FriendsScreen')}
+        onPress={() => props.navigation.navigate('ProfileScreen')}
         style={styles.item}
+      >
+        <IconProfile height={28} width={28} />
+        <Text style={styles.itemText}>{$t('Drawer.profile')}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => props.navigation.navigate('FriendsScreen')}
+        style={[styles.item, styles.space]}
       >
         <IconPeople height={28} width={28} />
         <Text style={styles.itemText}>{$t('Drawer.friends')}</Text>
@@ -62,12 +70,17 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    width: '80%'
+    width: '80%',
+    paddingTop: 15,
+    paddingBottom: 15
   },
   itemText: {
     paddingLeft: 20,
     fontSize: 18,
-    color: Colors.BLACK,
+    color: Colors.BLACK
+  },
+  space: {
+    marginTop: 10
   }
 })
 
