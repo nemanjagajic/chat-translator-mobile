@@ -17,13 +17,14 @@ const Drawer = props => {
       <Text style={styles.fullName}>
         {activeUser && `${activeUser.firstName} ${activeUser.lastName}`}
       </Text>
-      <TouchableOpacity
-        onPress={() => props.navigation.navigate('ProfileScreen')}
-        style={styles.item}
-      >
-        <IconProfile height={28} width={28} />
-        <Text style={styles.itemText}>{$t('Drawer.profile')}</Text>
-      </TouchableOpacity>
+      {/* In case we want to show profile screen in future */}
+      {/*<TouchableOpacity*/}
+      {/*  onPress={() => props.navigation.navigate('ProfileScreen')}*/}
+      {/*  style={styles.item}*/}
+      {/*>*/}
+      {/*  <IconProfile height={28} width={28} />*/}
+      {/*  <Text style={styles.itemText}>{$t('Drawer.profile')}</Text>*/}
+      {/*</TouchableOpacity>*/}
       <TouchableOpacity
         onPress={() => props.navigation.navigate('FriendsScreen')}
         style={[styles.item, styles.space]}

@@ -1,7 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native'
-import defaultAvatar from '../../assets/defaultAvatar.png'
+import { View, Text, StyleSheet, TouchableOpacity, Alert } from 'react-native'
 import Colors from '../../constants/Colors'
 import { FRIENDS, RECEIVED_REQUESTS, SENT_REQUESTS } from '../../constants/General'
 import IconCheck from '../../assets/checkmark-done.svg'
@@ -10,6 +9,7 @@ import IconSend from '../../assets/paper-plane.svg'
 import { removeFriend, respondToFriendRequest } from '../../store/friends/actions'
 import $t from '../../i18n'
 import { createChat } from '../../store/chats/actions'
+import UserInitials from '../user/UserInitials'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
@@ -125,10 +125,7 @@ const FriendsItem = ({ _id, firstName, lastName, email, isFirst, isLast, type, n
       { marginTop: isFirst ? FIRST_ITEM_TOP_MARGIN : DEFAULT_TOP_MARGIN },
       { marginBottom: isLast ? LAST_ITEM_BOTTOM_MARGIN : DEFAULT_BOTTOM_MARGIN },
     ]}>
-      <Image
-        style={styles.image}
-        source={defaultAvatar}
-      />
+      <UserInitials firstName={firstName} lastName={lastName} />
       <View>
         <Text style={styles.fullNameText}>{`${firstName} ${lastName}`}</Text>
         <Text style={styles.emailText}>{`${email}`}</Text>
@@ -144,11 +141,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 80,
-  },
-  image: {
-    width: 50,
-    height: 50,
-    marginRight: 15
   },
   fullNameText: {
     fontSize: 16,

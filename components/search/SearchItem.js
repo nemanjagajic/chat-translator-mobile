@@ -1,13 +1,13 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import defaultAvatar from '../../assets/defaultAvatar.png'
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import Colors from '../../constants/Colors'
 import IconAddFriend from '../../assets/person-add.svg'
 import { respondToFriendRequest, sendFriendRequest } from '../../store/friends/actions'
 import IconCheck from '../../assets/checkmark-done.svg'
 import { ACCEPTED_FRIEND, ADDED_FRIEND } from '../../constants/Friends'
 import $t from '../../i18n'
+import UserInitials from '../user/UserInitials'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
@@ -35,10 +35,7 @@ const SearchItem = ({ _id, firstName, lastName, email, isFirst, isLast, isFriend
       { marginTop: isFirst ? FIRST_ITEM_TOP_MARGIN : DEFAULT_TOP_MARGIN },
       { marginBottom: isLast ? LAST_ITEM_BOTTOM_MARGIN : DEFAULT_BOTTOM_MARGIN },
     ]}>
-      <Image
-        style={styles.image}
-        source={defaultAvatar}
-      />
+      <UserInitials firstName={firstName} lastName={lastName} />
       <View>
         <Text style={styles.fullNameText}>{`${firstName} ${lastName}`}</Text>
         <Text style={styles.emailText}>{`${email}`}</Text>
@@ -84,11 +81,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 80,
-  },
-  image: {
-    width: 50,
-    height: 50,
-    marginRight: 15
   },
   fullNameText: {
     fontSize: 16,

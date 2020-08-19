@@ -1,9 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet, Image, TouchableWithoutFeedback } from 'react-native'
-import defaultAvatar from '../../assets/defaultAvatar.png'
+import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native'
 import Colors from '../../constants/Colors'
 import { formatChatPreviewDate } from '../../utils/dateFormatter'
 import $t from '../../i18n'
+import UserInitials from '../user/UserInitials'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
@@ -53,10 +53,7 @@ const ChatsItem = ({ _id, friend, me, lastMessage: { text, textTranslated, creat
           { marginBottom: isLast ? LAST_ITEM_BOTTOM_MARGIN : DEFAULT_BOTTOM_MARGIN },
         ]}
       >
-        <Image
-          style={styles.image}
-          source={defaultAvatar}
-        />
+        <UserInitials firstName={friend && friend.firstName} lastName={friend && friend.lastName} />
         <View>
           <Text style={styles.fullNameText}>{`${friend.firstName} ${friend.lastName}`}</Text>
           {textToShow()}
@@ -73,11 +70,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     height: 80,
-  },
-  image: {
-    width: 50,
-    height: 50,
-    marginRight: 15
   },
   fullNameText: {
     fontSize: 16,

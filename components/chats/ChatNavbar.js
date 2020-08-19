@@ -1,13 +1,15 @@
 import React from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { useDispatch } from 'react-redux'
 import Colors from '../../constants/Colors'
-import defaultAvatar from '../../assets/defaultAvatar.png'
 import IconBack from '../../assets/arrow-back-outline.svg'
 import { clearMessages, clearOpenedChat, getChats, setMessagesOffset } from '../../store/chats/actions'
 
 const ChatNavbar = ({ navigation }) => {
   const dispatch = useDispatch()
+
+  const firstName = navigation.getParam('chat').friend.firstName
+  const lastName = navigation.getParam('chat').friend.lastName
 
   return (
     <View style={styles.navigation}>
@@ -23,12 +25,8 @@ const ChatNavbar = ({ navigation }) => {
       >
         <IconBack height={28} width={28} />
       </TouchableOpacity>
-      <Image
-        style={styles.image}
-        source={defaultAvatar}
-      />
       <Text style={styles.fullName}>
-        {`${navigation.getParam('chat').friend.firstName} ${navigation.getParam('chat').friend.lastName}`}
+        {`${firstName} ${lastName}`}
       </Text>
     </View>
   )
@@ -43,14 +41,9 @@ const styles = StyleSheet.create({
   fullName: {
     fontSize: 18,
     color: Colors.BLACK,
-    fontWeight: '500'
+    fontWeight: '500',
+    marginLeft: 20
   },
-  image: {
-    width: 40,
-    height: 40,
-    marginLeft: 25,
-    marginRight: 15
-  }
 })
 
 export default ChatNavbar
