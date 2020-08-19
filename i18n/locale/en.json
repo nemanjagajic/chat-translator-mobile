@@ -15,7 +15,8 @@
   "Drawer": {
     "profile": "Profile",
     "friends": "Friends",
-    "logOut": "Log out"
+    "logOut": "Log out",
+    "addFriend": "Add friend"
   },
   "Home": {
     "headerTitle": "Chats",

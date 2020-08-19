@@ -5,6 +5,7 @@ import Colors from '../../constants/Colors'
 import { logOut } from '../../store/auth/actions'
 import $t from '../../i18n'
 import IconProfile from '../../assets/person-outline.svg'
+import IconAddFriend from '../../assets/person-add-outline.svg'
 import IconPeople from '../../assets/people-outline.svg'
 import IconLogout from '../../assets/log-out-outline.svg'
 
@@ -26,8 +27,15 @@ const Drawer = props => {
       {/*  <Text style={styles.itemText}>{$t('Drawer.profile')}</Text>*/}
       {/*</TouchableOpacity>*/}
       <TouchableOpacity
-        onPress={() => props.navigation.navigate('FriendsScreen')}
+        onPress={() => props.navigation.navigate('AddFriendScreen')}
         style={styles.item}
+      >
+        <IconAddFriend height={28} width={28} />
+        <Text style={styles.itemText}>{$t('Drawer.addFriend')}</Text>
+      </TouchableOpacity>
+      <TouchableOpacity
+        onPress={() => props.navigation.navigate('FriendsScreen')}
+        style={[styles.item, styles.space]}
       >
         <IconPeople height={28} width={28} />
         <Text style={styles.itemText}>{$t('Drawer.friends')}</Text>
@@ -79,6 +87,9 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     fontSize: 18,
     color: Colors.BLACK
+  },
+  space: {
+    marginTop: 10
   }
 })
 
