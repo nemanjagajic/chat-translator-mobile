@@ -27,7 +27,7 @@ const Drawer = props => {
       {/*</TouchableOpacity>*/}
       <TouchableOpacity
         onPress={() => props.navigation.navigate('FriendsScreen')}
-        style={[styles.item, styles.space]}
+        style={styles.item}
       >
         <IconPeople height={28} width={28} />
         <Text style={styles.itemText}>{$t('Drawer.friends')}</Text>
@@ -79,9 +79,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     fontSize: 18,
     color: Colors.BLACK
-  },
-  space: {
-    marginTop: 10
   }
 })
 
