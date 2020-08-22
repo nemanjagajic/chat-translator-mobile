@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, AppState } from 'react-native'
+import {View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, AppState, Platform} from 'react-native'
 import { Notifications } from 'expo'
+import * as ExpoNotifications from 'expo-notifications'
 import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
 import Colors from '../constants/Colors'
@@ -34,8 +35,16 @@ const HomeScreen = props => {
     }
   }, [])
 
+  const dismissNotifications = () => {
+    if (Platform.OS === 'android') {
+      Notifications.dismissAllNotificationsAsync()
+    } else {
+      ExpoNotifications.dismissAllNotificationsAsync()
+    }
+  }
+
   const handleAppStateChange = () => {
-    if (AppState.currentState === 'active' && Platform.OS === 'android') Notifications.dismissAllNotificationsAsync()
+    if (AppState.currentState === 'active') dismissNotifications()
   }
 
   const setupNotifications = async () => {
@@ -71,15 +80,8 @@ const HomeScreen = props => {
   }
 
   const handleNotification = notification => {
-    if (AppState.currentState === 'active' && notification.origin === 'received' && Platform.OS === 'android') {
-      Notifications.dismissAllNotificationsAsync()
-    }
-
-    if (notification.origin === SELECTED) {
-      const { data } = notification
-      props.navigation.navigate('ChatScreen', {
-        chat: data.chat,
-      })
+    if (AppState.currentState === 'active' && notification.origin === 'received') {
+      dismissNotifications()
     }
   }
 
