@@ -118,11 +118,13 @@ const LoginScreen = ({ navigation }) => {
 LoginScreen.navigationOptions = ({ navigation }) => ({
   title: $t('Auth.loginTitle'),
   headerStyle: {
-    shadowColor: 'transparent'
+    backgroundColor: Colors.BACKGROUND,
+    shadowColor: 'transparent',
+    elevation: 0
   },
   headerTitleStyle: {
     color: Colors.MAIN,
-    fontSize: 22
+    fontSize: 22,
   },
   headerLeft: () => (
     <TouchableOpacity

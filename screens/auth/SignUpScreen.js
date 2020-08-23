@@ -156,7 +156,9 @@ const SignUpScreen = ({ navigation }) => {
 SignUpScreen.navigationOptions = ({ navigation }) => ({
   title: $t('Auth.signUp'),
   headerStyle: {
-    shadowColor: 'transparent'
+    backgroundColor: Colors.BACKGROUND,
+    shadowColor: 'transparent',
+    elevation: 0
   },
   headerTitleStyle: {
     color: Colors.MAIN,
