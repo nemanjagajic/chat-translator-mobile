@@ -215,7 +215,7 @@ const styles = StyleSheet.create({
     borderRadius: 100,
     backgroundColor: Colors.ACCENT,
     position: 'absolute',
-    bottom: 40,
+    bottom: Platform.OS === 'ios' ? 40 : 20,
     right: 20,
     elevation: 1
   },
