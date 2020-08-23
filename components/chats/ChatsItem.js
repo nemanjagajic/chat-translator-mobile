@@ -4,12 +4,13 @@ import Colors from '../../constants/Colors'
 import { formatChatPreviewDate } from '../../utils/dateFormatter'
 import $t from '../../i18n'
 import UserInitials from '../user/UserInitials'
+import { limitTextLength } from '../../utils/textFormatter'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
 const DEFAULT_TOP_MARGIN = 0
 const DEFAULT_BOTTOM_MARGIN = 15
-const TEXT_LIMIT = 25
+const MAX_TEXT_LENGTH = 25
 
 const ChatsItem = ({ _id, friend, me, lastMessage: { text, textTranslated, createdAt, senderId }, isFirst, isLast, navigation, clearSearch, friendsTyping }) => {
   const textToDisplay = textTranslated || text
@@ -31,11 +32,7 @@ const ChatsItem = ({ _id, friend, me, lastMessage: { text, textTranslated, creat
           ? styles.chatTextUnread
           : styles.chatText}
       >
-        {
-          ((textToDisplay).length > TEXT_LIMIT) ?
-            (((textToDisplay).substring(0, TEXT_LIMIT - 3)).trim() + '...') :
-            textToDisplay
-        }
+        {limitTextLength(textToDisplay, MAX_TEXT_LENGTH)}
       </Text>
     ) : (
       <Text style={styles.noMessages}>{$t('Chat.noMessages')}</Text>

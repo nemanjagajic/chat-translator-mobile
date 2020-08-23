@@ -8,12 +8,13 @@ import IconCheck from '../../assets/checkmark-done.svg'
 import { ACCEPTED_FRIEND, ADDED_FRIEND } from '../../constants/Friends'
 import $t from '../../i18n'
 import UserInitials from '../user/UserInitials'
-import {limitTextLength} from '../../utils/textFormatter'
+import { limitTextLength } from '../../utils/textFormatter'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
 const DEFAULT_TOP_MARGIN = 0
 const DEFAULT_BOTTOM_MARGIN = 15
+const MAX_TEXT_LENGTH = 28
 
 const SearchItem = ({ _id, firstName, lastName, email, isFirst, isLast, isFriend, receivedRequests, sentRequests, navigation, activeUser }) => {
   const dispatch = useDispatch()
@@ -39,7 +40,7 @@ const SearchItem = ({ _id, firstName, lastName, email, isFirst, isLast, isFriend
       <UserInitials firstName={firstName} lastName={lastName} />
       <View>
         <Text style={styles.fullNameText}>{`${firstName} ${lastName}`}</Text>
-        <Text style={styles.emailText}>{limitTextLength(email, 28)}</Text>
+        <Text style={styles.emailText}>{limitTextLength(email, MAX_TEXT_LENGTH)}</Text>
       </View>
       {(!isFriend && !received && !pending) && (
         <TouchableOpacity
