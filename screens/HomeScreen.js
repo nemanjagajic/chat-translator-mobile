@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import {View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, AppState, Platform} from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, AppState, Platform } from 'react-native'
 import { Notifications } from 'expo'
 import * as ExpoNotifications from 'expo-notifications'
 import Constants from 'expo-constants'
@@ -82,6 +82,10 @@ const HomeScreen = props => {
   const handleNotification = notification => {
     if (AppState.currentState === 'active' && notification.origin === 'received') {
       dismissNotifications()
+    }
+
+    if (notification.data && notification.data.type === 'friend') {
+      props.navigation.navigate('FriendsScreen')
     }
   }
 
