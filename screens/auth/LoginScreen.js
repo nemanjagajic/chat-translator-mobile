@@ -65,6 +65,7 @@ const LoginScreen = ({ navigation }) => {
             color={Platform.OS === 'ios' ? Colors.BLACK : null}
             autoCapitalize={'none'}
             onSubmitEditing={handleButtonStepPressed}
+            autoFocus={true}
           />
           <Text style={styles.inputDescription}>
             Please enter <Text style={{ color: isEmailValid() ? Colors.ACCENT : Colors.RED }}>valid</Text> email format
@@ -83,6 +84,7 @@ const LoginScreen = ({ navigation }) => {
               placeholderTextColor={Colors.GRAY}
               color={Platform.OS === 'ios' ? Colors.BLACK : null}
               onSubmitEditing={handleButtonStepPressed}
+              autoFocus={true}
             />
             {showPassword ? (
               <TouchableOpacity
