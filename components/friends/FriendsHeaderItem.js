@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     flexDirection: 'row',
-    width: '30%',
+    width: '32%',
     alignItems: 'center',
     justifyContent: 'space-between'
   },
@@ -44,11 +44,11 @@ const styles = StyleSheet.create({
   },
   headerText: {
     color: Colors.GRAY,
-    fontSize: 15
+    fontSize: 14
   },
   headerTextActive: {
     color: Colors.WHITE,
-    fontSize: 15
+    fontSize: 14
   },
   number: {
     display: 'flex',

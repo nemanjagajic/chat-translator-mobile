@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react'
-import { View, Text, StyleSheet, AsyncStorage } from 'react-native'
+import {View, Text, StyleSheet, AsyncStorage, ActivityIndicator} from 'react-native'
 import { setActiveUser } from '../store/auth/actions'
 import { useDispatch } from 'react-redux'
+import Colors from '../constants/Colors'
 
 const AuthLoadingScreen = props => {
   const dispatch = useDispatch()
@@ -24,7 +25,7 @@ const AuthLoadingScreen = props => {
 
   return (
     <View style={styles.container}>
-      <Text>Auth Loading Screen...</Text>
+      <ActivityIndicator style={styles.indicator} size='large' color={Colors.ACCENT} />
     </View>
   )
 }
@@ -32,9 +33,9 @@ const AuthLoadingScreen = props => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center'
+  },
+  indicator: {
+    marginTop: 138
   }
 })
 

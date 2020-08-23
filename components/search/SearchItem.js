@@ -8,6 +8,7 @@ import IconCheck from '../../assets/checkmark-done.svg'
 import { ACCEPTED_FRIEND, ADDED_FRIEND } from '../../constants/Friends'
 import $t from '../../i18n'
 import UserInitials from '../user/UserInitials'
+import {limitTextLength} from '../../utils/textFormatter'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
@@ -38,7 +39,7 @@ const SearchItem = ({ _id, firstName, lastName, email, isFirst, isLast, isFriend
       <UserInitials firstName={firstName} lastName={lastName} />
       <View>
         <Text style={styles.fullNameText}>{`${firstName} ${lastName}`}</Text>
-        <Text style={styles.emailText}>{`${email}`}</Text>
+        <Text style={styles.emailText}>{limitTextLength(email, 28)}</Text>
       </View>
       {(!isFriend && !received && !pending) && (
         <TouchableOpacity
@@ -90,7 +91,8 @@ const styles = StyleSheet.create({
   },
   emailText: {
     fontSize: 14,
-    color: Colors.GRAY
+    color: Colors.GRAY,
+    flexWrap: 'wrap'
   },
   right: {
     position: 'absolute',

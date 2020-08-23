@@ -48,9 +48,11 @@ const MessagesItem = memo(({
                 animationDelay={200}
                 style={{
                   color: Colors.WHITE,
-                  fontSize: 40,
-                  marginTop: -20,
-                  letterSpacing: -10
+                  fontSize: 48,
+                  marginTop: Platform.OS === 'ios' ? -26 : -32,
+                  letterSpacing: -10,
+                  width: 12,
+                  paddingLeft: Platform.OS === 'ios' ? 0 : 3
                 }}
               />
             </View>

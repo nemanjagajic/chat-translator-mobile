@@ -10,6 +10,7 @@ import { removeFriend, respondToFriendRequest } from '../../store/friends/action
 import $t from '../../i18n'
 import { createChat } from '../../store/chats/actions'
 import UserInitials from '../user/UserInitials'
+import {limitTextLength} from '../../utils/textFormatter'
 
 const FIRST_ITEM_TOP_MARGIN = 20
 const LAST_ITEM_BOTTOM_MARGIN = 30
@@ -128,7 +129,7 @@ const FriendsItem = ({ _id, firstName, lastName, email, isFirst, isLast, type, n
       <UserInitials firstName={firstName} lastName={lastName} />
       <View>
         <Text style={styles.fullNameText}>{`${firstName} ${lastName}`}</Text>
-        <Text style={styles.emailText}>{`${email}`}</Text>
+        <Text style={styles.emailText}>{limitTextLength(email, 22)}</Text>
       </View>
       {renderOptions()}
     </View>
