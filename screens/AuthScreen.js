@@ -27,13 +27,13 @@ const AuthScreen = ({ navigation }) => {
             <Text style={styles.signupText}>{$t('Auth.signUp')}</Text>
           </TouchableOpacity>
         </View>
-        <TouchableOpacity
-          onPress={() => dispatch(logInGoogle({ navigateHome: () => navigation.navigate('Home') }))}
-          style={styles.googleLoginButton}
-        >
-          <Image style={styles.googleLogo} source={googleLogo} />
-          <Text style={styles.googleText}>{$t('Auth.loginWithGoogle')}</Text>
-        </TouchableOpacity>
+        {/*<TouchableOpacity*/}
+        {/*  onPress={() => dispatch(logInGoogle({ navigateHome: () => navigation.navigate('Home') }))}*/}
+        {/*  style={styles.googleLoginButton}*/}
+        {/*>*/}
+        {/*  <Image style={styles.googleLogo} source={googleLogo} />*/}
+        {/*  <Text style={styles.googleText}>{$t('Auth.loginWithGoogle')}</Text>*/}
+        {/*</TouchableOpacity>*/}
       </View>
     </View>
   )

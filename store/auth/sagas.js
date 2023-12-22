@@ -2,7 +2,7 @@ import { all, takeLatest, call, put } from 'redux-saga/effects'
 import { LOG_IN, LOG_IN_GOOGLE, LOG_OUT, REGISTER, REGISTER_NOTIFICATION_TOKEN, SET_ACTIVE_USER } from './constants'
 import authService from '../../services/api/AuthService'
 import { removeUser, setLoginFinished, setLoginInProgress, setUser } from './actions'
-import * as GoogleSignIn from 'expo-google-sign-in'
+// import * as GoogleSignIn from 'expo-google-sign-in'
 import { SUCCESS } from '../../constants/Auth'
 import { Alert } from 'react-native'
 
@@ -73,18 +73,18 @@ export function* registerNotificationToken$({ payload }) {
 
 export function* logInGoogle$({ payload }) {
   try {
-    const { navigateHome } = payload
-    yield call(GoogleSignIn.askForPlayServicesAsync)
-    const { type, user: { auth: { accessToken } } } = yield call(GoogleSignIn.signInAsync)
-    if (type === SUCCESS) {
-      const { data } = yield call(authService.logInGoogle, { accessToken })
-      yield call(setActiveUser$, {
-        payload: {
-          user: data,
-          navigateHome
-        }
-      })
-    }
+    // const { navigateHome } = payload
+    // yield call(GoogleSignIn.askForPlayServicesAsync)
+    // const { type, user: { auth: { accessToken } } } = yield call(GoogleSignIn.signInAsync)
+    // if (type === SUCCESS) {
+    //   const { data } = yield call(authService.logInGoogle, { accessToken })
+    //   yield call(setActiveUser$, {
+    //     payload: {
+    //       user: data,
+    //       navigateHome
+    //     }
+    //   })
+    // }
   } catch (e) {
     console.log(e)
   }

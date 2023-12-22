@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { View, Text, StyleSheet, TouchableOpacity, ActivityIndicator, AppState, Platform } from 'react-native'
-import { Notifications } from 'expo'
-import * as ExpoNotifications from 'expo-notifications'
+// import { Notifications } from 'expo'
+// import * as ExpoNotifications from 'expo-notifications'
 import Constants from 'expo-constants'
 import * as Permissions from 'expo-permissions'
 import Colors from '../constants/Colors'
@@ -22,72 +22,72 @@ const HomeScreen = props => {
   const isFetchingChats = useSelector(state => state.chats.isFetchingChats)
   const chats = useSelector(state => state.chats.chats)
   const friendsTyping = useSelector(state => state.chats.friendsTyping)
-  const [notificationSubscription, setNotificationSubscription] = useState(null)
+  // const [notificationSubscription, setNotificationSubscription] = useState(null)
   const [searchText, setSearchText] = useState('')
 
   useEffect(() => {
     dispatch(getChats({ showLoadingIndicator: true }))
-    setupNotifications()
-    AppState.addEventListener('change', handleAppStateChange)
-    return () => {
-      if (notificationSubscription) notificationSubscription.remove()
-      AppState.removeEventListener('change', handleAppStateChange)
-    }
+    // setupNotifications()
+    // AppState.addEventListener('change', handleAppStateChange)
+    // return () => {
+    //   if (notificationSubscription) notificationSubscription.remove()
+    //   AppState.removeEventListener('change', handleAppStateChange)
+    // }
   }, [])
 
-  const dismissNotifications = () => {
-    if (Platform.OS === 'android') {
-      Notifications.dismissAllNotificationsAsync()
-    } else {
-      ExpoNotifications.dismissAllNotificationsAsync()
-    }
-  }
+  // const dismissNotifications = () => {
+  //   if (Platform.OS === 'android') {
+  //     Notifications.dismissAllNotificationsAsync()
+  //   } else {
+  //     ExpoNotifications.dismissAllNotificationsAsync()
+  //   }
+  // }
 
-  const handleAppStateChange = () => {
-    if (AppState.currentState === 'active') dismissNotifications()
-  }
+  // const handleAppStateChange = () => {
+  //   if (AppState.currentState === 'active') dismissNotifications()
+  // }
 
-  const setupNotifications = async () => {
-    await registerForPushNotifications()
-    const subscription = Notifications.addListener(handleNotification)
-    setNotificationSubscription(subscription)
-  }
+  // const setupNotifications = async () => {
+  //   await registerForPushNotifications()
+  //   const subscription = Notifications.addListener(handleNotification)
+  //   setNotificationSubscription(subscription)
+  // }
 
-  const registerForPushNotifications = async () => {
-    if (Constants.isDevice) {
-      const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
-      let finalStatus = existingStatus
-      if (existingStatus !== GRANTED) {
-        const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS)
-        finalStatus = status
-      }
-      if (finalStatus !== GRANTED) {
-        alert($t('Notifications.tokenFail'))
-        return
-      }
-      const token = await Notifications.getExpoPushTokenAsync()
-      dispatch(registerNotificationToken({ token }))
-    }
+  // const registerForPushNotifications = async () => {
+  //   if (Constants.isDevice) {
+  //     const { status: existingStatus } = await Permissions.getAsync(Permissions.NOTIFICATIONS)
+  //     let finalStatus = existingStatus
+  //     if (existingStatus !== GRANTED) {
+  //       const { status } = await Permissions.askAsync(Permissions.NOTIFICATIONS)
+  //       finalStatus = status
+  //     }
+  //     if (finalStatus !== GRANTED) {
+  //       alert($t('Notifications.tokenFail'))
+  //       return
+  //     }
+  //     const token = await Notifications.getExpoPushTokenAsync()
+  //     dispatch(registerNotificationToken({ token }))
+  //   }
+  //
+  //   if (Platform.OS === 'android') {
+  //     Notifications.createChannelAndroidAsync(DEFAULT, {
+  //       name: 'default',
+  //       sound: true,
+  //       priority: 'max',
+  //       vibrate: [0, 250, 250, 250],
+  //     })
+  //   }
+  // }
 
-    if (Platform.OS === 'android') {
-      Notifications.createChannelAndroidAsync(DEFAULT, {
-        name: 'default',
-        sound: true,
-        priority: 'max',
-        vibrate: [0, 250, 250, 250],
-      })
-    }
-  }
-
-  const handleNotification = notification => {
-    if (AppState.currentState === 'active' && notification.origin === 'received') {
-      dismissNotifications()
-    }
-
-    if (notification.data && notification.data.type === 'friend') {
-      props.navigation.navigate('FriendsScreen')
-    }
-  }
+  // const handleNotification = notification => {
+  //   if (AppState.currentState === 'active' && notification.origin === 'received') {
+  //     dismissNotifications()
+  //   }
+  //
+  //   if (notification.data && notification.data.type === 'friend') {
+  //     props.navigation.navigate('FriendsScreen')
+  //   }
+  // }
 
   const filteredChats = text => {
     if (!chats) return []

@@ -5,9 +5,9 @@ import store from './store'
 import { YellowBox, Platform } from 'react-native'
 import socket from './socket'
 import socketListeners from './socket/socketListeners'
-import * as GoogleSignIn from 'expo-google-sign-in'
-import * as ExpoNotifications from 'expo-notifications'
-import { Notifications } from 'expo'
+// import * as GoogleSignIn from 'expo-google-sign-in'
+// import * as ExpoNotifications from 'expo-notifications'
+// import { Notifications } from 'expo'
 
 
 YellowBox.ignoreWarnings([
@@ -18,14 +18,14 @@ YellowBox.ignoreWarnings([
 ])
 
 export default function App() {
-  useEffect(() => {
-    GoogleSignIn.initAsync()
-    if (Platform.OS === 'android') {
-      Notifications.dismissAllNotificationsAsync()
-    } else {
-      ExpoNotifications.dismissAllNotificationsAsync()
-    }
-  }, [])
+  // useEffect(() => {
+  // GoogleSignIn.initAsync()
+  //   if (Platform.OS === 'android') {
+  //     Notifications.dismissAllNotificationsAsync()
+  //   } else {
+  //     ExpoNotifications.dismissAllNotificationsAsync()
+  //   }
+  // }, [])
 
   return (
     <Provider store={store}>
